@@ -197,7 +197,7 @@ export default function ServiceTimeline() {
           <span className="w-px h-10 bg-[#D8DCE3]" />
           <div>
             <h1 className="text-[20px] font-bold text-[#1A1F36] leading-tight">Services</h1>
-            <p className="text-[13px] text-[#64748B]">Datacentre Advisory · Full Lifecycle Service Map</p>
+            <p className="text-[13px] text-[#64748B]">DCiQ Advisory · Full Lifecycle Service Map</p>
           </div>
         </div>
         <div className="flex items-center gap-2.5">
