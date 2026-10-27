@@ -82,8 +82,8 @@ function ServiceCard({ stop, phase, below, onHover, open, onToggle }) {
       </motion.button>
       <AnimatePresence>
         {open && (
-          <motion.div initial={{ opacity: 0, y: below ? -4 : 4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
-            className={`absolute left-1/2 -translate-x-1/2 z-30 w-60 rounded-xl bg-white border border-[#D8DCE3] shadow-xl p-3 ${below ? 'top-full mt-2' : 'bottom-full mb-2'}`}
+          <motion.div initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
+            className="absolute left-1/2 -translate-x-1/2 z-30 w-60 rounded-xl bg-white border border-[#D8DCE3] shadow-xl p-3 top-full mt-2"
             role="dialog" aria-label={stop.title}>
             <div className="flex items-start justify-between gap-2">
               <p className="text-[12.5px] font-bold text-[#1A1F36]">{stop.title}</p>
