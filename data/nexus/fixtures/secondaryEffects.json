@@ -1,0 +1,37 @@
+[
+  {
+    "metric": "Chilled water flow",
+    "unit": "LPM",
+    "before": 4591,
+    "after": 6983,
+    "delta": 2392
+  },
+  {
+    "metric": "Annual energy",
+    "unit": "GWh",
+    "before": 28,
+    "after": 32.12,
+    "delta": 4.12
+  },
+  {
+    "metric": "Annual water",
+    "unit": "litres",
+    "before": 50400000,
+    "after": 57810960,
+    "delta": 7410960
+  },
+  {
+    "metric": "PUE",
+    "unit": "ratio",
+    "before": 1.58,
+    "after": 1.71,
+    "delta": 0.13
+  },
+  {
+    "metric": "Generator runtime at full backed load",
+    "unit": "hours",
+    "before": 48,
+    "after": 31.6,
+    "delta": -16.4
+  }
+]

@@ -26,9 +26,9 @@ const STEPS = [
 ];
 
 const PHASES = [
-  { label: 'Intake',      color: '#0077C8', steps: STEPS.slice(0, 3) },
-  { label: 'Operations',  color: '#00A36C', steps: STEPS.slice(3, 6) },
-  { label: 'Closure',     color: '#D4A017', steps: STEPS.slice(6, 9) },
+  { label: 'Intake',      color: '#005EB8', steps: STEPS.slice(0, 3) },
+  { label: 'Operations',  color: '#00B0A0', steps: STEPS.slice(3, 6) },
+  { label: 'Closure',     color: '#E87722', steps: STEPS.slice(6, 9) },
 ];
 
 export default function AssetLifecyclePage() {
@@ -47,7 +47,7 @@ export default function AssetLifecyclePage() {
               <div style={{ width: 3, height: 20, borderRadius: 2, background: color, flexShrink: 0 }} />
               <span
                 className="text-sm font-bold tracking-widest uppercase"
-                style={{ color, fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+                style={{ color, fontFamily: "'Inter', 'Segoe UI', sans-serif" }}
               >
                 {label}
               </span>
@@ -57,7 +57,7 @@ export default function AssetLifecyclePage() {
                   background: `${color}18`,
                   border: `1px solid ${color}33`,
                   color: `${color}cc`,
-                  fontFamily: "'Plus Jakarta Sans', sans-serif",
+                  fontFamily: "'Inter', 'Segoe UI', sans-serif",
                 }}
               >
                 {steps.length} steps
@@ -90,7 +90,7 @@ export default function AssetLifecyclePage() {
                   >
                     <span
                       className="absolute top-3 left-3 text-[10px] font-bold text-white/30"
-                      style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+                      style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}
                     >
                       {String(STEPS.indexOf(STEPS.find(s => s.href === href)) + 1).padStart(2, '0')}
                     </span>
@@ -103,7 +103,7 @@ export default function AssetLifecyclePage() {
 
                     <span
                       className="text-white/75 group-hover:text-white text-xs font-semibold text-center leading-tight transition-colors px-3 whitespace-pre-line"
-                      style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+                      style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}
                     >
                       {stepLabel}
                     </span>

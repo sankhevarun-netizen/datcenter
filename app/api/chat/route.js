@@ -12,6 +12,8 @@
  * Keys stay 100% server-side. Browser never sees ANTHROPIC_API_KEY or TAVILY_API_KEY.
  */
 
+import { recordUsage } from '@/lib/usage-server';
+
 const ANTHROPIC_API_URL = 'https://api.anthropic.com/v1/messages';
 
 const BASE_SYSTEM_PROMPT = `You are the KPMG Datacenter Intelligence Engine — a senior AI advisor embedded in the K-Nexus platform.
@@ -166,6 +168,7 @@ export async function POST(request) {
       }
 
       const data = await claudeRes.json();
+      await recordUsage(request, { model: requestBody.model, inputTokens: data.usage?.input_tokens, outputTokens: data.usage?.output_tokens });
       return Response.json({ text: data.content[0].text });
     } catch (err) {
       return Response.json({ error: err.message }, { status: 500 });
@@ -196,6 +199,7 @@ export async function POST(request) {
         const reader = claudeRes.body.getReader();
         const decoder = new TextDecoder();
         let buffer = '';
+        const usage = { input: 0, output: 0 };
 
         while (true) {
           const { done, value } = await reader.read();
@@ -209,6 +213,10 @@ export async function POST(request) {
             if (payload === '[DONE]') continue;
             try {
               const parsed = JSON.parse(payload);
+              if (parsed.type === 'message_start') usage.input = parsed.message?.usage?.input_tokens ?? 0;
+              if (parsed.type === 'message_delta') usage.output = parsed.usage?.output_tokens ?? usage.output;
+              if (parsed.type === 'message_start') usage.input = parsed.message?.usage?.input_tokens ?? 0;
+              if (parsed.type === 'message_delta') usage.output = parsed.usage?.output_tokens ?? usage.output;
               if (parsed.type === 'content_block_delta' && parsed.delta?.type === 'text_delta') {
                 controller.enqueue(encoder.encode(`data: ${JSON.stringify({ text: parsed.delta.text })}\n\n`));
               }
@@ -216,6 +224,7 @@ export async function POST(request) {
           }
         }
         controller.enqueue(encoder.encode('data: [DONE]\n\n'));
+        await recordUsage(request, { model: requestBody.model, inputTokens: usage.input, outputTokens: usage.output });
       } catch (err) {
         controller.enqueue(encoder.encode(`data: ${JSON.stringify({ error: err.message })}\n\n`));
       } finally {

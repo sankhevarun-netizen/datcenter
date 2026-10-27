@@ -1,0 +1,50 @@
+[
+  {
+    "component_id": "PDU-G1",
+    "description": "Replace with 800 kW PDU",
+    "new_capacity": 800,
+    "cost_inr_lakh": 14,
+    "lead_time_weeks": 10,
+    "blocks_what": "Row G at 60 kW per rack"
+  },
+  {
+    "component_id": "PDU-G2",
+    "description": "Replace with 800 kW PDU",
+    "new_capacity": 800,
+    "cost_inr_lakh": 14,
+    "lead_time_weeks": 10,
+    "blocks_what": "Row G at 60 kW per rack"
+  },
+  {
+    "component_id": "BUSWAY-B2",
+    "description": "Upgrade busway to 2,500 kW",
+    "new_capacity": 2500,
+    "cost_inr_lakh": 45,
+    "lead_time_weeks": 14,
+    "blocks_what": "Row G at 60 kW per rack"
+  },
+  {
+    "component_id": "CRAH-G-01",
+    "description": "Replace with 600 kW high-density CRAH",
+    "new_capacity": 600,
+    "cost_inr_lakh": 40,
+    "lead_time_weeks": 8,
+    "blocks_what": "Row G at 60 kW per rack"
+  },
+  {
+    "component_id": "CRAH-G-02",
+    "description": "Replace with 600 kW high-density CRAH",
+    "new_capacity": 600,
+    "cost_inr_lakh": 40,
+    "lead_time_weeks": 8,
+    "blocks_what": "Row G at 60 kW per rack"
+  },
+  {
+    "component_id": "UPS-1",
+    "description": "Add third 3,000 kVA module to restore N+1",
+    "new_capacity": 3000,
+    "cost_inr_lakh": 97,
+    "lead_time_weeks": 16,
+    "blocks_what": "Row G at 60 kW per rack"
+  }
+]

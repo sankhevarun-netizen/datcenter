@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { ArrowLeft, ClipboardCheck, ChevronUp, ChevronDown } from 'lucide-react';
 import { mockAssets, mockPVRecords } from '@/data/mock/index';
 
-const C = { bg: '#0B1929', card: '#0d1f3c', card2: 'rgba(255,255,255,0.05)', border: 'rgba(255,255,255,0.09)', green: '#00A36C', amber: '#D4A017', red: '#DC2626', blue: '#0077C8', cyan: '#06B6D4' };
+const C = { bg: '#0B1929', card: '#0d1f3c', card2: 'rgba(255,255,255,0.05)', border: 'rgba(255,255,255,0.09)', green: '#00B0A0', amber: '#E87722', red: '#C8102E', blue: '#005EB8', cyan: '#06B6D4' };
 
 const STATUS_COLORS = { Scheduled: C.amber, 'In Progress': C.blue, Completed: C.green, 'Discrepancy Found': C.red };
 
@@ -96,7 +96,7 @@ export default function PVPage() {
           <ArrowLeft size={18} />
         </Link>
         <ClipboardCheck size={18} color={C.blue} />
-        <h1 style={{ fontSize: 18, fontWeight: 700, color: '#fff', fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Physical Verification (PV)</h1>
+        <h1 style={{ fontSize: 18, fontWeight: 700, color: '#fff', fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>Physical Verification (PV)</h1>
       </div>
 
       <div className="grid grid-cols-3 gap-4" style={{ marginBottom: 20 }}>
@@ -106,7 +106,7 @@ export default function PVPage() {
       </div>
 
       <Card style={{ marginBottom: 20 }}>
-        <h2 style={{ fontSize: 13, fontWeight: 700, color: '#fff', marginBottom: 12, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Schedule Verification</h2>
+        <h2 style={{ fontSize: 13, fontWeight: 700, color: '#fff', marginBottom: 12, fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>Schedule Verification</h2>
         <form onSubmit={handleSubmit} className="grid grid-cols-4 gap-3">
           <Field label="Site">
             <select className={inputClass} style={inputStyle} value={form.site} onChange={e => setForm(f => ({ ...f, site: e.target.value }))}>

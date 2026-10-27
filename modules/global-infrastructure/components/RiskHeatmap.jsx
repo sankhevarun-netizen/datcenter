@@ -2,10 +2,10 @@
 import { RISK_CATEGORIES } from '../utils/portfolioAnalytics';
 
 function scoreColor(score) {
-  if (score == null) return '#F4F6F9';
-  if (score >= 55) return '#DC2626';
-  if (score >= 30) return '#D4A017';
-  return '#00A36C';
+  if (score == null) return '#F0F2F5';
+  if (score >= 55) return '#C8102E';
+  if (score >= 30) return '#E87722';
+  return '#00B0A0';
 }
 
 export default function RiskHeatmap({ rows }) {

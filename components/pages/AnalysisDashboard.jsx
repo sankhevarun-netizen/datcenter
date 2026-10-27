@@ -20,7 +20,7 @@ const STAGE_NAMES = {
 };
 
 // ── Mini bar chart ─────────────────────────────────────────────────────────
-function BarChart({ data, color = '#0077C8' }) {
+function BarChart({ data, color = '#005EB8' }) {
   const max = Math.max(...data.map(d => d.value));
   return (
     <div className="flex items-end gap-2 h-24">
@@ -42,13 +42,13 @@ function BarChart({ data, color = '#0077C8' }) {
 }
 
 // ── Radial score ───────────────────────────────────────────────────────────
-function ScoreRing({ score, label, color = '#0077C8' }) {
+function ScoreRing({ score, label, color = '#005EB8' }) {
   const r = 36, circ = 2 * Math.PI * r;
   const dash = (score / 100) * circ;
   return (
     <div className="flex flex-col items-center gap-1">
       <svg width={90} height={90} viewBox="0 0 90 90">
-        <circle cx={45} cy={45} r={r} fill="none" stroke="#E2E8F0" strokeWidth={8} />
+        <circle cx={45} cy={45} r={r} fill="none" stroke="#D8DCE3" strokeWidth={8} />
         <motion.circle
           cx={45} cy={45} r={r} fill="none" stroke={color} strokeWidth={8}
           strokeLinecap="round" strokeDasharray={circ}
@@ -70,7 +70,7 @@ function GapItem({ text, severity }) {
     high:   { icon: XCircle,       color: 'text-red-500',    bg: 'bg-red-50',    border: 'border-red-100',   label: 'High' },
     medium: { icon: AlertTriangle,  color: 'text-amber-500',  bg: 'bg-amber-50',  border: 'border-amber-100', label: 'Medium' },
     low:    { icon: CheckCircle2,   color: 'text-green-500',  bg: 'bg-green-50',  border: 'border-green-100', label: 'Low' },
-  }[severity] || { icon: AlertTriangle, color: 'text-[#6B7280]', bg: 'bg-[#F4F6F9]', border: 'border-[#E2E8F0]', label: 'Info' };
+  }[severity] || { icon: AlertTriangle, color: 'text-[#6B7280]', bg: 'bg-[#F0F2F5]', border: 'border-[#D8DCE3]', label: 'Info' };
   const Icon = cfg.icon;
   return (
     <div className={`flex items-start gap-3 p-3 rounded-xl border ${cfg.bg} ${cfg.border}`}>
@@ -89,16 +89,16 @@ function InteractiveTimeline({ steps }) {
   const [activeStep, setActiveStep] = useState(null);
 
   const timeframes = ['Week 1–2', 'Month 1', 'Month 2–3', 'Month 3–6', 'Month 6+'];
-  const colors = ['#00338D', '#0055A4', '#0077C8', '#00A36C', '#D4A017'];
+  const colors = ['#00338D', '#0055A4', '#005EB8', '#00B0A0', '#E87722'];
 
   return (
     <div className="w-full">
       {/* Timeline track */}
       <div className="relative">
         {/* Horizontal line */}
-        <div className="absolute top-8 left-0 right-0 h-0.5 bg-[#E2E8F0]" />
+        <div className="absolute top-8 left-0 right-0 h-0.5 bg-[#D8DCE3]" />
         <motion.div
-          className="absolute top-8 left-0 h-0.5 bg-gradient-to-r from-[#00338D] to-[#0077C8]"
+          className="absolute top-8 left-0 h-0.5 bg-gradient-to-r from-[#00338D] to-[#005EB8]"
           initial={{ width: 0 }}
           animate={{ width: `${((activeStep !== null ? activeStep + 1 : hoveredStep !== null ? hoveredStep + 1 : 0) / steps.length) * 100}%` }}
           transition={{ duration: 0.4 }}
@@ -126,7 +126,7 @@ function InteractiveTimeline({ steps }) {
                   className="w-16 h-16 rounded-full flex items-center justify-center border-4 transition-all relative z-10"
                   style={{
                     backgroundColor: isActive || isHovered ? color : isPast ? color + '30' : 'white',
-                    borderColor: isActive || isPast ? color : isHovered ? color : '#E2E8F0',
+                    borderColor: isActive || isPast ? color : isHovered ? color : '#D8DCE3',
                     boxShadow: isActive || isHovered ? `0 0 0 6px ${color}18` : 'none',
                   }}
                   animate={{ scale: isActive ? 1.15 : isHovered ? 1.08 : 1 }}
@@ -152,10 +152,10 @@ function InteractiveTimeline({ steps }) {
                   <motion.div
                     initial={{ opacity: 0, y: 4, scale: 0.95 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
-                    className="absolute z-30 bg-[#1A1F36] text-white rounded-xl p-3 shadow-2xl text-center pointer-events-none"
+                    className="absolute z-30 bg-[#00338D] text-white rounded-xl p-3 shadow-2xl text-center pointer-events-none"
                     style={{ width: 180, top: '100%', marginTop: 8, left: '50%', transform: 'translateX(-50%)' }}
                   >
-                    <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-[#1A1F36] rotate-45 rounded-sm" />
+                    <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-[#00338D] rotate-45 rounded-sm" />
                     <div className="text-[10px] font-bold uppercase tracking-wider mb-1.5" style={{ color: color === '#00338D' ? '#60A5FA' : color }}>
                       {timeframes[i] || `Step ${i + 1}`}
                     </div>
@@ -178,7 +178,7 @@ function InteractiveTimeline({ steps }) {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -4 }}
               transition={{ duration: 0.2 }}
-              className="bg-gradient-to-r from-[#00338D]/5 to-[#0077C8]/5 rounded-xl border border-[#00338D]/15 p-5"
+              className="bg-gradient-to-r from-[#00338D]/5 to-[#005EB8]/5 rounded-xl border border-[#00338D]/15 p-5"
             >
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm text-white"
@@ -213,16 +213,16 @@ function InteractiveTimeline({ steps }) {
 function SectionCard({ title, icon: Icon, color = '#00338D', children, defaultOpen = true }) {
   const [open, setOpen] = useState(defaultOpen);
   return (
-    <div className="bg-white rounded-2xl border border-[#E2E8F0] shadow-sm overflow-hidden">
+    <div className="bg-white rounded-2xl border border-[#D8DCE3] shadow-sm overflow-hidden">
       <button
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between px-6 py-4 border-b border-[#E2E8F0] hover:bg-[#F4F6F9] transition-colors"
+        className="w-full flex items-center justify-between px-6 py-4 border-b border-[#D8DCE3] hover:bg-[#F0F2F5] transition-colors"
       >
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: color + '15' }}>
             <Icon size={16} style={{ color }} />
           </div>
-          <h2 className="font-bold text-[#1A1F36] text-sm" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{title}</h2>
+          <h2 className="font-bold text-[#1A1F36] text-sm" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>{title}</h2>
         </div>
         {open ? <ChevronUp size={16} className="text-[#9CA3AF]" /> : <ChevronDown size={16} className="text-[#9CA3AF]" />}
       </button>
@@ -260,21 +260,21 @@ async function exportPDF(stageNum, stageName, analysis) {
     *{box-sizing:border-box;margin:0;padding:0;}
     body{font-family:Arial,Helvetica,sans-serif;}
     .section{break-inside:avoid;margin-bottom:22px;}
-    .h1{font-size:16px;font-weight:800;color:#00338D;margin-bottom:6px;padding-bottom:6px;border-bottom:2px solid #E2E8F0;}
-    .h2{font-size:14px;font-weight:700;color:#00338D;margin-bottom:5px;padding-bottom:5px;border-bottom:1px solid #E2E8F0;}
+    .h1{font-size:16px;font-weight:800;color:#00338D;margin-bottom:6px;padding-bottom:6px;border-bottom:2px solid #D8DCE3;}
+    .h2{font-size:14px;font-weight:700;color:#00338D;margin-bottom:5px;padding-bottom:5px;border-bottom:1px solid #D8DCE3;}
     .h3{font-size:13px;font-weight:700;color:#1A1F36;margin-bottom:4px;text-transform:uppercase;letter-spacing:1px;}
     .para{font-size:12px;line-height:1.8;color:#374151;}
     .para strong{font-weight:700;color:#1A1F36;}
     .para em{font-style:italic;}
     .bullet-list{margin:0;padding-left:0;list-style:none;}
     .bullet-list li{font-size:12px;line-height:1.75;color:#374151;padding-left:16px;position:relative;margin-bottom:3px;}
-    .bullet-list li::before{content:"•";position:absolute;left:2px;color:#0077C8;font-size:11px;}
+    .bullet-list li::before{content:"•";position:absolute;left:2px;color:#005EB8;font-size:11px;}
     .num-list{margin:0;padding-left:0;list-style:none;counter-reset:num;}
     .num-list li{font-size:12px;line-height:1.75;color:#374151;padding-left:20px;position:relative;margin-bottom:3px;counter-increment:num;}
     .num-list li::before{content:counter(num)".";position:absolute;left:0;color:#00338D;font-weight:700;font-size:11px;}
     .badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;
       background:#E8F0FB;color:#00338D;display:inline-block;margin-bottom:16px;}
-    .footer-row{padding-top:12px;border-top:1px solid #E2E8F0;display:flex;
+    .footer-row{padding-top:12px;border-top:1px solid #D8DCE3;display:flex;
       justify-content:space-between;font-size:10px;color:#9CA3AF;}
     .disclaimer{font-size:9px;color:#9CA3AF;margin-top:12px;line-height:1.6;}
     .page-num{position:absolute;bottom:24px;right:${PAD}px;font-size:10px;color:#CBD5E1;}
@@ -285,7 +285,7 @@ async function exportPDF(stageNum, stageName, analysis) {
     return text
       .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
       .replace(/\*([^*]+)\*/g, '<em>$1</em>')
-      .replace(/`([^`]+)`/g, '<code style="font-family:monospace;background:#F4F6F9;padding:0 3px;border-radius:3px;font-size:11px;">$1</code>');
+      .replace(/`([^`]+)`/g, '<code style="font-family:monospace;background:#F0F2F5;padding:0 3px;border-radius:3px;font-size:11px;">$1</code>');
   }
 
   function markdownToSections(md) {
@@ -417,7 +417,7 @@ async function exportPDF(stageNum, stageName, analysis) {
   // Cover page
   const coverInner = `
     <style>*{box-sizing:border-box;margin:0;padding:0;}body{font-family:Arial,Helvetica,sans-serif;}</style>
-    <div style="background:linear-gradient(135deg,#00338D 0%,#0077C8 100%);color:white;
+    <div style="background:linear-gradient(135deg,#00338D 0%,#005EB8 100%);color:white;
       width:${PAGE_W}px;height:${PAGE_H}px;padding:60px ${PAD}px;position:relative;">
       <div style="font-size:32px;font-weight:900;letter-spacing:4px;margin-bottom:8px;">K-Nexus.AI</div>
       <div style="font-size:11px;letter-spacing:3px;opacity:0.6;text-transform:uppercase;margin-bottom:48px;">
@@ -489,12 +489,12 @@ function parseAnalysisIntoSections(rawText) {
 // ── KPI cards derived from text ────────────────────────────────────────────
 function deriveKPIs(stageName, formData) {
   const kpis = [];
-  if (formData.capacity) kpis.push({ label: 'Target Capacity', value: `${formData.capacity} MW`, color: '#0077C8' });
-  if (formData.budget) kpis.push({ label: 'Investment Budget', value: formData.budget, color: '#D4A017' });
-  if (formData.targetPUE) kpis.push({ label: 'Target PUE', value: formData.targetPUE.toFixed ? formData.targetPUE.toFixed(2) : formData.targetPUE, color: '#00A36C' });
+  if (formData.capacity) kpis.push({ label: 'Target Capacity', value: `${formData.capacity} MW`, color: '#005EB8' });
+  if (formData.budget) kpis.push({ label: 'Investment Budget', value: formData.budget, color: '#E87722' });
+  if (formData.targetPUE) kpis.push({ label: 'Target PUE', value: formData.targetPUE.toFixed ? formData.targetPUE.toFixed(2) : formData.targetPUE, color: '#00B0A0' });
   if (formData.timeline) kpis.push({ label: 'Timeline', value: formData.timeline, color: '#00338D' });
   if (formData.sla) kpis.push({ label: 'SLA Target', value: formData.sla?.split(' ')[0], color: '#0055A4' });
-  if (formData.ebitdaTarget) kpis.push({ label: 'EBITDA Target', value: formData.ebitdaTarget, color: '#00A36C' });
+  if (formData.ebitdaTarget) kpis.push({ label: 'EBITDA Target', value: formData.ebitdaTarget, color: '#00B0A0' });
   return kpis.slice(0, 4);
 }
 
@@ -522,7 +522,7 @@ function FullAnalysisRenderer({ text }) {
       <ul key={`ul-${key}`} className="space-y-2 mb-4 ml-2">
         {bulletBuffer.map((b, i) => (
           <li key={i} className="flex gap-2.5 items-start">
-            <span className="text-[#0077C8] flex-shrink-0 mt-1.5 text-xs">•</span>
+            <span className="text-[#005EB8] flex-shrink-0 mt-1.5 text-xs">•</span>
             <span className="text-sm text-[#374151] leading-relaxed">{renderInlineAnalysis(b)}</span>
           </li>
         ))}
@@ -538,27 +538,27 @@ function FullAnalysisRenderer({ text }) {
     if (t.startsWith('# ')) {
       flushBullets(i);
       elements.push(
-        <h2 key={i} className="text-xl font-extrabold text-[#00338D] mt-6 mb-3 pb-2 border-b-2 border-[#00338D]/20" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+        <h2 key={i} className="text-xl font-extrabold text-[#00338D] mt-6 mb-3 pb-2 border-b-2 border-[#00338D]/20" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
           {t.slice(2)}
         </h2>
       );
     } else if (t.startsWith('## ')) {
       flushBullets(i);
       elements.push(
-        <h3 key={i} className="text-base font-bold text-[#00338D] mt-5 mb-2 pb-1.5 border-b border-[#E2E8F0]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+        <h3 key={i} className="text-base font-bold text-[#00338D] mt-5 mb-2 pb-1.5 border-b border-[#D8DCE3]" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
           {t.slice(3)}
         </h3>
       );
     } else if (t.startsWith('### ')) {
       flushBullets(i);
       elements.push(
-        <h4 key={i} className="text-sm font-bold text-[#1A1F36] mt-4 mb-2 uppercase tracking-wide" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+        <h4 key={i} className="text-sm font-bold text-[#1A1F36] mt-4 mb-2 uppercase tracking-wide" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
           {t.slice(4)}
         </h4>
       );
     } else if (t.startsWith('---')) {
       flushBullets(i);
-      elements.push(<hr key={i} className="border-[#E2E8F0] my-4" />);
+      elements.push(<hr key={i} className="border-[#D8DCE3] my-4" />);
     } else if (/^[-*•]\s+/.test(t)) {
       bulletBuffer.push(t.replace(/^[-*•]\s+/, ''));
     } else if (/^\d+\.\s+/.test(t)) {
@@ -594,7 +594,7 @@ function DownloadButton({ stageNum, stageName, rawOutput }) {
     <button
       onClick={handleClick}
       disabled={loading}
-      className="flex items-center gap-2 px-4 py-2 bg-[#00338D] text-white rounded-xl text-sm font-bold hover:bg-[#0044b8] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+      className="flex items-center gap-2 px-4 py-2 bg-[#00338D] text-white rounded-xl text-sm font-bold hover:bg-[#002A73] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
     >
       {loading
         ? <><div className="w-3.5 h-3.5 border-2 border-white/40 border-t-white rounded-full animate-spin" />Generating…</>
@@ -668,14 +668,14 @@ Return ONLY valid JSON (no markdown, no backticks) with this exact structure:
 
   if (allStages.length === 0) {
     return (
-      <div className="min-h-screen bg-[#F4F6F9] pt-16 flex items-center justify-center">
+      <div className="min-h-screen bg-[#F0F2F5] pt-16 flex items-center justify-center">
         <div className="text-center max-w-md">
           <div className="w-16 h-16 rounded-2xl bg-[#00338D]/10 flex items-center justify-center mx-auto mb-4">
             <BarChart3 size={28} className="text-[#00338D]" />
           </div>
-          <h2 className="text-xl font-bold text-[#1A1F36] mb-2" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>No Analysis Available</h2>
+          <h2 className="text-xl font-bold text-[#1A1F36] mb-2" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>No Analysis Available</h2>
           <p className="text-[#6B7280] text-sm mb-6">Upload a strategy document or generate insights in at least one lifecycle stage.</p>
-          <Link href="/" className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#00338D] text-white rounded-xl text-sm font-bold hover:bg-[#0044b8] transition-colors">
+          <Link href="/" className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#00338D] text-white rounded-xl text-sm font-bold hover:bg-[#002A73] transition-colors">
             Go to Platform
           </Link>
         </div>
@@ -689,9 +689,9 @@ Return ONLY valid JSON (no markdown, no backticks) with this exact structure:
   const rawOutput = getRaw(selectedStage) || '';
 
   return (
-    <div className="min-h-screen bg-[#F4F6F9] pt-16">
+    <div className="min-h-screen bg-[#F0F2F5] pt-16">
       {/* Header */}
-      <div className="bg-white border-b border-[#E2E8F0]">
+      <div className="bg-white border-b border-[#D8DCE3]">
         <div className="max-w-screen-xl mx-auto px-6 py-4">
           <div className="flex items-center gap-3 mb-3">
             <Link href={selectedStage === 'doc' ? '/' : `/stage/${selectedStage}`} className="flex items-center gap-1.5 text-sm text-[#6B7280] hover:text-[#1A1F36] transition-colors">
@@ -708,7 +708,7 @@ Return ONLY valid JSON (no markdown, no backticks) with this exact structure:
                   <span className="text-xs text-[#6B7280] truncate max-w-[200px]">{uploadedDocName}</span>
                 )}
               </div>
-              <h1 className="text-2xl font-extrabold text-[#1A1F36]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+              <h1 className="text-2xl font-extrabold text-[#1A1F36]" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
                 {stageName} — Intelligence Report
               </h1>
             </div>
@@ -717,7 +717,7 @@ Return ONLY valid JSON (no markdown, no backticks) with this exact structure:
               <div className="flex gap-1.5">
                 {allStages.map(s => (
                   <button key={s} onClick={() => setSelectedStage(s)}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${selectedStage === s ? 'bg-[#00338D] text-white' : 'bg-[#F4F6F9] text-[#6B7280] hover:bg-[#E2E8F0]'}`}>
+                    className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${selectedStage === s ? 'bg-[#00338D] text-white' : 'bg-[#F0F2F5] text-[#6B7280] hover:bg-[#D8DCE3]'}`}>
                     {s === 'doc' ? 'DOC' : s}
                   </button>
                 ))}
@@ -733,24 +733,24 @@ Return ONLY valid JSON (no markdown, no backticks) with this exact structure:
 
         {/* Score rings row */}
         {deepDiveLoading ? (
-          <div className="bg-white rounded-2xl border border-[#E2E8F0] p-8 flex items-center justify-center gap-3">
+          <div className="bg-white rounded-2xl border border-[#D8DCE3] p-8 flex items-center justify-center gap-3">
             <div className="w-5 h-5 border-2 border-[#00338D]/30 border-t-[#00338D] rounded-full animate-spin" />
             <span className="text-[#6B7280] text-sm">Generating deep analysis...</span>
           </div>
         ) : deepDiveData && (
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-            className="bg-white rounded-2xl border border-[#E2E8F0] shadow-sm p-6">
+            className="bg-white rounded-2xl border border-[#D8DCE3] shadow-sm p-6">
             <div className="flex items-center gap-2 mb-6">
               <Sparkles size={16} className="text-[#00338D]" />
-              <h2 className="font-bold text-[#1A1F36] text-sm" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Assessment Scores</h2>
+              <h2 className="font-bold text-[#1A1F36] text-sm" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>Assessment Scores</h2>
             </div>
             <div className="flex items-center justify-around flex-wrap gap-6">
-              <ScoreRing score={deepDiveData.readinessScore} label="Readiness" color="#00A36C" />
-              <ScoreRing score={100 - deepDiveData.riskScore} label="Risk Profile" color="#D4A017" />
-              <ScoreRing score={deepDiveData.opportunityScore} label="Opportunity" color="#0077C8" />
+              <ScoreRing score={deepDiveData.readinessScore} label="Readiness" color="#00B0A0" />
+              <ScoreRing score={100 - deepDiveData.riskScore} label="Risk Profile" color="#E87722" />
+              <ScoreRing score={deepDiveData.opportunityScore} label="Opportunity" color="#005EB8" />
             </div>
             {deepDiveData.keyInsight && (
-              <p className="mt-5 text-center text-sm text-[#6B7280] italic border-t border-[#E2E8F0] pt-4">
+              <p className="mt-5 text-center text-sm text-[#6B7280] italic border-t border-[#D8DCE3] pt-4">
                 "{deepDiveData.keyInsight}"
               </p>
             )}
@@ -759,7 +759,7 @@ Return ONLY valid JSON (no markdown, no backticks) with this exact structure:
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Gaps & Risks */}
-          <SectionCard title="Gaps Analysed" icon={AlertTriangle} color="#D4A017">
+          <SectionCard title="Gaps Analysed" icon={AlertTriangle} color="#E87722">
             {deepDiveLoading ? (
               <p className="text-[#9CA3AF] text-sm">Analysing gaps...</p>
             ) : deepDiveData?.gaps?.length ? (
@@ -780,7 +780,7 @@ Return ONLY valid JSON (no markdown, no backticks) with this exact structure:
             ) : (
               <div className="space-y-2.5">
                 {(deepDiveData?.recommendations || sections?.recommendations || []).slice(0, 5).map((r, i) => (
-                  <div key={i} className="flex gap-3 items-start p-3 bg-[#F4F6F9] rounded-xl border border-[#E2E8F0]">
+                  <div key={i} className="flex gap-3 items-start p-3 bg-[#F0F2F5] rounded-xl border border-[#D8DCE3]">
                     <div className="w-6 h-6 rounded-full bg-[#00338D] text-white text-xs flex items-center justify-center flex-shrink-0 font-bold mt-0.5">{i + 1}</div>
                     <p className="text-sm text-[#1A1F36] leading-relaxed">{r}</p>
                   </div>
@@ -791,11 +791,11 @@ Return ONLY valid JSON (no markdown, no backticks) with this exact structure:
         </div>
 
         {/* Key Findings */}
-        <SectionCard title="Key Findings" icon={TrendingUp} color="#0077C8">
+        <SectionCard title="Key Findings" icon={TrendingUp} color="#005EB8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {(sections?.findings || sections?.summary || []).slice(0, 6).map((f, i) => (
-              <div key={i} className="flex gap-2.5 items-start p-3 bg-[#F4F6F9] rounded-xl border border-[#E2E8F0]">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#0077C8] flex-shrink-0 mt-2" />
+              <div key={i} className="flex gap-2.5 items-start p-3 bg-[#F0F2F5] rounded-xl border border-[#D8DCE3]">
+                <div className="w-1.5 h-1.5 rounded-full bg-[#005EB8] flex-shrink-0 mt-2" />
                 <p className="text-sm text-[#374151] leading-relaxed">{f}</p>
               </div>
             ))}
@@ -804,7 +804,7 @@ Return ONLY valid JSON (no markdown, no backticks) with this exact structure:
 
         {/* Next Steps — Interactive Timeline */}
         {(deepDiveData?.nextSteps || sections?.nextSteps || []).length > 0 && (
-          <SectionCard title="Outcomes & Next Steps" icon={CheckCircle2} color="#00A36C">
+          <SectionCard title="Outcomes & Next Steps" icon={CheckCircle2} color="#00B0A0">
             <InteractiveTimeline steps={deepDiveData?.nextSteps || sections?.nextSteps || []} />
           </SectionCard>
         )}

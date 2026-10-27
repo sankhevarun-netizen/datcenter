@@ -1,125 +1,86 @@
 'use client';
-import { LineChart, Line, XAxis, YAxis, ReferenceLine, ResponsiveContainer, Tooltip, PieChart, Pie, Cell } from 'recharts';
-import { TrendingDown, Droplets } from 'lucide-react';
-import { mockSustainabilityData } from '@/data/command-center-mock';
+import { LineChart, Line, XAxis, YAxis, ReferenceLine, ResponsiveContainer, Tooltip } from 'recharts';
+import { Droplets, Factory, Sun } from 'lucide-react';
+import { fmtNumber } from '@/lib/nexus/format';
+
+const MONO = { fontFamily: "'JetBrains Mono', monospace" };
 
 const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload?.length) {
     return (
-      <div className="bg-[#1A1F36] border border-white/10 rounded-lg px-3 py-2 text-xs text-white shadow-xl">
+      <div className="bg-[#00338D] border border-white/10 rounded-lg px-3 py-2 text-xs text-white shadow-xl">
         <p className="text-white/50 mb-0.5">{label}</p>
-        <p className="font-bold text-[#0077C8]">PUE: {payload[0].value}</p>
+        <p className="font-bold text-[#60a5fa]">PUE {payload[0].value}</p>
       </div>
     );
   }
   return null;
 };
 
-function CircularProgress({ value, max = 100, grade, size = 72 }) {
-  const pct = value / max;
-  const r = (size - 8) / 2;
-  const circumference = 2 * Math.PI * r;
-  const offset = circumference - pct * circumference;
-  const color = pct >= 0.8 ? '#00A36C' : pct >= 0.6 ? '#D4A017' : '#DC2626';
-
+function Stat({ icon: Icon, label, value, unit, note, noteColor = '#6B7280' }) {
   return (
-    <div className="relative inline-flex items-center justify-center">
-      <svg width={size} height={size}>
-        <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="#E2E8F0" strokeWidth={6} />
-        <circle
-          cx={size / 2} cy={size / 2} r={r}
-          fill="none" stroke={color} strokeWidth={6}
-          strokeDasharray={circumference} strokeDashoffset={offset}
-          strokeLinecap="round" transform={`rotate(-90 ${size / 2} ${size / 2})`}
-        />
-      </svg>
-      <div className="absolute text-center">
-        <div className="text-sm font-bold text-[#1A1F36]" style={{ fontFamily: "'JetBrains Mono', monospace" }}>{value}</div>
-        <div className="text-[9px] font-bold" style={{ color }}>{grade}</div>
-      </div>
+    <div className="bg-[#F0F2F5] rounded-xl p-3">
+      <p className="flex items-center gap-1 text-[10px] text-[#9CA3AF] mb-1"><Icon size={10} /> {label}</p>
+      <p className="text-sm font-bold text-[#1A1F36]" style={MONO}>{value}</p>
+      <p className="text-[9px] text-[#9CA3AF]">{unit}</p>
+      <p className="text-[10px] font-semibold mt-1" style={{ color: noteColor }}>{note}</p>
     </div>
   );
 }
 
-export default function SustainabilityIntel() {
-  const { pueTrend, industryAvgPUE, carbonIntensity, renewableMix, wue, esgScore, esgGrade } = mockSustainabilityData;
+export default function SustainabilityIntel({ data }) {
+  const { pueTrend, peerMedianPue, carbonIntensity, wue, renewable } = data;
+  const lo = Math.min(...pueTrend.map((p) => p.pue), peerMedianPue);
+  const hi = Math.max(...pueTrend.map((p) => p.pue), peerMedianPue);
+  const share = renewable.pct;
 
   return (
-    <div className="bg-white rounded-2xl border border-[#E2E8F0] shadow-sm p-5 h-full">
+    <div className="bg-white rounded-2xl border border-[#D8DCE3] shadow-sm p-5 h-full">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="font-bold text-[#1A1F36] text-sm" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Sustainability Intelligence</h2>
-        <span className="text-[10px] text-[#00A36C] font-bold bg-[#00A36C]/10 px-2 py-0.5 rounded-full">ESG Tracking</span>
+        <h2 className="font-bold text-[#1A1F36] text-sm" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>Sustainability Intelligence</h2>
+        <span className="text-[10px] text-[#00704A] font-bold bg-[#00B0A0]/10 px-2 py-0.5 rounded-full">From metered energy and water</span>
       </div>
 
       <div className="space-y-4">
-        {/* PUE Trend */}
         <div>
           <div className="flex items-center justify-between mb-1.5">
-            <p className="text-xs font-semibold text-[#6B7280]">PUE 12-Month Trend</p>
+            <p className="text-xs font-semibold text-[#6B7280]">Portfolio PUE, 12 months</p>
             <div className="flex items-center gap-1.5 text-[10px] text-[#9CA3AF]">
-              <span className="w-6 border-t border-dashed border-[#DC2626]/50" />Industry avg: {industryAvgPUE}
+              <span className="w-6 border-t border-dashed border-[#64748B]" />Tier III peer median {peerMedianPue}
             </div>
           </div>
-          <ResponsiveContainer width="100%" height={80}>
+          <ResponsiveContainer width="100%" height={84}>
             <LineChart data={pueTrend} margin={{ top: 4, right: 4, bottom: 0, left: -20 }}>
               <XAxis dataKey="month" tick={{ fontSize: 8, fill: '#9CA3AF' }} axisLine={false} tickLine={false} interval={2} />
-              <YAxis domain={[1.3, 1.65]} tick={{ fontSize: 8, fill: '#9CA3AF' }} axisLine={false} tickLine={false} />
-              <ReferenceLine y={industryAvgPUE} stroke="#DC2626" strokeDasharray="4 2" strokeWidth={1} />
-              <Line type="monotone" dataKey="pue" stroke="#0077C8" strokeWidth={2} dot={false} isAnimationActive={false} />
+              <YAxis domain={[Math.floor(lo * 100 - 1) / 100, Math.ceil(hi * 100 + 1) / 100]} tick={{ fontSize: 8, fill: '#9CA3AF' }} axisLine={false} tickLine={false} />
+              <ReferenceLine y={peerMedianPue} stroke="#64748B" strokeDasharray="4 2" strokeWidth={1} />
+              <Line type="monotone" dataKey="pue" stroke="#005EB8" strokeWidth={2} dot={false} isAnimationActive={false} />
               <Tooltip content={<CustomTooltip />} />
             </LineChart>
           </ResponsiveContainer>
+          <p className="text-[10px] text-[#9CA3AF]">Energy-weighted across operating sites (total facility load over total IT load).</p>
         </div>
 
-        {/* Stats row */}
         <div className="grid grid-cols-3 gap-3">
-          {/* Carbon intensity */}
-          <div className="bg-[#F4F6F9] rounded-xl p-3">
-            <p className="text-[10px] text-[#9CA3AF] mb-1">Carbon Intensity</p>
-            <p className="text-sm font-bold text-[#1A1F36]" style={{ fontFamily: "'JetBrains Mono', monospace" }}>{carbonIntensity.value}</p>
-            <p className="text-[9px] text-[#9CA3AF]">tCO₂/MWh</p>
-            <div className="flex items-center gap-0.5 mt-1">
-              <TrendingDown size={10} className="text-[#00A36C]" />
-              <span className="text-[10px] text-[#00A36C] font-semibold">{Math.abs(carbonIntensity.yoyChange)}% YoY</span>
-            </div>
-          </div>
-
-          {/* WUE */}
-          <div className="bg-[#F4F6F9] rounded-xl p-3">
-            <p className="text-[10px] text-[#9CA3AF] mb-1">WUE</p>
-            <p className="text-sm font-bold text-[#1A1F36]" style={{ fontFamily: "'JetBrains Mono', monospace" }}>{wue}</p>
-            <p className="text-[9px] text-[#9CA3AF]">L/kWh</p>
-            <div className="flex items-center gap-0.5 mt-1">
-              <Droplets size={10} className="text-[#0077C8]" />
-              <span className="text-[10px] text-[#0077C8] font-semibold">On target</span>
-            </div>
-          </div>
-
-          {/* ESG */}
-          <div className="bg-[#F4F6F9] rounded-xl p-3 flex flex-col items-center justify-center">
-            <p className="text-[10px] text-[#9CA3AF] mb-1.5">ESG Score</p>
-            <CircularProgress value={esgScore} grade={esgGrade} size={56} />
-          </div>
+          <Stat icon={Factory} label="Carbon intensity" value={carbonIntensity.value} unit="tCO₂ per MWh"
+            note={`${carbonIntensity.changePct >= 0 ? '+' : ''}${carbonIntensity.changePct}% since ${carbonIntensity.since}`}
+            noteColor={carbonIntensity.changePct > 0 ? '#A47C0B' : '#00704A'} />
+          <Stat icon={Droplets} label="WUE" value={wue.value} unit="L per IT kWh"
+            note={wue.value > wue.peerMedian ? `Above peer median ${wue.peerMedian}` : `Within peer median ${wue.peerMedian}`}
+            noteColor={wue.value > wue.peerMedian ? '#A47C0B' : '#00704A'} />
+          <Stat icon={Sun} label="Renewable share" value={`${share}%`} unit={renewable.month}
+            note={`${fmtNumber(renewable.renewableMwh)} MWh renewable`} noteColor="#00704A" />
         </div>
 
-        {/* Renewable energy mix */}
         <div>
-          <p className="text-xs font-semibold text-[#6B7280] mb-2">Renewable Energy Mix</p>
-          <div className="flex items-center gap-4">
-            <PieChart width={80} height={80}>
-              <Pie data={renewableMix} innerRadius={22} outerRadius={38} dataKey="value" strokeWidth={0}>
-                {renewableMix.map((entry, i) => <Cell key={i} fill={entry.color} />)}
-              </Pie>
-            </PieChart>
-            <div className="flex flex-col gap-1.5">
-              {renewableMix.map(item => (
-                <div key={item.name} className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: item.color }} />
-                  <span className="text-[10px] text-[#6B7280]">{item.name}</span>
-                  <span className="text-[10px] font-bold text-[#1A1F36]" style={{ fontFamily: "'JetBrains Mono', monospace" }}>{item.value}%</span>
-                </div>
-              ))}
-            </div>
+          <p className="text-xs font-semibold text-[#6B7280] mb-2">Energy supply, {renewable.month}</p>
+          <div className="h-4 rounded-full overflow-hidden flex bg-[#D8DCE3]" role="img" aria-label={`${share}% renewable`}>
+            <div className="h-full bg-[#00B0A0]" style={{ width: `${share}%` }} />
+            <div className="h-full bg-[#94A3B8] border-l-2 border-white" style={{ width: `${100 - share}%` }} />
+          </div>
+          <div className="flex gap-3 mt-1.5 text-[10px] text-[#6B7280]">
+            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#00B0A0]" />Renewable (PPA and on-site) {fmtNumber(renewable.renewableMwh)} MWh</span>
+            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#94A3B8]" />Grid {fmtNumber(renewable.gridMwh)} MWh</span>
           </div>
         </div>
       </div>

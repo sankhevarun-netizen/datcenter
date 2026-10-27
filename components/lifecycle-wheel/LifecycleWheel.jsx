@@ -5,12 +5,12 @@ import { useRouter } from 'next/navigation';
 import { TrendingUp, Package, Settings, ShieldCheck, Activity, DollarSign } from 'lucide-react';
 
 const STAGES = [
-  { title: 'Strategy', shortTitle: 'Strategy', description: 'Market scan & opportunity analysis', expectedOutput: 'Market opportunity report, site shortlist & investment thesis', icon: TrendingUp, path: '/stage/01', color: '#00338D', hoverColor: '#0044b8' },
+  { title: 'Strategy', shortTitle: 'Strategy', description: 'Market scan & opportunity analysis', expectedOutput: 'Market opportunity report, site shortlist & investment thesis', icon: TrendingUp, path: '/stage/01', color: '#00338D', hoverColor: '#002A73' },
   { title: 'Supply Chain\nManagement', shortTitle: 'Supply Chain Management', description: 'Components, requirements & selection', expectedOutput: 'Vendor shortlist, BOM, cost estimates & supply agreements', icon: Package, path: '/stage/02', color: '#0055A4', hoverColor: '#0066c4' },
   { title: 'Design and\nBuild', shortTitle: 'Design and Build', description: 'Architecture & construction requirements', expectedOutput: 'Technical specs, construction milestones & commissioning plan', icon: Settings, path: '/stage/03', color: '#00529B', hoverColor: '#0063bb' },
   { title: 'Regulatory and\nCompliance', shortTitle: 'Regulatory and Compliance', description: 'Tax, regulatory, ESG & cyber', expectedOutput: 'Compliance matrix, tax structure, ESG rating & risk register', icon: ShieldCheck, path: '/stage/04', color: '#1B3A5C', hoverColor: '#234d7a' },
   { title: 'Operations', shortTitle: 'Operations', description: 'Efficiency, DCIM & uptime management', expectedOutput: 'SLA metrics, uptime reports, DCIM dashboard & O&M plan', icon: Activity, path: '/stage/05', color: '#003580', hoverColor: '#0044a0' },
-  { title: 'Monetization', shortTitle: 'Monetization', description: 'Revenue models & market positioning', expectedOutput: 'Revenue model, pricing strategy, tenant agreements & ROI analysis', icon: DollarSign, path: '/stage/06', color: '#0077C8', hoverColor: '#0088e0' },
+  { title: 'Monetization', shortTitle: 'Monetization', description: 'Revenue models & market positioning', expectedOutput: 'Revenue model, pricing strategy, tenant agreements & ROI analysis', icon: DollarSign, path: '/stage/06', color: '#005EB8', hoverColor: '#0088e0' },
 ];
 
 function polarToCartesian(cx, cy, r, angleDeg) {
@@ -52,7 +52,7 @@ export default function LifecycleWheel({ onCenterClick }) {
           ))}
           <filter id="glow"><feGaussianBlur stdDeviation="6" result="coloredBlur" /><feMerge><feMergeNode in="coloredBlur" /><feMergeNode in="SourceGraphic" /></feMerge></filter>
           <radialGradient id="center-grad" cx="40%" cy="35%" r="70%">
-            <stop offset="0%" stopColor="#0077C8" />
+            <stop offset="0%" stopColor="#005EB8" />
             <stop offset="100%" stopColor="#00338D" />
           </radialGradient>
         </defs>
@@ -96,7 +96,7 @@ export default function LifecycleWheel({ onCenterClick }) {
                       {lines.map((line, li) => (
                         <text key={li} x={0} y={(li - (lines.length - 1) / 2) * 14} textAnchor="middle" fill="white"
                           strokeWidth="2.5" paintOrder="stroke fill" fontSize={isHovered ? '13' : '12'}
-                          fontFamily="'Plus Jakarta Sans', sans-serif" fontWeight="800" letterSpacing="0.2">
+                          fontFamily="'Inter', 'Segoe UI', sans-serif" fontWeight="800" letterSpacing="0.2">
                           {line}
                         </text>
                       ))}
@@ -123,8 +123,8 @@ export default function LifecycleWheel({ onCenterClick }) {
           <circle cx={CX} cy={CY} r={INNER_R - 4} fill="#0D1428" />
           <circle cx={CX} cy={CY} r={INNER_R - 8} fill="url(#center-grad)" />
           <image href="/kpmg-logo.png" x={CX - 60} y={CY - 65} width="120" height="100" preserveAspectRatio="xMidYMid meet" />
-          <text x={CX} y={CY + 47} textAnchor="middle" fill="rgba(255,255,255,0.6)" fontSize="8" fontFamily="'DM Sans', sans-serif" fontWeight="500" letterSpacing="1.5">DATACENTER INTELLIGENCE</text>
-          <text x={CX} y={CY + 60} textAnchor="middle" fill="rgba(255,255,255,0.4)" fontSize="7" fontFamily="'DM Sans', sans-serif" fontWeight="400" letterSpacing="1">Click to upload &amp; analyse</text>
+          <text x={CX} y={CY + 47} textAnchor="middle" fill="rgba(255,255,255,0.6)" fontSize="8" fontFamily="'Inter', 'Segoe UI', sans-serif" fontWeight="500" letterSpacing="1.5">DATACENTER INTELLIGENCE</text>
+          <text x={CX} y={CY + 60} textAnchor="middle" fill="rgba(255,255,255,0.4)" fontSize="7" fontFamily="'Inter', 'Segoe UI', sans-serif" fontWeight="400" letterSpacing="1">Click to upload &amp; analyse</text>
         </motion.g>
 
         {STAGES.map((_, i) => {
@@ -155,13 +155,13 @@ export default function LifecycleWheel({ onCenterClick }) {
             >
               <div style={{ position: 'absolute', left: -8, top: '50%', transform: 'translateY(-50%)', width: 0, height: 0, borderRight: '8px solid rgba(26,31,54,0.92)', borderTop: '8px solid transparent', borderBottom: '8px solid transparent' }} />
               <div className="glass-dark rounded-xl px-4 py-3 min-w-[240px] max-w-[280px]">
-                <div className="text-white font-bold text-sm leading-snug" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{STAGES[hoveredIndex].shortTitle}</div>
+                <div className="text-white font-bold text-sm leading-snug" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>{STAGES[hoveredIndex].shortTitle}</div>
                 <div className="text-white/55 text-xs mt-1 leading-relaxed">{STAGES[hoveredIndex].description}</div>
                 <div className="mt-2 pt-2 border-t border-white/10">
-                  <div className="text-[#0077C8] text-[10px] font-mono uppercase tracking-wider mb-1">Expected Output</div>
+                  <div className="text-[#005EB8] text-[10px] font-mono uppercase tracking-wider mb-1">Expected Output</div>
                   <div className="text-white/70 text-xs leading-relaxed">{STAGES[hoveredIndex].expectedOutput}</div>
                 </div>
-                <div className="text-[#0077C8] text-xs mt-2 font-medium">Click to explore →</div>
+                <div className="text-[#005EB8] text-xs mt-2 font-medium">Click to explore →</div>
               </div>
             </motion.div>
           );

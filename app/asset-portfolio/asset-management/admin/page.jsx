@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { ArrowLeft, Settings2 } from 'lucide-react';
 import { mockAssets } from '@/data/mock/index';
 
-const C = { bg: '#0B1929', card: '#0d1f3c', card2: 'rgba(255,255,255,0.05)', border: 'rgba(255,255,255,0.09)', green: '#00A36C', amber: '#D4A017', red: '#DC2626', blue: '#0077C8', cyan: '#06B6D4', muted: 'rgba(255,255,255,0.5)' };
+const C = { bg: '#0B1929', card: '#0d1f3c', card2: 'rgba(255,255,255,0.05)', border: 'rgba(255,255,255,0.09)', green: '#00B0A0', amber: '#E87722', red: '#C8102E', blue: '#005EB8', cyan: '#06B6D4', muted: 'rgba(255,255,255,0.5)' };
 
 function Card({ children, style }) {
   return <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 12, padding: 16, ...style }}>{children}</div>;
@@ -62,7 +62,7 @@ export default function AdminPage() {
           <ArrowLeft size={18} />
         </Link>
         <Settings2 size={18} color={C.blue} />
-        <h1 style={{ fontSize: 18, fontWeight: 700, color: '#fff', fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Config & Admin</h1>
+        <h1 style={{ fontSize: 18, fontWeight: 700, color: '#fff', fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>Config & Admin</h1>
       </div>
 
       <div className="grid grid-cols-2 gap-4" style={{ marginBottom: 20 }}>

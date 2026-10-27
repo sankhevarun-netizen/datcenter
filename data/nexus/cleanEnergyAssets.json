@@ -1,0 +1,41 @@
+[
+  {
+    "facility_id": "MUM-1",
+    "asset_id": "PPA-MUM-1-SOLAR",
+    "asset_type": "solar_ppa",
+    "status": "proposed",
+    "capacity_kwh": 0,
+    "power_kw": 38500,
+    "round_trip_efficiency_pct": 100,
+    "tariff_inr_kwh": 5.5,
+    "cost_inr_lakh": 0,
+    "lead_time_weeks": 40,
+    "basis": "Tata Power-style solar PPA, group captive, sized for ~72% annual volumetric match"
+  },
+  {
+    "facility_id": "MUM-1",
+    "asset_id": "BESS-MUM-1-PILOT",
+    "asset_type": "bess",
+    "status": "proposed",
+    "capacity_kwh": 4000,
+    "power_kw": 2000,
+    "round_trip_efficiency_pct": 88,
+    "tariff_inr_kwh": 0,
+    "cost_inr_lakh": 425,
+    "lead_time_weeks": 26,
+    "basis": "4 MWh pilot: the size often quoted, covers a small share of the night"
+  },
+  {
+    "facility_id": "MUM-1",
+    "asset_id": "BESS-MUM-1-A",
+    "asset_type": "bess",
+    "status": "proposed",
+    "capacity_kwh": 120000,
+    "power_kw": 30000,
+    "round_trip_efficiency_pct": 88,
+    "tariff_inr_kwh": 0,
+    "cost_inr_lakh": 12750,
+    "lead_time_weeks": 52,
+    "basis": "4-hour battery sized to firm the PPA overnight"
+  }
+]

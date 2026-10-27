@@ -27,11 +27,11 @@ export default function EmptyState({ preset, icon: CustomIcon, title, body, acti
       <div className="w-14 h-14 rounded-2xl bg-white/[0.05] border border-white/[0.08] flex items-center justify-center">
         <Icon size={24} className="text-white/25"/>
       </div>
-      <p className="text-sm font-bold text-white/45" style={{ fontFamily:"'Plus Jakarta Sans', sans-serif" }}>{label}</p>
+      <p className="text-sm font-bold text-white/45" style={{ fontFamily:"'Inter', 'Segoe UI', sans-serif" }}>{label}</p>
       {desc && <p className="text-[11px] text-white/25 max-w-xs leading-relaxed">{desc}</p>}
       {action && (
         <button onClick={action.onClick}
-          className="mt-2 px-4 py-2 rounded-xl bg-[#0077C8]/20 border border-[#0077C8]/30 hover:bg-[#0077C8]/30 text-[10px] font-bold text-[#0077C8] transition-colors">
+          className="mt-2 px-4 py-2 rounded-xl bg-[#005EB8]/20 border border-[#005EB8]/30 hover:bg-[#005EB8]/30 text-[10px] font-bold text-[#005EB8] transition-colors">
           {action.label}
         </button>
       )}

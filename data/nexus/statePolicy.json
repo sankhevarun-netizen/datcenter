@@ -1,0 +1,72 @@
+[
+  {
+    "jurisdiction": "Karnataka",
+    "policy": "Sustainable Data Centre Policy 2026-31",
+    "effective_from": "2026-10-01",
+    "reporting_obligation": "Plant-wise PUE and WUE reporting mandatory",
+    "incentives": "Capital subsidy, power tariff rebate",
+    "detail": "Incentives linked to energy and water efficiency; support tied to treated water use",
+    "applies_to": "BLR-1",
+    "status": "Active"
+  },
+  {
+    "jurisdiction": "Maharashtra",
+    "policy": "Data Centre Policy",
+    "effective_from": "2023-04-01",
+    "reporting_obligation": "Annual energy reporting",
+    "incentives": "Stamp duty waiver, electricity duty exemption",
+    "detail": "Industrial tariff applies; no plant-wise water mandate yet",
+    "applies_to": "MUM-1, MUM-2",
+    "status": "Active"
+  },
+  {
+    "jurisdiction": "Tamil Nadu",
+    "policy": "Data Centre Policy 2021",
+    "effective_from": "2021-02-01",
+    "reporting_obligation": "Water impact assessment at approval",
+    "incentives": "Land cost subsidy, power subsidy",
+    "detail": "Chennai requires water impact assessment before construction approval",
+    "applies_to": "CHN-1",
+    "status": "Active"
+  },
+  {
+    "jurisdiction": "Telangana",
+    "policy": "ICT Policy - Data Centre",
+    "effective_from": "2022-07-01",
+    "reporting_obligation": "Energy reporting on request",
+    "incentives": "Power tariff concession, dual grid support",
+    "detail": "Favourable renewable wheeling charges",
+    "applies_to": "HYD-1",
+    "status": "Active"
+  },
+  {
+    "jurisdiction": "Uttar Pradesh",
+    "policy": "Data Centre Policy 2021",
+    "effective_from": "2021-01-01",
+    "reporting_obligation": "Annual energy reporting",
+    "incentives": "Capital subsidy, land rebate, stamp duty waiver",
+    "detail": "Among the most generous capital incentives in India",
+    "applies_to": "NCR-1",
+    "status": "Active"
+  },
+  {
+    "jurisdiction": "National",
+    "policy": "SEBI BRSR",
+    "effective_from": "2023-04-01",
+    "reporting_obligation": "ESG disclosure for top 1000 listed entities",
+    "incentives": "None - compliance obligation",
+    "detail": "Energy and water intensity disclosure required",
+    "applies_to": "All",
+    "status": "Active"
+  },
+  {
+    "jurisdiction": "European Union",
+    "policy": "Energy Efficiency Directive",
+    "effective_from": "2024-09-15",
+    "reporting_obligation": "Annual PUE, WUE, ERF and REF disclosure for facilities over 500 kW",
+    "incentives": "None - compliance obligation",
+    "detail": "Applies to EU operations; sets the direction Indian policy is following",
+    "applies_to": "Reference",
+    "status": "Active"
+  }
+]

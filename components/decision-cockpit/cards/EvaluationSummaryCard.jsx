@@ -20,10 +20,10 @@ export default function EvaluationSummaryCard({ evaluationSummary = [] }) {
           <div style={{ width: 150, height: 150 }} className="flex-shrink-0">
             <ResponsiveContainer width="100%" height="100%">
               <RadarChart data={evaluationSummary} margin={{ top: 6, right: 6, bottom: 6, left: 6 }}>
-                <PolarGrid stroke="#E2E8F0" />
+                <PolarGrid stroke="#D8DCE3" />
                 <PolarAngleAxis dataKey="subject" tick={{ fontSize: 8, fill: '#6B7280' }} />
                 <Radar dataKey="score" stroke={ACCENTS.navy} fill={ACCENTS.navy} fillOpacity={0.18} />
-                <Tooltip formatter={(v) => [`${v}/100`]} contentStyle={{ fontSize: 10, borderRadius: 8, border: '1px solid #E2E8F0' }} />
+                <Tooltip formatter={(v) => [`${v}/100`]} contentStyle={{ fontSize: 10, borderRadius: 8, border: '1px solid #D8DCE3' }} />
               </RadarChart>
             </ResponsiveContainer>
           </div>

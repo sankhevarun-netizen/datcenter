@@ -6,11 +6,11 @@ import CCLayout from '@/components/command-center/CCLayout';
 
 const REPORTS = [
   { id: 'executive', name: 'Executive Summary Report', description: 'Portfolio-wide health, incidents, KPI overview, and executive dashboard snapshot.', frequency: 'Daily', lastGenerated: '2026-05-18 06:00 UTC', color: '#00338D' },
-  { id: 'incident', name: 'Incident Analysis Report', description: 'Detailed incident breakdown with root causes, resolution metrics, and trend analysis.', frequency: 'Weekly', lastGenerated: '2026-05-15 06:00 UTC', color: '#DC2626' },
-  { id: 'capacity', name: 'Capacity Planning Report', description: 'Utilization trends, growth projections, capacity forecasts, and expansion recommendations.', frequency: 'Monthly', lastGenerated: '2026-05-01 06:00 UTC', color: '#0077C8' },
-  { id: 'sustainability', name: 'Sustainability & ESG Report', description: 'PUE trends, carbon emissions, renewable energy metrics, and ESG score breakdown.', frequency: 'Quarterly', lastGenerated: '2026-04-01 06:00 UTC', color: '#00A36C' },
+  { id: 'incident', name: 'Incident Analysis Report', description: 'Detailed incident breakdown with root causes, resolution metrics, and trend analysis.', frequency: 'Weekly', lastGenerated: '2026-05-15 06:00 UTC', color: '#C8102E' },
+  { id: 'capacity', name: 'Capacity Planning Report', description: 'Utilization trends, growth projections, capacity forecasts, and expansion recommendations.', frequency: 'Monthly', lastGenerated: '2026-05-01 06:00 UTC', color: '#005EB8' },
+  { id: 'sustainability', name: 'Sustainability & ESG Report', description: 'PUE trends, carbon emissions, renewable energy metrics, and ESG score breakdown.', frequency: 'Quarterly', lastGenerated: '2026-04-01 06:00 UTC', color: '#00B0A0' },
   { id: 'tenant', name: 'Tenant Operations Report', description: 'Tenant utilization, SLA compliance, revenue analysis, and upsell opportunity summary.', frequency: 'Monthly', lastGenerated: '2026-05-01 06:00 UTC', color: '#7C3AED' },
-  { id: 'maintenance', name: 'Maintenance & Asset Report', description: 'Maintenance schedule adherence, asset health scores, and predicted failure analysis.', frequency: 'Weekly', lastGenerated: '2026-05-15 06:00 UTC', color: '#D4A017' },
+  { id: 'maintenance', name: 'Maintenance & Asset Report', description: 'Maintenance schedule adherence, asset health scores, and predicted failure analysis.', frequency: 'Weekly', lastGenerated: '2026-05-15 06:00 UTC', color: '#E87722' },
 ];
 
 function generatePDF(report, showToast, { dateFrom, dateTo } = {}) {
@@ -181,7 +181,7 @@ function ReportCard({ report, showToast }) {
 
   return (
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-      className="bg-white rounded-2xl border border-[#E2E8F0] shadow-sm hover:shadow-md transition-all overflow-hidden">
+      className="bg-white rounded-2xl border border-[#D8DCE3] shadow-sm hover:shadow-md transition-all overflow-hidden">
       <div className="h-1 w-full" style={{ backgroundColor: report.color }} />
       <div className="p-5">
         <div className="flex items-start justify-between mb-3">
@@ -189,16 +189,16 @@ function ReportCard({ report, showToast }) {
             <FileText size={16} style={{ color: report.color }} />
           </div>
           <div className="flex gap-1.5">
-            <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-[#F4F6F9] text-[#6B7280]">PDF</span>
+            <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-[#F0F2F5] text-[#6B7280]">PDF</span>
             <span className="text-[9px] font-bold px-2 py-0.5 rounded-full" style={{ backgroundColor: report.color + '15', color: report.color }}>{report.frequency}</span>
           </div>
         </div>
-        <h3 className="text-sm font-bold text-[#1A1F36] mb-1" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{report.name}</h3>
+        <h3 className="text-sm font-bold text-[#1A1F36] mb-1" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>{report.name}</h3>
         <p className="text-xs text-[#6B7280] leading-relaxed mb-3">{report.description}</p>
         <p className="text-[10px] text-[#9CA3AF] mb-4">Last generated: {report.lastGenerated}</p>
         <button onClick={handleDownload} disabled={loading}
           className="w-full flex items-center justify-center gap-2 py-2 rounded-xl text-xs font-bold transition-colors text-white"
-          style={{ backgroundColor: done ? '#00A36C' : report.color }}>
+          style={{ backgroundColor: done ? '#00B0A0' : report.color }}>
           {loading ? <Loader2 size={12} className="animate-spin" /> : done ? '✓ Downloaded' : <><Download size={12} /> Download Latest</>}
         </button>
       </div>
@@ -227,15 +227,15 @@ function CustomReportModal({ onClose, showToast }) {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4" onClick={onClose}>
       <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }}
         className="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden" onClick={e => e.stopPropagation()}>
-        <div className="flex items-center justify-between px-5 py-4 border-b border-[#E2E8F0]">
-          <h3 className="text-sm font-bold text-[#1A1F36]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Generate Custom Report</h3>
+        <div className="flex items-center justify-between px-5 py-4 border-b border-[#D8DCE3]">
+          <h3 className="text-sm font-bold text-[#1A1F36]" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>Generate Custom Report</h3>
           <button onClick={onClose} className="text-[#9CA3AF] hover:text-[#1A1F36]"><X size={16} /></button>
         </div>
         <div className="p-5 space-y-4">
           <div>
             <label className="text-xs font-bold text-[#6B7280] block mb-1">Report Type</label>
             <select value={type} onChange={e => setType(e.target.value)}
-              className="w-full text-sm text-[#1A1F36] bg-[#F4F6F9] border border-[#E2E8F0] rounded-lg px-3 py-2 focus:outline-none focus:border-[#0077C8]/50">
+              className="w-full text-sm text-[#1A1F36] bg-[#F0F2F5] border border-[#D8DCE3] rounded-lg px-3 py-2 focus:outline-none focus:border-[#005EB8]/50">
               {REPORTS.map(r => <option key={r.id} value={r.id}>{r.name}</option>)}
             </select>
           </div>
@@ -243,17 +243,17 @@ function CustomReportModal({ onClose, showToast }) {
             <div>
               <label className="text-xs font-bold text-[#6B7280] block mb-1">From</label>
               <input type="date" value={dateFrom} onChange={e => setDateFrom(e.target.value)}
-                className="w-full text-sm text-[#1A1F36] bg-[#F4F6F9] border border-[#E2E8F0] rounded-lg px-3 py-2 focus:outline-none focus:border-[#0077C8]/50" />
+                className="w-full text-sm text-[#1A1F36] bg-[#F0F2F5] border border-[#D8DCE3] rounded-lg px-3 py-2 focus:outline-none focus:border-[#005EB8]/50" />
             </div>
             <div>
               <label className="text-xs font-bold text-[#6B7280] block mb-1">To</label>
               <input type="date" value={dateTo} onChange={e => setDateTo(e.target.value)}
-                className="w-full text-sm text-[#1A1F36] bg-[#F4F6F9] border border-[#E2E8F0] rounded-lg px-3 py-2 focus:outline-none focus:border-[#0077C8]/50" />
+                className="w-full text-sm text-[#1A1F36] bg-[#F0F2F5] border border-[#D8DCE3] rounded-lg px-3 py-2 focus:outline-none focus:border-[#005EB8]/50" />
             </div>
           </div>
           <button onClick={handleGenerate} disabled={loading || done}
             className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-bold text-white transition-colors"
-            style={{ backgroundColor: done ? '#00A36C' : '#00338D' }}>
+            style={{ backgroundColor: done ? '#00B0A0' : '#00338D' }}>
             {loading ? <Loader2 size={14} className="animate-spin" /> : done ? '✓ Generated & Downloaded' : <><Download size={14} /> Generate Report</>}
           </button>
         </div>
@@ -271,10 +271,10 @@ export default function ReportsPage() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <FileText size={16} className="text-[#00338D]" />
-              <h2 className="text-base font-bold text-[#1A1F36]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Available Reports</h2>
+              <h2 className="text-base font-bold text-[#1A1F36]" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>Available Reports</h2>
             </div>
             <button onClick={() => setShowCustom(true)}
-              className="flex items-center gap-2 px-4 py-2 bg-[#00338D] hover:bg-[#0044b8] text-white text-xs font-bold rounded-xl transition-colors">
+              className="flex items-center gap-2 px-4 py-2 bg-[#00338D] hover:bg-[#002A73] text-white text-xs font-bold rounded-xl transition-colors">
               <FileText size={12} /> Generate Custom Report
             </button>
           </div>

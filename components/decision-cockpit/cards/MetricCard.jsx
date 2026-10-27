@@ -37,7 +37,7 @@ export default function MetricCard({ title, shaped, reason, accent = 'accent', o
                   <Tooltip
                     formatter={(v) => [v, shaped.primary.label]}
                     labelFormatter={() => ''}
-                    contentStyle={{ fontSize: 10, borderRadius: 8, border: '1px solid #E2E8F0' }}
+                    contentStyle={{ fontSize: 10, borderRadius: 8, border: '1px solid #D8DCE3' }}
                   />
                 </LineChart>
               </ResponsiveContainer>

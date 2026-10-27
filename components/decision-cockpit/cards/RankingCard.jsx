@@ -2,7 +2,7 @@
 import { ListOrdered } from 'lucide-react';
 import Card, { ACCENTS } from './Card';
 
-const PIN_COLORS = ['#00338D', '#0077C8', '#00A36C'];
+const PIN_COLORS = ['#00338D', '#005EB8', '#00B0A0'];
 
 export default function RankingCard({ title, shaped, reason, accent = 'navy', onDoubleClick }) {
   if (!shaped?.items?.length) return null;
@@ -33,7 +33,7 @@ export default function RankingCard({ title, shaped, reason, accent = 'navy', on
         </div>
 
         {/* Abstract illustrative map — deterministic pin placement, not real geo-coordinates */}
-        <div className="relative flex-1 rounded-xl overflow-hidden mb-1.5" style={{ background: 'linear-gradient(135deg, #EFF6FF 0%, #F4F6F9 100%)', minHeight: 70 }}>
+        <div className="relative flex-1 rounded-xl overflow-hidden mb-1.5" style={{ background: 'linear-gradient(135deg, #EFF6FF 0%, #F0F2F5 100%)', minHeight: 70 }}>
           <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 100 70">
             <path d="M0,45 Q25,30 50,42 T100,38 L100,70 L0,70 Z" fill="#DCEBFF" opacity="0.6" />
           </svg>

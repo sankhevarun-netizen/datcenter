@@ -1,0 +1,101 @@
+[
+  {
+    "metric": "PUE",
+    "cohort": "India Tier III",
+    "p10": 1.34,
+    "p25": 1.48,
+    "p50_median": 1.61,
+    "p75": 1.75,
+    "p90": 1.92,
+    "direction": "Lower is better",
+    "basis": "Composite of published Indian operator disclosures and KPMG engagement data, 2024-2026"
+  },
+  {
+    "metric": "PUE",
+    "cohort": "India Tier IV",
+    "p10": 1.28,
+    "p25": 1.39,
+    "p50_median": 1.52,
+    "p75": 1.66,
+    "p90": 1.81,
+    "direction": "Lower is better",
+    "basis": "Composite of published Indian operator disclosures and KPMG engagement data, 2024-2026"
+  },
+  {
+    "metric": "WUE (L/kWh)",
+    "cohort": "India Tier III",
+    "p10": 0.62,
+    "p25": 1.1,
+    "p50_median": 1.74,
+    "p75": 2.28,
+    "p90": 2.9,
+    "direction": "Lower is better",
+    "basis": "Composite of published Indian operator disclosures and KPMG engagement data, 2024-2026"
+  },
+  {
+    "metric": "WUE (L/kWh)",
+    "cohort": "India Tier IV",
+    "p10": 0.38,
+    "p25": 0.81,
+    "p50_median": 1.35,
+    "p75": 1.92,
+    "p90": 2.44,
+    "direction": "Lower is better",
+    "basis": "Composite of published Indian operator disclosures and KPMG engagement data, 2024-2026"
+  },
+  {
+    "metric": "Renewable share (%)",
+    "cohort": "India all tiers",
+    "p10": 8,
+    "p25": 19,
+    "p50_median": 34,
+    "p75": 56,
+    "p90": 78,
+    "direction": "Higher is better",
+    "basis": "Composite of published Indian operator disclosures and KPMG engagement data, 2024-2026"
+  },
+  {
+    "metric": "MTTR (minutes)",
+    "cohort": "India all tiers",
+    "p10": 48,
+    "p25": 96,
+    "p50_median": 164,
+    "p75": 248,
+    "p90": 372,
+    "direction": "Lower is better",
+    "basis": "Composite of published Indian operator disclosures and KPMG engagement data, 2024-2026"
+  },
+  {
+    "metric": "Rack density (kW)",
+    "cohort": "India all tiers",
+    "p10": 4.2,
+    "p25": 8.1,
+    "p50_median": 14.6,
+    "p75": 28,
+    "p90": 54,
+    "direction": "Context only",
+    "basis": "Composite of published Indian operator disclosures and KPMG engagement data, 2024-2026"
+  },
+  {
+    "metric": "Utilisation (%)",
+    "cohort": "India all tiers",
+    "p10": 41,
+    "p25": 56,
+    "p50_median": 68,
+    "p75": 79,
+    "p90": 91,
+    "direction": "Higher is better",
+    "basis": "Composite of published Indian operator disclosures and KPMG engagement data, 2024-2026"
+  },
+  {
+    "metric": "Stranded capacity (%)",
+    "cohort": "India all tiers",
+    "p10": 2.1,
+    "p25": 5.4,
+    "p50_median": 9.8,
+    "p75": 15.2,
+    "p90": 22.6,
+    "direction": "Lower is better",
+    "basis": "Composite of published Indian operator disclosures and KPMG engagement data, 2024-2026"
+  }
+]

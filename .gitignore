@@ -7,3 +7,6 @@ build/
 *.log
 .DS_Store
 .vercel
+
+# Knowledge graph content lives outside the repository (WIKI_PATH, default ~/.k-nexus/wiki)
+/wiki/

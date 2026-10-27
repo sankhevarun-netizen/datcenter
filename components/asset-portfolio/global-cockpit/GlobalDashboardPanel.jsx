@@ -8,13 +8,13 @@ import {
 import { GOOGLE_DC_MASTER, DC_STATS } from '@/data/googleDCMasterData';
 
 const C = {
-  bg:     '#F4F6F9',
+  bg:     '#F0F2F5',
   card:   '#FFFFFF',
-  border: '#E2E8F0',
-  blue:   '#0077C8',
-  green:  '#00A36C',
-  amber:  '#D4A017',
-  red:    '#DC2626',
+  border: '#D8DCE3',
+  blue:   '#005EB8',
+  green:  '#00B0A0',
+  amber:  '#E87722',
+  red:    '#C8102E',
   cyan:   '#06B6D4',
   purple: '#7C3AED',
   text:   '#1A1F36',
@@ -22,7 +22,7 @@ const C = {
   label:  '#4B5563',
 };
 
-const REGION_COLORS = { 'North America': '#0077C8', Europe: '#00A36C', Asia: '#D4A017', 'South America': '#7C3AED' };
+const REGION_COLORS = { 'North America': '#005EB8', Europe: '#00B0A0', Asia: '#E87722', 'South America': '#7C3AED' };
 
 function KPIModal({ label, value, sub, color, elaboration, impact, onClose }) {
   return createPortal(
@@ -41,7 +41,7 @@ function KPIModal({ label, value, sub, color, elaboration, impact, onClose }) {
         {value != null && <p style={{ fontSize: 52, fontWeight: 800, color, fontFamily: "'JetBrains Mono', monospace", lineHeight: 1, margin: '0 0 6px' }}>{value}</p>}
         {sub && <p style={{ fontSize: 12, color: '#9CA3AF', margin: 0 }}>{sub}</p>}
 
-        <div style={{ borderTop: '1px solid #E2E8F0', margin: '28px 0' }} />
+        <div style={{ borderTop: '1px solid #D8DCE3', margin: '28px 0' }} />
 
         {/* AI Intelligence */}
         <div style={{ marginBottom: 24 }}>
@@ -86,7 +86,7 @@ function calcTooltipPos(rect, tooltipW = 280) {
 
 const TOOLTIP_STYLE = {
   position: 'fixed', zIndex: 9990, width: 270,
-  background: '#1A1F36', color: '#fff',
+  background: '#00338D', color: '#fff',
   borderRadius: 10, padding: '12px 14px',
   boxShadow: '0 8px 24px rgba(0,0,0,0.3)',
   border: '1px solid rgba(255,255,255,0.12)',
@@ -239,7 +239,7 @@ export default function GlobalDashboardPanel({ activeRegion, dataSource = 'Googl
     return Object.entries(map).map(([name, value]) => ({ name, value }));
   }, [dcs]);
 
-  const tierColors = ['#0077C8', '#00A36C', '#D4A017', '#7C3AED'];
+  const tierColors = ['#005EB8', '#00B0A0', '#E87722', '#7C3AED'];
 
   const topRisk = useMemo(() => dcs.filter(d => d.risk_flag !== 'Low').sort((a, b) => {
     const order = { High: 0, Medium: 1 };
@@ -269,7 +269,7 @@ export default function GlobalDashboardPanel({ activeRegion, dataSource = 'Googl
             </div>
           )}
           <div>
-            <p style={{ fontSize: 13, fontWeight: 700, color: C.text, fontFamily: "'Plus Jakarta Sans', sans-serif", margin: 0 }}>
+            <p style={{ fontSize: 13, fontWeight: 700, color: C.text, fontFamily: "'Inter', 'Segoe UI', sans-serif", margin: 0 }}>
               {dataSource} Data Center Infrastructure
             </p>
             <p style={{ fontSize: 10, color: C.muted, margin: '2px 0 0' }}>

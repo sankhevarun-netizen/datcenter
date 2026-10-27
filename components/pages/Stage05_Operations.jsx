@@ -81,20 +81,20 @@ function OperationCards() {
 
   return (
     <div className="space-y-4 mb-6">
-      <div className="bg-gradient-to-r from-[#00338D] to-[#0077C8] rounded-2xl p-5 flex items-center justify-between">
+      <div className="bg-gradient-to-r from-[#00338D] to-[#005EB8] rounded-2xl p-5 flex items-center justify-between">
         <div className="flex items-center gap-4">
           <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center">
             <LayoutDashboard size={20} className="text-white" />
           </div>
           <div>
-            <p className="text-white font-bold text-sm" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Global Command Center</p>
+            <p className="text-white font-bold text-sm" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>Global Command Center</p>
             <p className="text-white/60 text-xs">Real-time NOC dashboard — incidents, capacity, AI insights</p>
           </div>
         </div>
         <Link
           href="/command-center"
           className="flex items-center gap-2 px-4 py-2 bg-white text-[#00338D] font-bold text-sm rounded-xl hover:bg-white/90 transition-colors shadow-sm flex-shrink-0"
-          style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+          style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}
         >
           Launch Command Center <ArrowRight size={14} />
         </Link>
@@ -104,7 +104,7 @@ function OperationCards() {
         {cards.map(card => {
           const Icon = card.icon;
           return (
-            <div key={card.id} className="bg-white rounded-2xl border border-[#E2E8F0] shadow-sm hover:border-[#CBD5E1] hover:shadow-md transition-all">
+            <div key={card.id} className="bg-white rounded-2xl border border-[#D8DCE3] shadow-sm hover:border-[#CBD5E1] hover:shadow-md transition-all">
               <div className="p-5">
                 <div className="flex items-start justify-between mb-4">
                   <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ backgroundColor: card.color + '15' }}>
@@ -112,10 +112,10 @@ function OperationCards() {
                   </div>
                   <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#00338D]/10 text-[#00338D]">{card.tag}</span>
                 </div>
-                <h3 className="font-bold text-[#1A1F36] text-sm mb-2" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{card.label}</h3>
+                <h3 className="font-bold text-[#1A1F36] text-sm mb-2" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>{card.label}</h3>
                 <p className="text-[#6B7280] text-xs leading-relaxed mb-4">{card.description}</p>
                 {card.href ? (
-                  <a href={card.href} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-xs font-bold text-[#00338D] hover:text-[#0044b8] transition-colors">
+                  <a href={card.href} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-xs font-bold text-[#00338D] hover:text-[#002A73] transition-colors">
                     {card.actionLabel} <ArrowRight size={12} />
                   </a>
                 ) : (

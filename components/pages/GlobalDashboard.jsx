@@ -66,7 +66,7 @@ function CountUpNumber({ target, duration = 2000, suffix = '', prefix = '', deci
   );
 }
 
-function StatCard({ icon: Icon, label, value, suffix = '', prefix = '', decimals = 0, color = '#0077C8', sublabel = null, trendValue = null, index = 0 }) {
+function StatCard({ icon: Icon, label, value, suffix = '', prefix = '', decimals = 0, color = '#005EB8', sublabel = null, trendValue = null, index = 0 }) {
   return (
     <motion.div
       initial={{ y: 16, opacity: 0 }}
@@ -99,7 +99,7 @@ function StatCard({ icon: Icon, label, value, suffix = '', prefix = '', decimals
       </div>
       {trendValue !== null && (
         <div className="ml-auto text-right flex-shrink-0">
-          <span className={`text-[10px] font-bold ${trendValue >= 0 ? 'text-[#00A36C]' : 'text-red-400'}`}>
+          <span className={`text-[10px] font-bold ${trendValue >= 0 ? 'text-[#00B0A0]' : 'text-red-400'}`}>
             {trendValue >= 0 ? '↑' : '↓'}{Math.abs(trendValue)}%
           </span>
           <div className="text-white/20 text-[8px] mt-0.5">YoY</div>
@@ -111,8 +111,8 @@ function StatCard({ icon: Icon, label, value, suffix = '', prefix = '', decimals
 
 function LiveBadge() {
   return (
-    <span className="inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-full bg-[#00A36C]/15 text-[#00A36C] border border-[#00A36C]/25 font-semibold">
-      <span className="w-1.5 h-1.5 rounded-full bg-[#00A36C] animate-pulse inline-block" />LIVE DATA
+    <span className="inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-full bg-[#00B0A0]/15 text-[#00B0A0] border border-[#00B0A0]/25 font-semibold">
+      <span className="w-1.5 h-1.5 rounded-full bg-[#00B0A0] animate-pulse inline-block" />LIVE DATA
     </span>
   );
 }
@@ -123,19 +123,19 @@ function DCListItem({ dc, selected, onClick }) {
       onClick={onClick}
       className={`w-full text-left px-4 py-3 border-b border-white/[0.04] transition-all relative ${
         selected
-          ? 'bg-[#0077C8]/12 border-l-2 border-l-[#0077C8]'
+          ? 'bg-[#005EB8]/12 border-l-2 border-l-[#005EB8]'
           : 'hover:bg-white/[0.04] border-l-2 border-l-transparent'
       }`}
     >
       <div className="flex items-start justify-between gap-2">
         <div className="min-w-0 flex-1">
-          <div className="text-white/85 text-xs font-semibold truncate leading-tight" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+          <div className="text-white/85 text-xs font-semibold truncate leading-tight" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
             {dc.name}
           </div>
           <div className="text-white/35 text-[10px] mt-0.5 truncate">{dc.city} · {dc.country}</div>
         </div>
         <div className="flex-shrink-0 text-right">
-          <div className="text-[#0077C8] text-xs font-mono font-bold">{dc.capacity_mw}MW</div>
+          <div className="text-[#005EB8] text-xs font-mono font-bold">{dc.capacity_mw}MW</div>
           <div className="text-white/30 text-[9px] mt-0.5">{dc.tier_rating}</div>
         </div>
       </div>
@@ -146,7 +146,7 @@ function DCListItem({ dc, selected, onClick }) {
               className="h-full rounded-full"
               style={{
                 width: `${dc.renewable_energy_pct}%`,
-                background: 'linear-gradient(90deg, rgba(0,163,108,0.5), #00A36C)',
+                background: 'linear-gradient(90deg, rgba(0,163,108,0.5), #00B0A0)',
               }}
             />
           </div>
@@ -263,7 +263,7 @@ export default function GlobalDashboard() {
     return (
       <div className="min-h-screen bg-[#060E1F] flex items-center justify-center pt-16">
         <div className="text-center">
-          <LoadingDots color="#0077C8" size={12} />
+          <LoadingDots color="#005EB8" size={12} />
           <p className="text-white/40 text-sm mt-4">Loading global datacenter intelligence...</p>
         </div>
       </div>
@@ -296,8 +296,8 @@ export default function GlobalDashboard() {
             </Link>
             <div className="w-px h-3.5 bg-white/10" />
             <div className="flex items-center gap-2">
-              <Globe size={16} className="text-[#0077C8]" />
-              <h1 className="text-white font-bold text-base" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+              <Globe size={16} className="text-[#005EB8]" />
+              <h1 className="text-white font-bold text-base" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
                 Global Datacenter Dashboard
               </h1>
             </div>
@@ -305,12 +305,12 @@ export default function GlobalDashboard() {
           </div>
 
           <div className="grid grid-cols-3 md:grid-cols-6 gap-2.5">
-            <StatCard index={0} icon={Server}    label="Curated Facilities"  value={displayStats.curatedFacilities}    color="#0077C8" sublabel="KPMG monitored"   trendValue={8} />
+            <StatCard index={0} icon={Server}    label="Curated Facilities"  value={displayStats.curatedFacilities}    color="#005EB8" sublabel="KPMG monitored"   trendValue={8} />
             <StatCard index={1} icon={Building2} label="Global Coverage"     value={displayStats.globalFacilities}     color="#0055A4" sublabel="PeeringDB network" />
-            <StatCard index={2} icon={Globe}     label="Markets Covered"     value={displayStats.globalMarkets || 25}  color="#00A36C" sublabel="Active regions"    trendValue={4} />
-            <StatCard index={3} icon={Network}   label="Internet Exchanges"  value={displayStats.globalExchanges}      color="#D4A017" sublabel="Global IX points"  />
-            <StatCard index={4} icon={Activity}  label="Average PUE"         value={displayStats.avgPUE} decimals={2}  color="#0077C8" sublabel="Curated portfolio" />
-            <StatCard index={5} icon={Leaf}      label="Avg Renewable"       value={displayStats.avgRenewable} suffix="%" color="#00A36C" sublabel="Curated portfolio" trendValue={2} />
+            <StatCard index={2} icon={Globe}     label="Markets Covered"     value={displayStats.globalMarkets || 25}  color="#00B0A0" sublabel="Active regions"    trendValue={4} />
+            <StatCard index={3} icon={Network}   label="Internet Exchanges"  value={displayStats.globalExchanges}      color="#E87722" sublabel="Global IX points"  />
+            <StatCard index={4} icon={Activity}  label="Average PUE"         value={displayStats.avgPUE} decimals={2}  color="#005EB8" sublabel="Curated portfolio" />
+            <StatCard index={5} icon={Leaf}      label="Avg Renewable"       value={displayStats.avgRenewable} suffix="%" color="#00B0A0" sublabel="Curated portfolio" trendValue={2} />
           </div>
         </div>
       </div>
@@ -360,7 +360,7 @@ export default function GlobalDashboard() {
                     onClick={() => { setSelectedCountry(c); setSelectedDatacenter(null); setSelectedPeeringFacility(null); }}
                     className="px-2 py-0.5 rounded-full text-[10px] font-semibold transition-all whitespace-nowrap"
                     style={isSelected
-                      ? { background: '#0077C8', color: '#fff', boxShadow: '0 0 12px rgba(0,119,200,0.4)' }
+                      ? { background: '#005EB8', color: '#fff', boxShadow: '0 0 12px rgba(0,119,200,0.4)' }
                       : hasLocal
                       ? { background: 'rgba(255,255,255,0.06)', color: 'rgba(255,255,255,0.60)', border: '1px solid rgba(255,255,255,0.09)' }
                       : { background: 'rgba(255,255,255,0.025)', color: 'rgba(255,255,255,0.25)', border: '1px solid rgba(255,255,255,0.05)' }
@@ -413,7 +413,7 @@ export default function GlobalDashboard() {
               className="flex items-center gap-2 rounded-xl px-3.5 py-2"
               style={{ background: 'rgba(10,22,40,0.80)', backdropFilter: 'blur(12px)', border: '1px solid rgba(255,255,255,0.07)' }}
             >
-              <div className="w-2 h-2 rounded-full bg-[#00A36C] animate-pulse" />
+              <div className="w-2 h-2 rounded-full bg-[#00B0A0] animate-pulse" />
               <span className="text-white/75 text-xs font-semibold">
                 {filteredDCs.length} curated
                 {peeringFacilities.length > 0 && (
@@ -458,7 +458,7 @@ export default function GlobalDashboard() {
                       <ArrowLeft size={16} />
                     </button>
                     <div>
-                      <div className="text-white font-bold text-sm" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+                      <div className="text-white font-bold text-sm" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
                         AI Facility Analysis
                       </div>
                       <div className="text-white/40 text-xs">{selectedDatacenter.name}</div>

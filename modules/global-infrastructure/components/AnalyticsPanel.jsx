@@ -10,14 +10,14 @@ import {
   rankFacilities,
 } from '../utils/portfolioAnalytics';
 
-const REGION_COLORS = { Americas: '#0077C8', EMEA: '#00338D', APAC: '#00A36C', MiddleEast: '#D4A017' };
+const REGION_COLORS = { Americas: '#005EB8', EMEA: '#00338D', APAC: '#00B0A0', MiddleEast: '#E87722' };
 
 export default function AnalyticsPanel({ facilities = [], regionRollups = [], loading = true, onHoverFacility }) {
   if (loading || facilities.length === 0) {
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
         {Array.from({ length: 10 }).map((_, i) => (
-          <div key={i} className="bg-white rounded-2xl border border-[#E2E8F0] shadow-sm p-4 h-48">
+          <div key={i} className="bg-white rounded-2xl border border-[#D8DCE3] shadow-sm p-4 h-48">
             <SkeletonBlock height="h-3" width="w-24" className="mb-4" />
             <SkeletonBlock height="h-32" width="w-full" />
           </div>
@@ -68,7 +68,7 @@ export default function AnalyticsPanel({ facilities = [], regionRollups = [], lo
             <BarChart data={capacityByRegion} margin={{ top: 0, right: 0, bottom: 0, left: -20 }}>
               <XAxis dataKey="name" tick={{ fontSize: 9, fill: '#9CA3AF' }} axisLine={false} tickLine={false} />
               <YAxis tick={{ fontSize: 9, fill: '#9CA3AF' }} axisLine={false} tickLine={false} />
-              <Bar dataKey="value" fill="#0077C8" radius={[3, 3, 0, 0]} />
+              <Bar dataKey="value" fill="#005EB8" radius={[3, 3, 0, 0]} />
               <Tooltip content={<CustomTooltip suffix=" MW" />} />
             </BarChart>
           </ResponsiveContainer>
@@ -90,7 +90,7 @@ export default function AnalyticsPanel({ facilities = [], regionRollups = [], lo
             <BarChart data={utilizationByRegion} margin={{ top: 0, right: 0, bottom: 0, left: -20 }}>
               <XAxis dataKey="name" tick={{ fontSize: 9, fill: '#9CA3AF' }} axisLine={false} tickLine={false} />
               <YAxis tick={{ fontSize: 9, fill: '#9CA3AF' }} axisLine={false} tickLine={false} domain={[0, 100]} />
-              <Bar dataKey="value" fill="#0077C8" radius={[3, 3, 0, 0]} />
+              <Bar dataKey="value" fill="#005EB8" radius={[3, 3, 0, 0]} />
               <Tooltip content={<CustomTooltip suffix="%" />} />
             </BarChart>
           </ResponsiveContainer>

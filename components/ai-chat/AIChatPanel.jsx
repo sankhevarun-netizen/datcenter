@@ -70,10 +70,10 @@ Please respond as the KPMG Datacenter Intelligence Engine. Be specific, data-dri
   ];
 
   return (
-    <div className={`flex flex-col border border-[#E2E8F0] rounded-2xl overflow-hidden bg-white shadow-[0_1px_3px_rgba(0,0,0,0.08)] ${className}`}>
+    <div className={`flex flex-col border border-[#D8DCE3] rounded-2xl overflow-hidden bg-white shadow-[0_1px_3px_rgba(0,0,0,0.08)] ${className}`}>
       {/* Header */}
       <div
-        className="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-[#00338D] to-[#0077C8] cursor-pointer"
+        className="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-[#00338D] to-[#005EB8] cursor-pointer"
         onClick={() => setMinimized(!minimized)}
       >
         <div className="flex items-center gap-2.5">
@@ -81,7 +81,7 @@ Please respond as the KPMG Datacenter Intelligence Engine. Be specific, data-dri
             <Bot size={16} className="text-white" />
           </div>
           <div>
-            <div className="text-white font-bold text-sm" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{title}</div>
+            <div className="text-white font-bold text-sm" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>{title}</div>
             <div className="text-white/60 text-xs">KPMG Datacenter Intelligence Engine</div>
           </div>
         </div>
@@ -114,7 +114,7 @@ Please respond as the KPMG Datacenter Intelligence Engine. Be specific, data-dri
                       <button
                         key={i}
                         onClick={() => sendMessage(s)}
-                        className="text-xs px-3 py-1.5 bg-[#F4F6F9] hover:bg-[#E2E8F0] text-[#1A1F36] rounded-full border border-[#E2E8F0] transition-colors font-medium"
+                        className="text-xs px-3 py-1.5 bg-[#F0F2F5] hover:bg-[#D8DCE3] text-[#1A1F36] rounded-full border border-[#D8DCE3] transition-colors font-medium"
                       >
                         {s}
                       </button>
@@ -141,7 +141,7 @@ Please respond as the KPMG Datacenter Intelligence Engine. Be specific, data-dri
                       ? 'bg-[#00338D] text-white rounded-br-sm'
                       : msg.isError
                       ? 'bg-red-50 text-red-700 border border-red-200 rounded-bl-sm'
-                      : 'bg-[#F4F6F9] text-[#1A1F36] rounded-bl-sm'
+                      : 'bg-[#F0F2F5] text-[#1A1F36] rounded-bl-sm'
                   }`}>
                     {msg.role === 'ai'
                       ? <div className="ai-output text-xs leading-relaxed" dangerouslySetInnerHTML={{ __html: parseMarkdown(msg.content) }} />
@@ -161,7 +161,7 @@ Please respond as the KPMG Datacenter Intelligence Engine. Be specific, data-dri
                   <div className="w-6 h-6 rounded-full bg-[#00338D] flex items-center justify-center flex-shrink-0">
                     <Bot size={12} className="text-white" />
                   </div>
-                  <div className="bg-[#F4F6F9] rounded-2xl rounded-bl-sm px-4 py-3">
+                  <div className="bg-[#F0F2F5] rounded-2xl rounded-bl-sm px-4 py-3">
                     <LoadingDots />
                   </div>
                 </motion.div>
@@ -170,8 +170,8 @@ Please respond as the KPMG Datacenter Intelligence Engine. Be specific, data-dri
             </div>
 
             {/* Input */}
-            <div className="border-t border-[#E2E8F0] p-3">
-              <div className="flex items-end gap-2 bg-[#F4F6F9] rounded-xl border border-[#E2E8F0] focus-within:border-[#0077C8]/50 focus-within:bg-white transition-all px-3 py-2">
+            <div className="border-t border-[#D8DCE3] p-3">
+              <div className="flex items-end gap-2 bg-[#F0F2F5] rounded-xl border border-[#D8DCE3] focus-within:border-[#005EB8]/50 focus-within:bg-white transition-all px-3 py-2">
                 <textarea
                   value={input}
                   onChange={e => setInput(e.target.value)}
@@ -184,7 +184,7 @@ Please respond as the KPMG Datacenter Intelligence Engine. Be specific, data-dri
                 <button
                   onClick={() => sendMessage()}
                   disabled={!input.trim() || loading}
-                  className="w-7 h-7 rounded-lg bg-[#00338D] text-white flex items-center justify-center hover:bg-[#0044b8] disabled:opacity-40 disabled:cursor-not-allowed transition-colors flex-shrink-0"
+                  className="w-7 h-7 rounded-lg bg-[#00338D] text-white flex items-center justify-center hover:bg-[#002A73] disabled:opacity-40 disabled:cursor-not-allowed transition-colors flex-shrink-0"
                 >
                   <Send size={13} />
                 </button>
@@ -194,7 +194,7 @@ Please respond as the KPMG Datacenter Intelligence Engine. Be specific, data-dri
                 <div className="flex flex-wrap gap-1.5 mt-2 justify-center">
                   {suggestionChips.map((chip, i) => (
                     <button key={i} onClick={() => sendMessage(chip)}
-                      className="text-xs px-2.5 py-1 bg-[#00338D]/10 hover:bg-[#00338D]/20 text-[#0077C8] rounded-full border border-[#0077C8]/25 transition-colors">
+                      className="text-xs px-2.5 py-1 bg-[#00338D]/10 hover:bg-[#00338D]/20 text-[#005EB8] rounded-full border border-[#005EB8]/25 transition-colors">
                       {chip}
                     </button>
                   ))}

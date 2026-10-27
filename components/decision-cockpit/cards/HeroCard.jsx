@@ -21,7 +21,7 @@ export default function HeroCard({ data, reason, moduleCount, dataSourcesAnalyze
           </div>
           <div>
             <p className="text-[10px] font-bold uppercase tracking-widest text-text-muted">Final Recommendation</p>
-            <p className="text-lg font-extrabold text-text-primary leading-tight" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+            <p className="text-lg font-extrabold text-text-primary leading-tight" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
               {data.headline}
             </p>
           </div>

@@ -1,0 +1,1102 @@
+[
+  {
+    "source_component_id": "UTIL-FEED-A",
+    "target_component_id": "TX-1",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "UTIL-FEED-B",
+    "target_component_id": "TX-2",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "TX-1",
+    "target_component_id": "SWGR-A",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "TX-2",
+    "target_component_id": "SWGR-B",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "GEN-1",
+    "target_component_id": "SWGR-A",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "GEN-2",
+    "target_component_id": "SWGR-B",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "SWGR-A",
+    "target_component_id": "UPS-1",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "SWGR-B",
+    "target_component_id": "UPS-2",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "SWGR-A",
+    "target_component_id": "UPS-3",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "SWGR-B",
+    "target_component_id": "UPS-4",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "SWGR-A",
+    "target_component_id": "UPS-5",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "SWGR-B",
+    "target_component_id": "UPS-6",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "UPS-1",
+    "target_component_id": "RPP-1",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "UPS-2",
+    "target_component_id": "RPP-1",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "RPP-1",
+    "target_component_id": "BUSWAY-B1",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "BUSWAY-B1",
+    "target_component_id": "PDU-A1",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "BUSWAY-B1",
+    "target_component_id": "PDU-A2",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "BUSWAY-B1",
+    "target_component_id": "PDU-B1",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "BUSWAY-B1",
+    "target_component_id": "PDU-B2",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "BUSWAY-B1",
+    "target_component_id": "PDU-C1",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "BUSWAY-B1",
+    "target_component_id": "PDU-C2",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "BUSWAY-B1",
+    "target_component_id": "PDU-D1",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "BUSWAY-B1",
+    "target_component_id": "PDU-D2",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "BUSWAY-B1",
+    "target_component_id": "PDU-E1",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "BUSWAY-B1",
+    "target_component_id": "PDU-E2",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "BUSWAY-B1",
+    "target_component_id": "PDU-F1",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "BUSWAY-B1",
+    "target_component_id": "PDU-F2",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "UPS-1",
+    "target_component_id": "RPP-2",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "UPS-2",
+    "target_component_id": "RPP-2",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "RPP-2",
+    "target_component_id": "BUSWAY-B2",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "BUSWAY-B2",
+    "target_component_id": "PDU-G1",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "BUSWAY-B2",
+    "target_component_id": "PDU-G2",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "BUSWAY-B2",
+    "target_component_id": "PDU-H1",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "BUSWAY-B2",
+    "target_component_id": "PDU-H2",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "BUSWAY-B2",
+    "target_component_id": "PDU-I1",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "BUSWAY-B2",
+    "target_component_id": "PDU-I2",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "BUSWAY-B2",
+    "target_component_id": "PDU-J1",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "BUSWAY-B2",
+    "target_component_id": "PDU-J2",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "BUSWAY-B2",
+    "target_component_id": "PDU-K1",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "BUSWAY-B2",
+    "target_component_id": "PDU-K2",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "BUSWAY-B2",
+    "target_component_id": "PDU-L1",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "BUSWAY-B2",
+    "target_component_id": "PDU-L2",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "UPS-3",
+    "target_component_id": "RPP-3",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "UPS-4",
+    "target_component_id": "RPP-3",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "RPP-3",
+    "target_component_id": "BUSWAY-B3",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "BUSWAY-B3",
+    "target_component_id": "PDU-M1",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "BUSWAY-B3",
+    "target_component_id": "PDU-M2",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "BUSWAY-B3",
+    "target_component_id": "PDU-N1",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "BUSWAY-B3",
+    "target_component_id": "PDU-N2",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "BUSWAY-B3",
+    "target_component_id": "PDU-O1",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "BUSWAY-B3",
+    "target_component_id": "PDU-O2",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "BUSWAY-B3",
+    "target_component_id": "PDU-P1",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "BUSWAY-B3",
+    "target_component_id": "PDU-P2",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "BUSWAY-B3",
+    "target_component_id": "PDU-Q1",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "BUSWAY-B3",
+    "target_component_id": "PDU-Q2",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "BUSWAY-B3",
+    "target_component_id": "PDU-R1",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "BUSWAY-B3",
+    "target_component_id": "PDU-R2",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "UPS-5",
+    "target_component_id": "RPP-4",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "UPS-6",
+    "target_component_id": "RPP-4",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "RPP-4",
+    "target_component_id": "BUSWAY-B4",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "BUSWAY-B4",
+    "target_component_id": "PDU-S1",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "BUSWAY-B4",
+    "target_component_id": "PDU-S2",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "BUSWAY-B4",
+    "target_component_id": "PDU-T1",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "BUSWAY-B4",
+    "target_component_id": "PDU-T2",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "BUSWAY-B4",
+    "target_component_id": "PDU-U1",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "BUSWAY-B4",
+    "target_component_id": "PDU-U2",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "BUSWAY-B4",
+    "target_component_id": "PDU-V1",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "BUSWAY-B4",
+    "target_component_id": "PDU-V2",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "BUSWAY-B4",
+    "target_component_id": "PDU-W1",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "BUSWAY-B4",
+    "target_component_id": "PDU-W2",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "BUSWAY-B4",
+    "target_component_id": "PDU-X1",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "BUSWAY-B4",
+    "target_component_id": "PDU-X2",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "CT-1",
+    "target_component_id": "CHILLER-1",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CT-2",
+    "target_component_id": "CHILLER-2",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHILLER-1",
+    "target_component_id": "CHW-LOOP-1",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHILLER-2",
+    "target_component_id": "CHW-LOOP-2",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHW-LOOP-1",
+    "target_component_id": "CRAH-A-01",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHW-LOOP-1",
+    "target_component_id": "CRAH-A-02",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHW-LOOP-1",
+    "target_component_id": "CRAH-B-01",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHW-LOOP-1",
+    "target_component_id": "CRAH-B-02",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHW-LOOP-1",
+    "target_component_id": "CRAH-C-01",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHW-LOOP-1",
+    "target_component_id": "CRAH-C-02",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHW-LOOP-1",
+    "target_component_id": "CRAH-D-01",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHW-LOOP-1",
+    "target_component_id": "CRAH-D-02",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHW-LOOP-1",
+    "target_component_id": "CRAH-E-01",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHW-LOOP-1",
+    "target_component_id": "CRAH-E-02",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHW-LOOP-1",
+    "target_component_id": "CRAH-F-01",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHW-LOOP-1",
+    "target_component_id": "CRAH-F-02",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHW-LOOP-1",
+    "target_component_id": "CRAH-G-01",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHW-LOOP-1",
+    "target_component_id": "CRAH-G-02",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHW-LOOP-1",
+    "target_component_id": "CRAH-H-01",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHW-LOOP-1",
+    "target_component_id": "CRAH-H-02",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHW-LOOP-1",
+    "target_component_id": "CRAH-I-01",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHW-LOOP-1",
+    "target_component_id": "CRAH-I-02",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHW-LOOP-1",
+    "target_component_id": "CRAH-J-01",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHW-LOOP-1",
+    "target_component_id": "CRAH-J-02",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHW-LOOP-1",
+    "target_component_id": "CRAH-K-01",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHW-LOOP-1",
+    "target_component_id": "CRAH-K-02",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHW-LOOP-1",
+    "target_component_id": "CRAH-L-01",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHW-LOOP-1",
+    "target_component_id": "CRAH-L-02",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHW-LOOP-2",
+    "target_component_id": "CRAH-M-01",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHW-LOOP-2",
+    "target_component_id": "CRAH-M-02",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHW-LOOP-2",
+    "target_component_id": "CRAH-N-01",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHW-LOOP-2",
+    "target_component_id": "CRAH-N-02",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHW-LOOP-2",
+    "target_component_id": "CRAH-O-01",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHW-LOOP-2",
+    "target_component_id": "CRAH-O-02",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHW-LOOP-2",
+    "target_component_id": "CRAH-P-01",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHW-LOOP-2",
+    "target_component_id": "CRAH-P-02",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHW-LOOP-2",
+    "target_component_id": "CRAH-Q-01",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHW-LOOP-2",
+    "target_component_id": "CRAH-Q-02",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHW-LOOP-2",
+    "target_component_id": "CRAH-R-01",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHW-LOOP-2",
+    "target_component_id": "CRAH-R-02",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHW-LOOP-2",
+    "target_component_id": "CRAH-S-01",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHW-LOOP-2",
+    "target_component_id": "CRAH-S-02",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHW-LOOP-2",
+    "target_component_id": "CRAH-T-01",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHW-LOOP-2",
+    "target_component_id": "CRAH-T-02",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHW-LOOP-2",
+    "target_component_id": "CRAH-U-01",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHW-LOOP-2",
+    "target_component_id": "CRAH-U-02",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHW-LOOP-2",
+    "target_component_id": "CRAH-V-01",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHW-LOOP-2",
+    "target_component_id": "CRAH-V-02",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHW-LOOP-2",
+    "target_component_id": "CRAH-W-01",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHW-LOOP-2",
+    "target_component_id": "CRAH-W-02",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHW-LOOP-2",
+    "target_component_id": "CRAH-X-01",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "CHW-LOOP-2",
+    "target_component_id": "CRAH-X-02",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "PDU-A1",
+    "target_component_id": "ROW-A",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "PDU-A2",
+    "target_component_id": "ROW-A",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "ROW-A",
+    "target_component_id": "CRAH-A-01",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "ROW-A",
+    "target_component_id": "CRAH-A-02",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "PDU-B1",
+    "target_component_id": "ROW-B",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "PDU-B2",
+    "target_component_id": "ROW-B",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "ROW-B",
+    "target_component_id": "CRAH-B-01",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "ROW-B",
+    "target_component_id": "CRAH-B-02",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "PDU-C1",
+    "target_component_id": "ROW-C",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "PDU-C2",
+    "target_component_id": "ROW-C",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "ROW-C",
+    "target_component_id": "CRAH-C-01",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "ROW-C",
+    "target_component_id": "CRAH-C-02",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "PDU-D1",
+    "target_component_id": "ROW-D",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "PDU-D2",
+    "target_component_id": "ROW-D",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "ROW-D",
+    "target_component_id": "CRAH-D-01",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "ROW-D",
+    "target_component_id": "CRAH-D-02",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "PDU-E1",
+    "target_component_id": "ROW-E",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "PDU-E2",
+    "target_component_id": "ROW-E",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "ROW-E",
+    "target_component_id": "CRAH-E-01",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "ROW-E",
+    "target_component_id": "CRAH-E-02",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "PDU-F1",
+    "target_component_id": "ROW-F",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "PDU-F2",
+    "target_component_id": "ROW-F",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "ROW-F",
+    "target_component_id": "CRAH-F-01",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "ROW-F",
+    "target_component_id": "CRAH-F-02",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "PDU-G1",
+    "target_component_id": "ROW-G",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "PDU-G2",
+    "target_component_id": "ROW-G",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "ROW-G",
+    "target_component_id": "CRAH-G-01",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "ROW-G",
+    "target_component_id": "CRAH-G-02",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "PDU-H1",
+    "target_component_id": "ROW-H",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "PDU-H2",
+    "target_component_id": "ROW-H",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "ROW-H",
+    "target_component_id": "CRAH-H-01",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "ROW-H",
+    "target_component_id": "CRAH-H-02",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "PDU-I1",
+    "target_component_id": "ROW-I",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "PDU-I2",
+    "target_component_id": "ROW-I",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "ROW-I",
+    "target_component_id": "CRAH-I-01",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "ROW-I",
+    "target_component_id": "CRAH-I-02",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "PDU-J1",
+    "target_component_id": "ROW-J",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "PDU-J2",
+    "target_component_id": "ROW-J",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "ROW-J",
+    "target_component_id": "CRAH-J-01",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "ROW-J",
+    "target_component_id": "CRAH-J-02",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "PDU-K1",
+    "target_component_id": "ROW-K",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "PDU-K2",
+    "target_component_id": "ROW-K",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "ROW-K",
+    "target_component_id": "CRAH-K-01",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "ROW-K",
+    "target_component_id": "CRAH-K-02",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "PDU-L1",
+    "target_component_id": "ROW-L",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "PDU-L2",
+    "target_component_id": "ROW-L",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "ROW-L",
+    "target_component_id": "CRAH-L-01",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "ROW-L",
+    "target_component_id": "CRAH-L-02",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "PDU-M1",
+    "target_component_id": "ROW-M",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "PDU-M2",
+    "target_component_id": "ROW-M",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "ROW-M",
+    "target_component_id": "CRAH-M-01",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "ROW-M",
+    "target_component_id": "CRAH-M-02",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "PDU-N1",
+    "target_component_id": "ROW-N",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "PDU-N2",
+    "target_component_id": "ROW-N",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "ROW-N",
+    "target_component_id": "CRAH-N-01",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "ROW-N",
+    "target_component_id": "CRAH-N-02",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "PDU-O1",
+    "target_component_id": "ROW-O",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "PDU-O2",
+    "target_component_id": "ROW-O",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "ROW-O",
+    "target_component_id": "CRAH-O-01",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "ROW-O",
+    "target_component_id": "CRAH-O-02",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "PDU-P1",
+    "target_component_id": "ROW-P",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "PDU-P2",
+    "target_component_id": "ROW-P",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "ROW-P",
+    "target_component_id": "CRAH-P-01",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "ROW-P",
+    "target_component_id": "CRAH-P-02",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "PDU-Q1",
+    "target_component_id": "ROW-Q",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "PDU-Q2",
+    "target_component_id": "ROW-Q",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "ROW-Q",
+    "target_component_id": "CRAH-Q-01",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "ROW-Q",
+    "target_component_id": "CRAH-Q-02",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "PDU-R1",
+    "target_component_id": "ROW-R",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "PDU-R2",
+    "target_component_id": "ROW-R",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "ROW-R",
+    "target_component_id": "CRAH-R-01",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "ROW-R",
+    "target_component_id": "CRAH-R-02",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "PDU-S1",
+    "target_component_id": "ROW-S",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "PDU-S2",
+    "target_component_id": "ROW-S",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "ROW-S",
+    "target_component_id": "CRAH-S-01",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "ROW-S",
+    "target_component_id": "CRAH-S-02",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "PDU-T1",
+    "target_component_id": "ROW-T",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "PDU-T2",
+    "target_component_id": "ROW-T",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "ROW-T",
+    "target_component_id": "CRAH-T-01",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "ROW-T",
+    "target_component_id": "CRAH-T-02",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "PDU-U1",
+    "target_component_id": "ROW-U",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "PDU-U2",
+    "target_component_id": "ROW-U",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "ROW-U",
+    "target_component_id": "CRAH-U-01",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "ROW-U",
+    "target_component_id": "CRAH-U-02",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "PDU-V1",
+    "target_component_id": "ROW-V",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "PDU-V2",
+    "target_component_id": "ROW-V",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "ROW-V",
+    "target_component_id": "CRAH-V-01",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "ROW-V",
+    "target_component_id": "CRAH-V-02",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "PDU-W1",
+    "target_component_id": "ROW-W",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "PDU-W2",
+    "target_component_id": "ROW-W",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "ROW-W",
+    "target_component_id": "CRAH-W-01",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "ROW-W",
+    "target_component_id": "CRAH-W-02",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "PDU-X1",
+    "target_component_id": "ROW-X",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "PDU-X2",
+    "target_component_id": "ROW-X",
+    "chain": "electrical"
+  },
+  {
+    "source_component_id": "ROW-X",
+    "target_component_id": "CRAH-X-01",
+    "chain": "thermal"
+  },
+  {
+    "source_component_id": "ROW-X",
+    "target_component_id": "CRAH-X-02",
+    "chain": "thermal"
+  }
+]

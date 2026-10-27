@@ -64,11 +64,11 @@ function ComplianceChecklist({ selectedJurisdictions = [] }) {
   const pct = relevantItems.length > 0 ? Math.round((checkedCount / relevantItems.length) * 100) : 0;
 
   return (
-    <div className="bg-white rounded-2xl border border-[#E2E8F0] shadow-sm overflow-hidden mb-6">
-      <div className="px-6 py-4 border-b border-[#E2E8F0] flex items-center justify-between">
+    <div className="bg-white rounded-2xl border border-[#D8DCE3] shadow-sm overflow-hidden mb-6">
+      <div className="px-6 py-4 border-b border-[#D8DCE3] flex items-center justify-between">
         <div className="flex items-center gap-3">
           <ShieldCheck size={18} className="text-[#00338D]" />
-          <h3 className="font-bold text-[#1A1F36] text-sm" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Compliance Checklist</h3>
+          <h3 className="font-bold text-[#1A1F36] text-sm" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>Compliance Checklist</h3>
         </div>
         <div className="flex items-center gap-3">
           <div className="text-right">
@@ -77,7 +77,7 @@ function ComplianceChecklist({ selectedJurisdictions = [] }) {
           </div>
           <div className="w-12 h-12 relative">
             <svg viewBox="0 0 44 44" className="w-full h-full -rotate-90">
-              <circle cx={22} cy={22} r={18} fill="none" stroke="#E2E8F0" strokeWidth={4} />
+              <circle cx={22} cy={22} r={18} fill="none" stroke="#D8DCE3" strokeWidth={4} />
               <motion.circle cx={22} cy={22} r={18} fill="none" stroke="#00338D" strokeWidth={4}
                 strokeLinecap="round" strokeDasharray={113}
                 animate={{ strokeDashoffset: 113 - (pct / 100) * 113 }}
@@ -95,15 +95,15 @@ function ComplianceChecklist({ selectedJurisdictions = [] }) {
           const isOpen = openCats.includes(cat.category);
 
           return (
-            <div key={cat.category} className="border border-[#E2E8F0] rounded-xl overflow-hidden">
+            <div key={cat.category} className="border border-[#D8DCE3] rounded-xl overflow-hidden">
               <button
                 onClick={() => toggleCat(cat.category)}
-                className="w-full flex items-center justify-between px-4 py-3 bg-[#F4F6F9] hover:bg-[#EEF2F7] transition-colors"
+                className="w-full flex items-center justify-between px-4 py-3 bg-[#F0F2F5] hover:bg-[#EEF2F7] transition-colors"
               >
                 <div className="flex items-center gap-2">
                   <span className="font-semibold text-sm text-[#1A1F36]">{cat.category}</span>
                   <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${
-                    catChecked === catItems.length ? 'bg-[#00A36C]/15 text-[#00A36C]' : 'bg-[#F4F6F9] text-[#6B7280]'
+                    catChecked === catItems.length ? 'bg-[#00B0A0]/15 text-[#00B0A0]' : 'bg-[#F0F2F5] text-[#6B7280]'
                   }`}>{catChecked}/{catItems.length}</span>
                 </div>
                 {isOpen ? <ChevronUp size={14} className="text-[#9CA3AF]" /> : <ChevronDown size={14} className="text-[#9CA3AF]" />}
@@ -120,20 +120,20 @@ function ComplianceChecklist({ selectedJurisdictions = [] }) {
                             key={item.id}
                             onClick={() => toggle(item.id)}
                             className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer transition-all border ${
-                              done ? 'bg-[#00A36C]/5 border-[#00A36C]/20' : 'bg-white border-[#E2E8F0] hover:bg-[#F4F6F9]'
+                              done ? 'bg-[#00B0A0]/5 border-[#00B0A0]/20' : 'bg-white border-[#D8DCE3] hover:bg-[#F0F2F5]'
                             }`}
                           >
                             <div className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 border-2 transition-all ${
-                              done ? 'bg-[#00A36C] border-[#00A36C]' : 'border-[#CBD5E1]'
+                              done ? 'bg-[#00B0A0] border-[#00B0A0]' : 'border-[#CBD5E1]'
                             }`}>
                               {done && <CheckCircle2 size={12} className="text-white" />}
                             </div>
                             <div className="flex-1 min-w-0">
-                              <div className={`text-sm font-semibold ${done ? 'text-[#00A36C]' : 'text-[#1A1F36]'}`}>{item.label}</div>
+                              <div className={`text-sm font-semibold ${done ? 'text-[#00B0A0]' : 'text-[#1A1F36]'}`}>{item.label}</div>
                               <div className="text-xs text-[#9CA3AF]">{item.description}</div>
                             </div>
-                            {!done && <AlertTriangle size={14} className="text-[#D4A017] flex-shrink-0" />}
-                            {done && <CheckCircle2 size={14} className="text-[#00A36C] flex-shrink-0" />}
+                            {!done && <AlertTriangle size={14} className="text-[#E87722] flex-shrink-0" />}
+                            {done && <CheckCircle2 size={14} className="text-[#00B0A0] flex-shrink-0" />}
                           </div>
                         );
                       })}
@@ -146,9 +146,9 @@ function ComplianceChecklist({ selectedJurisdictions = [] }) {
         })}
       </div>
 
-      <div className="px-6 py-3 border-t border-[#E2E8F0] bg-[#F4F6F9] flex items-center gap-3">
-        <div className="flex-1 h-2 bg-[#E2E8F0] rounded-full overflow-hidden">
-          <motion.div className="h-full rounded-full" style={{ backgroundColor: pct === 100 ? '#00A36C' : pct > 60 ? '#0077C8' : '#D4A017' }}
+      <div className="px-6 py-3 border-t border-[#D8DCE3] bg-[#F0F2F5] flex items-center gap-3">
+        <div className="flex-1 h-2 bg-[#D8DCE3] rounded-full overflow-hidden">
+          <motion.div className="h-full rounded-full" style={{ backgroundColor: pct === 100 ? '#00B0A0' : pct > 60 ? '#005EB8' : '#E87722' }}
             animate={{ width: `${pct}%` }} transition={{ duration: 0.5 }} />
         </div>
         <span className="text-xs text-[#6B7280] font-medium flex-shrink-0">

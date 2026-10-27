@@ -56,12 +56,12 @@ export default function NewDeploymentForm({ onSubmit, onClose }) {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
       <div className="w-full max-w-lg bg-white rounded-2xl shadow-2xl overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-[#E2E8F0]">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-[#D8DCE3]">
           <div>
-            <h2 className="text-sm font-bold text-[#1A1F36]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>New Deployment Request</h2>
+            <h2 className="text-sm font-bold text-[#1A1F36]" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>New Deployment Request</h2>
             <p className="text-[10px] text-[#9CA3AF] mt-0.5">Request equipment deployment to loading bay queue</p>
           </div>
-          <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-[#F4F6F9] text-[#9CA3AF] hover:text-[#1A1F36] transition-colors">
+          <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-[#F0F2F5] text-[#9CA3AF] hover:text-[#1A1F36] transition-colors">
             <X size={15} />
           </button>
         </div>
@@ -76,7 +76,7 @@ export default function NewDeploymentForm({ onSubmit, onClose }) {
                 value={form.equipment}
                 onChange={e => setForm(f => ({ ...f, equipment: e.target.value }))}
                 placeholder="Dell PowerEdge R750"
-                className="w-full px-3 py-2 rounded-lg border border-[#E2E8F0] text-sm text-[#1A1F36] focus:outline-none focus:border-[#0077C8] focus:ring-1 focus:ring-[#0077C8]/20"
+                className="w-full px-3 py-2 rounded-lg border border-[#D8DCE3] text-sm text-[#1A1F36] focus:outline-none focus:border-[#005EB8] focus:ring-1 focus:ring-[#005EB8]/20"
               />
             </div>
             <div>
@@ -85,7 +85,7 @@ export default function NewDeploymentForm({ onSubmit, onClose }) {
                 type="number" min="1" max="100"
                 value={form.quantity}
                 onChange={e => setForm(f => ({ ...f, quantity: e.target.value }))}
-                className="w-full px-3 py-2 rounded-lg border border-[#E2E8F0] text-sm text-[#1A1F36] focus:outline-none focus:border-[#0077C8] focus:ring-1 focus:ring-[#0077C8]/20"
+                className="w-full px-3 py-2 rounded-lg border border-[#D8DCE3] text-sm text-[#1A1F36] focus:outline-none focus:border-[#005EB8] focus:ring-1 focus:ring-[#005EB8]/20"
               />
             </div>
           </div>
@@ -97,7 +97,7 @@ export default function NewDeploymentForm({ onSubmit, onClose }) {
               <select
                 value={form.dcId}
                 onChange={e => setForm(f => ({ ...f, dcId: e.target.value }))}
-                className="w-full px-3 py-2 rounded-lg border border-[#E2E8F0] text-sm text-[#1A1F36] focus:outline-none focus:border-[#0077C8] bg-white"
+                className="w-full px-3 py-2 rounded-lg border border-[#D8DCE3] text-sm text-[#1A1F36] focus:outline-none focus:border-[#005EB8] bg-white"
               >
                 {mockDatacenters.map(dc => (
                   <option key={dc.id} value={dc.id}>{dc.name}</option>
@@ -110,7 +110,7 @@ export default function NewDeploymentForm({ onSubmit, onClose }) {
                 value={form.rackLabel}
                 onChange={e => setForm(f => ({ ...f, rackLabel: e.target.value }))}
                 placeholder="A-01 (optional)"
-                className="w-full px-3 py-2 rounded-lg border border-[#E2E8F0] text-sm text-[#1A1F36] focus:outline-none focus:border-[#0077C8] focus:ring-1 focus:ring-[#0077C8]/20"
+                className="w-full px-3 py-2 rounded-lg border border-[#D8DCE3] text-sm text-[#1A1F36] focus:outline-none focus:border-[#005EB8] focus:ring-1 focus:ring-[#005EB8]/20"
               />
             </div>
           </div>
@@ -125,7 +125,7 @@ export default function NewDeploymentForm({ onSubmit, onClose }) {
                   value={form.powerImpactKw}
                   onChange={e => setForm(f => ({ ...f, powerImpactKw: e.target.value }))}
                   placeholder="kW"
-                  className="w-full px-3 py-2 rounded-lg border border-[#E2E8F0] text-sm text-[#1A1F36] focus:outline-none focus:border-[#0077C8] focus:ring-1 focus:ring-[#0077C8]/20"
+                  className="w-full px-3 py-2 rounded-lg border border-[#D8DCE3] text-sm text-[#1A1F36] focus:outline-none focus:border-[#005EB8] focus:ring-1 focus:ring-[#005EB8]/20"
                 />
                 <p className="text-[9px] text-[#9CA3AF] mt-0.5 text-center">Power (kW)</p>
               </div>
@@ -135,7 +135,7 @@ export default function NewDeploymentForm({ onSubmit, onClose }) {
                   value={form.spaceImpactU}
                   onChange={e => setForm(f => ({ ...f, spaceImpactU: e.target.value }))}
                   placeholder="U"
-                  className="w-full px-3 py-2 rounded-lg border border-[#E2E8F0] text-sm text-[#1A1F36] focus:outline-none focus:border-[#0077C8] focus:ring-1 focus:ring-[#0077C8]/20"
+                  className="w-full px-3 py-2 rounded-lg border border-[#D8DCE3] text-sm text-[#1A1F36] focus:outline-none focus:border-[#005EB8] focus:ring-1 focus:ring-[#005EB8]/20"
                 />
                 <p className="text-[9px] text-[#9CA3AF] mt-0.5 text-center">Space (U)</p>
               </div>
@@ -145,7 +145,7 @@ export default function NewDeploymentForm({ onSubmit, onClose }) {
                   value={form.weightImpactKg}
                   onChange={e => setForm(f => ({ ...f, weightImpactKg: e.target.value }))}
                   placeholder="kg"
-                  className="w-full px-3 py-2 rounded-lg border border-[#E2E8F0] text-sm text-[#1A1F36] focus:outline-none focus:border-[#0077C8] focus:ring-1 focus:ring-[#0077C8]/20"
+                  className="w-full px-3 py-2 rounded-lg border border-[#D8DCE3] text-sm text-[#1A1F36] focus:outline-none focus:border-[#005EB8] focus:ring-1 focus:ring-[#005EB8]/20"
                 />
                 <p className="text-[9px] text-[#9CA3AF] mt-0.5 text-center">Weight (kg)</p>
               </div>
@@ -153,10 +153,10 @@ export default function NewDeploymentForm({ onSubmit, onClose }) {
             {cs !== 'ok' && (
               <div className="mt-2 flex items-center gap-2 px-3 py-2 rounded-lg" style={{
                 backgroundColor: cs === 'critical' ? '#FEF2F2' : '#FFFBEB',
-                borderLeft: `3px solid ${cs === 'critical' ? '#DC2626' : '#D4A017'}`,
+                borderLeft: `3px solid ${cs === 'critical' ? '#C8102E' : '#E87722'}`,
               }}>
-                <AlertTriangle size={11} style={{ color: cs === 'critical' ? '#DC2626' : '#D4A017' }} />
-                <span className="text-[10px] font-medium" style={{ color: cs === 'critical' ? '#DC2626' : '#D4A017' }}>
+                <AlertTriangle size={11} style={{ color: cs === 'critical' ? '#C8102E' : '#E87722' }} />
+                <span className="text-[10px] font-medium" style={{ color: cs === 'critical' ? '#C8102E' : '#E87722' }}>
                   {cs === 'critical' ? 'High capacity impact — requires capacity review before approval' : 'Elevated impact — approaching rack limits'}
                 </span>
               </div>
@@ -170,7 +170,7 @@ export default function NewDeploymentForm({ onSubmit, onClose }) {
               <select
                 value={form.priority}
                 onChange={e => setForm(f => ({ ...f, priority: e.target.value }))}
-                className="w-full px-3 py-2 rounded-lg border border-[#E2E8F0] text-sm text-[#1A1F36] focus:outline-none focus:border-[#0077C8] bg-white"
+                className="w-full px-3 py-2 rounded-lg border border-[#D8DCE3] text-sm text-[#1A1F36] focus:outline-none focus:border-[#005EB8] bg-white"
               >
                 <option value="critical">Critical</option>
                 <option value="high">High</option>
@@ -183,7 +183,7 @@ export default function NewDeploymentForm({ onSubmit, onClose }) {
                 value={form.tenant}
                 onChange={e => setForm(f => ({ ...f, tenant: e.target.value }))}
                 placeholder="Tenant name"
-                className="w-full px-3 py-2 rounded-lg border border-[#E2E8F0] text-sm text-[#1A1F36] focus:outline-none focus:border-[#0077C8] focus:ring-1 focus:ring-[#0077C8]/20"
+                className="w-full px-3 py-2 rounded-lg border border-[#D8DCE3] text-sm text-[#1A1F36] focus:outline-none focus:border-[#005EB8] focus:ring-1 focus:ring-[#005EB8]/20"
               />
             </div>
           </div>
@@ -196,16 +196,16 @@ export default function NewDeploymentForm({ onSubmit, onClose }) {
               value={form.notes}
               onChange={e => setForm(f => ({ ...f, notes: e.target.value }))}
               placeholder="Deployment context, special requirements..."
-              className="w-full px-3 py-2 rounded-lg border border-[#E2E8F0] text-sm text-[#1A1F36] focus:outline-none focus:border-[#0077C8] focus:ring-1 focus:ring-[#0077C8]/20 resize-none"
+              className="w-full px-3 py-2 rounded-lg border border-[#D8DCE3] text-sm text-[#1A1F36] focus:outline-none focus:border-[#005EB8] focus:ring-1 focus:ring-[#005EB8]/20 resize-none"
             />
           </div>
 
           {/* Actions */}
           <div className="flex items-center gap-3 pt-2">
-            <button type="button" onClick={onClose} className="flex-1 px-4 py-2.5 rounded-lg border border-[#E2E8F0] text-sm font-semibold text-[#6B7280] hover:bg-[#F8FAFC] transition-colors">
+            <button type="button" onClick={onClose} className="flex-1 px-4 py-2.5 rounded-lg border border-[#D8DCE3] text-sm font-semibold text-[#6B7280] hover:bg-[#F8FAFC] transition-colors">
               Cancel
             </button>
-            <button type="submit" className="flex-1 px-4 py-2.5 rounded-lg text-sm font-semibold text-white transition-colors" style={{ backgroundColor: '#0077C8' }}>
+            <button type="submit" className="flex-1 px-4 py-2.5 rounded-lg text-sm font-semibold text-white transition-colors" style={{ backgroundColor: '#005EB8' }}>
               Submit Request
             </button>
           </div>

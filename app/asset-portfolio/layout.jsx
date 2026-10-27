@@ -28,7 +28,7 @@ export default function AssetPortfolioLayout({ children }) {
           <div className="w-7 h-7 rounded-lg bg-navy/10 flex items-center justify-center">
             <Building2 size={14} className="text-navy" />
           </div>
-          <span className="font-extrabold text-text-primary text-sm" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+          <span className="font-extrabold text-text-primary text-sm" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
             Asset Portfolio
           </span>
         </div>

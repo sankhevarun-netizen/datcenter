@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
   Globe2, Building2, RefreshCw, Truck, CircleDollarSign,
-  Brain, Wrench, Link2, BarChart3, ShieldCheck,
+  Brain, Wrench, Link2, BarChart3, ShieldCheck, Satellite,
   Zap, ChevronLeft, ChevronRight, ArrowRight, X,
 } from 'lucide-react';
 
@@ -14,6 +14,7 @@ const MODULES = [
   { id: 'supply-chain',         label: 'Supply Chain',         icon: Truck,            href: '/eai/supply-chain'         },
   { id: 'finops-esg',           label: 'FinOps & ESG',         icon: CircleDollarSign, href: '/eai/finops-esg'           },
   { id: 'intelligence-center',  label: 'Intelligence Center',  icon: Brain,            href: '/eai/intelligence-center'  },
+  { id: 'risk-signals',         label: 'Risk Signals',         icon: Satellite,        href: '/eai/risk-signals'         },
   { id: 'operations-hub',       label: 'Operations Hub',       icon: Wrench,           href: '/eai/operations-hub'       },
   { id: 'integration-hub',      label: 'Integration Hub',      icon: Link2,            href: '/eai/integration-hub'      },
   { id: 'reports-analytics',    label: 'Reports & Analytics',  icon: BarChart3,        href: '/eai/reports-analytics'    },

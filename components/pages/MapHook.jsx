@@ -88,11 +88,11 @@ export default function MapHook({
           >
             <Popup>
               <div className="p-3 min-w-[200px]">
-                <div className="text-white font-bold text-sm mb-1" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{dc.name}</div>
+                <div className="text-white font-bold text-sm mb-1" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>{dc.name}</div>
                 <div className="text-white/50 text-xs mb-3">{dc.operator}</div>
                 <div className="grid grid-cols-2 gap-2">
                   <div className="text-center">
-                    <div className="text-[#0077C8] font-bold font-mono">{dc.capacity_mw}MW</div>
+                    <div className="text-[#005EB8] font-bold font-mono">{dc.capacity_mw}MW</div>
                     <div className="text-white/40 text-xs">Capacity</div>
                   </div>
                   <div className="text-center">
@@ -102,7 +102,7 @@ export default function MapHook({
                 </div>
                 <button
                   onClick={() => { map.closePopup(); setSelectedDatacenter(dc); setShowAIPanel(false); }}
-                  className="w-full mt-3 text-xs px-3 py-1.5 bg-[#00338D] text-white rounded-lg hover:bg-[#0044b8] transition-colors font-semibold"
+                  className="w-full mt-3 text-xs px-3 py-1.5 bg-[#00338D] text-white rounded-lg hover:bg-[#002A73] transition-colors font-semibold"
                 >
                   View Details →
                 </button>

@@ -1,0 +1,137 @@
+[
+  {
+    "tenant_id": "TEN-01",
+    "name": "Aarav Cloud Services",
+    "facility_id": "MUM-1",
+    "contracted_kw": 1450,
+    "racks": 72,
+    "workload_type": "Cloud / IaaS",
+    "contract_start": "2020-04-01"
+  },
+  {
+    "tenant_id": "TEN-02",
+    "name": "Bharat Financial Network",
+    "facility_id": "MUM-1",
+    "contracted_kw": 980,
+    "racks": 49,
+    "workload_type": "BFSI core banking",
+    "contract_start": "2019-11-15"
+  },
+  {
+    "tenant_id": "TEN-03",
+    "name": "Sarvam AI Labs",
+    "facility_id": "MUM-1",
+    "contracted_kw": 2100,
+    "racks": 35,
+    "workload_type": "AI training",
+    "contract_start": "2023-09-01"
+  },
+  {
+    "tenant_id": "TEN-04",
+    "name": "Setu Payments",
+    "facility_id": "MUM-1",
+    "contracted_kw": 620,
+    "racks": 31,
+    "workload_type": "Payments",
+    "contract_start": "2021-02-10"
+  },
+  {
+    "tenant_id": "TEN-05",
+    "name": "Nimbus Software",
+    "facility_id": "MUM-1",
+    "contracted_kw": 840,
+    "racks": 42,
+    "workload_type": "SaaS",
+    "contract_start": "2022-07-18"
+  },
+  {
+    "tenant_id": "TEN-06",
+    "name": "Indus Banking Corp",
+    "facility_id": "MUM-2",
+    "contracted_kw": 1620,
+    "racks": 81,
+    "workload_type": "BFSI",
+    "contract_start": "2017-05-04"
+  },
+  {
+    "tenant_id": "TEN-07",
+    "name": "Drishti Media",
+    "facility_id": "MUM-2",
+    "contracted_kw": 1180,
+    "racks": 59,
+    "workload_type": "Media streaming",
+    "contract_start": "2018-08-22"
+  },
+  {
+    "tenant_id": "TEN-08",
+    "name": "Nova Telecom",
+    "facility_id": "MUM-2",
+    "contracted_kw": 2150,
+    "racks": 107,
+    "workload_type": "Telecom core",
+    "contract_start": "2016-09-30"
+  },
+  {
+    "tenant_id": "TEN-09",
+    "name": "Kaveri Pharma",
+    "facility_id": "CHN-1",
+    "contracted_kw": 890,
+    "racks": 44,
+    "workload_type": "Enterprise IT",
+    "contract_start": "2022-01-12"
+  },
+  {
+    "tenant_id": "TEN-10",
+    "name": "Vayu Logistics",
+    "facility_id": "CHN-1",
+    "contracted_kw": 1340,
+    "racks": 67,
+    "workload_type": "Logistics platform",
+    "contract_start": "2022-06-08"
+  },
+  {
+    "tenant_id": "TEN-11",
+    "name": "Tarang Gaming",
+    "facility_id": "CHN-1",
+    "contracted_kw": 1760,
+    "racks": 59,
+    "workload_type": "Gaming / low latency",
+    "contract_start": "2023-03-21"
+  },
+  {
+    "tenant_id": "TEN-12",
+    "name": "Quantum Analytics India",
+    "facility_id": "HYD-1",
+    "contracted_kw": 3200,
+    "racks": 53,
+    "workload_type": "AI inference",
+    "contract_start": "2024-05-02"
+  },
+  {
+    "tenant_id": "TEN-13",
+    "name": "Pragati Insurance",
+    "facility_id": "HYD-1",
+    "contracted_kw": 1480,
+    "racks": 74,
+    "workload_type": "BFSI",
+    "contract_start": "2024-08-14"
+  },
+  {
+    "tenant_id": "TEN-14",
+    "name": "Ananta Retail",
+    "facility_id": "NCR-1",
+    "contracted_kw": 2240,
+    "racks": 112,
+    "workload_type": "E-commerce",
+    "contract_start": "2022-10-01"
+  },
+  {
+    "tenant_id": "TEN-15",
+    "name": "Aarav Cloud Services",
+    "facility_id": "NCR-1",
+    "contracted_kw": 2680,
+    "racks": 134,
+    "workload_type": "Cloud / IaaS",
+    "contract_start": "2023-01-09"
+  }
+]

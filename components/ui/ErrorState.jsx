@@ -19,13 +19,13 @@ export default function ErrorState({ preset, icon:CustomIcon, title, body, error
   return (
     <motion.div initial={{ opacity:0 }} animate={{ opacity:1 }}
       className={`flex flex-col items-center justify-center py-12 gap-3 text-center px-8 ${className}`}>
-      <div className="w-14 h-14 rounded-2xl bg-[#DC2626]/10 border border-[#DC2626]/25 flex items-center justify-center">
-        <Icon size={24} className="text-[#DC2626]"/>
+      <div className="w-14 h-14 rounded-2xl bg-[#C8102E]/10 border border-[#C8102E]/25 flex items-center justify-center">
+        <Icon size={24} className="text-[#C8102E]"/>
       </div>
-      <p className="text-sm font-bold text-white/70" style={{ fontFamily:"'Plus Jakarta Sans', sans-serif" }}>{label}</p>
+      <p className="text-sm font-bold text-white/70" style={{ fontFamily:"'Inter', 'Segoe UI', sans-serif" }}>{label}</p>
       {desc && <p className="text-[11px] text-white/35 max-w-xs leading-relaxed">{desc}</p>}
       {errors.length > 0 && (
-        <div className="mt-2 w-full max-w-sm bg-[#DC2626]/8 border border-[#DC2626]/20 rounded-xl p-3 text-left">
+        <div className="mt-2 w-full max-w-sm bg-[#C8102E]/8 border border-[#C8102E]/20 rounded-xl p-3 text-left">
           {errors.slice(0,5).map((e,i) => <p key={i} className="text-[9px] text-white/50 leading-relaxed">{e}</p>)}
           {errors.length > 5 && <p className="text-[9px] text-white/30 mt-1">+{errors.length-5} more errors</p>}
         </div>

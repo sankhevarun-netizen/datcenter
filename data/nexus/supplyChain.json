@@ -1,0 +1,101 @@
+[
+  {
+    "component_type": "ups",
+    "vendor": "Vendor A",
+    "origin_country": "China",
+    "single_source": "yes",
+    "lead_time_weeks": 16,
+    "spares_on_site": 0,
+    "disruption_note": "Cells shipped via the Red Sea route; 2024 diversions added 2-3 weeks"
+  },
+  {
+    "component_type": "pdu",
+    "vendor": "Vendor C",
+    "origin_country": "India",
+    "single_source": "no",
+    "lead_time_weeks": 10,
+    "spares_on_site": 2,
+    "disruption_note": "Domestic assembly; two units held at the regional depot"
+  },
+  {
+    "component_type": "rpp",
+    "vendor": "Vendor C",
+    "origin_country": "India",
+    "single_source": "no",
+    "lead_time_weeks": 9,
+    "spares_on_site": 1,
+    "disruption_note": "Domestic assembly"
+  },
+  {
+    "component_type": "busway",
+    "vendor": "Vendor D",
+    "origin_country": "Germany",
+    "single_source": "yes",
+    "lead_time_weeks": 14,
+    "spares_on_site": 0,
+    "disruption_note": "Single qualified supplier for the installed rating"
+  },
+  {
+    "component_type": "crah",
+    "vendor": "Vendor E",
+    "origin_country": "Italy",
+    "single_source": "no",
+    "lead_time_weeks": 8,
+    "spares_on_site": 1,
+    "disruption_note": "Fans and actuators stocked locally; full units imported"
+  },
+  {
+    "component_type": "chiller",
+    "vendor": "Vendor F",
+    "origin_country": "United States",
+    "single_source": "yes",
+    "lead_time_weeks": 22,
+    "spares_on_site": 0,
+    "disruption_note": "Compressor allocation constrained since 2023"
+  },
+  {
+    "component_type": "cooling_tower",
+    "vendor": "Vendor G",
+    "origin_country": "India",
+    "single_source": "no",
+    "lead_time_weeks": 12,
+    "spares_on_site": 0,
+    "disruption_note": "Fill media sourced domestically"
+  },
+  {
+    "component_type": "chw_loop",
+    "vendor": "Vendor G",
+    "origin_country": "India",
+    "single_source": "no",
+    "lead_time_weeks": 6,
+    "spares_on_site": 0,
+    "disruption_note": "Pipework and valves from local fabricators"
+  },
+  {
+    "component_type": "generator",
+    "vendor": "Vendor H",
+    "origin_country": "United Kingdom",
+    "single_source": "no",
+    "lead_time_weeks": 26,
+    "spares_on_site": 0,
+    "disruption_note": "Engine imported, alternator and enclosure assembled in India"
+  },
+  {
+    "component_type": "transformer",
+    "vendor": "Vendor J",
+    "origin_country": "India",
+    "single_source": "no",
+    "lead_time_weeks": 34,
+    "spares_on_site": 0,
+    "disruption_note": "Grain-oriented steel shortage pushed lead times past 30 weeks"
+  },
+  {
+    "component_type": "switchgear",
+    "vendor": "Vendor K",
+    "origin_country": "France",
+    "single_source": "yes",
+    "lead_time_weeks": 20,
+    "spares_on_site": 0,
+    "disruption_note": "Breaker frames allocated quarterly"
+  }
+]

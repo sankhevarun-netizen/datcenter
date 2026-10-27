@@ -14,9 +14,9 @@ export default function ScenariosPage() {
     <CCLayout title="Scenario Simulator">
       <div className="flex h-full">
         {/* Left: scenario type picker */}
-        <div className="flex-shrink-0 w-72 border-r border-[#E2E8F0] flex flex-col bg-white">
-          <div className="flex-shrink-0 px-4 py-4 border-b border-[#E2E8F0]">
-            <h2 className="text-sm font-bold text-[#1A1F36]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+        <div className="flex-shrink-0 w-72 border-r border-[#D8DCE3] flex flex-col bg-white">
+          <div className="flex-shrink-0 px-4 py-4 border-b border-[#D8DCE3]">
+            <h2 className="text-sm font-bold text-[#1A1F36]" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
               Failure Scenarios
             </h2>
             <p className="text-[10px] text-[#9CA3AF] mt-0.5 leading-relaxed">
@@ -35,7 +35,7 @@ export default function ScenariosPage() {
                   className={`w-full text-left p-4 rounded-xl border transition-all ${
                     isSelected
                       ? 'border-transparent shadow-md'
-                      : 'border-[#E2E8F0] hover:border-[#D1D5DB] hover:bg-[#F8FAFC]'
+                      : 'border-[#D8DCE3] hover:border-[#D1D5DB] hover:bg-[#F8FAFC]'
                   }`}
                   style={isSelected ? { backgroundColor: type.color + '12', borderColor: type.color + '40' } : {}}
                 >
@@ -44,7 +44,7 @@ export default function ScenariosPage() {
                       <Icon size={15} style={{ color: type.color }} />
                     </div>
                     <div>
-                      <p className="text-xs font-bold text-[#1A1F36]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+                      <p className="text-xs font-bold text-[#1A1F36]" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
                         {type.label}
                       </p>
                       <p className="text-[10px] text-[#9CA3AF] mt-0.5 leading-relaxed">{type.description}</p>
@@ -56,8 +56,8 @@ export default function ScenariosPage() {
           </div>
 
           {/* Info banner */}
-          <div className="flex-shrink-0 m-3 p-3 bg-[#EFF6FF] border border-[#0077C8]/20 rounded-xl">
-            <p className="text-[10px] text-[#0077C8] font-medium leading-relaxed">
+          <div className="flex-shrink-0 m-3 p-3 bg-[#EFF6FF] border border-[#005EB8]/20 rounded-xl">
+            <p className="text-[10px] text-[#005EB8] font-medium leading-relaxed">
               Simulations run on pre-computed models. No live systems are affected. Results include AI-generated mitigation recommendations.
             </p>
           </div>
@@ -69,10 +69,10 @@ export default function ScenariosPage() {
             <ScenarioRunner scenarioType={selectedType} />
           ) : (
             <div className="h-full flex flex-col items-center justify-center text-center p-8">
-              <div className="w-16 h-16 rounded-2xl bg-[#F4F6F9] flex items-center justify-center mb-4">
+              <div className="w-16 h-16 rounded-2xl bg-[#F0F2F5] flex items-center justify-center mb-4">
                 <Shield size={28} className="text-[#D1D5DB]" />
               </div>
-              <h3 className="text-base font-bold text-[#1A1F36] mb-2" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+              <h3 className="text-base font-bold text-[#1A1F36] mb-2" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
                 Select a Scenario
               </h3>
               <p className="text-sm text-[#9CA3AF] max-w-xs leading-relaxed">

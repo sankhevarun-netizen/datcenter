@@ -1,749 +1,302 @@
 'use client';
-import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+// AI Stack: the platform's architecture as it is wired today. One data
+// model, seven lenses (each a live route), deterministic engines doing every
+// calculation, and the external data and tools. Names, routes and status come
+// from lib/platform-registry.js; counts are computed from the dataset.
+import { useEffect, useMemo, useRef, useState } from 'react';
+import Link from 'next/link';
+import { motion } from 'framer-motion';
+import {
+  Gauge, Radar, Droplets, SunMedium, ShieldAlert, FileCheck2, Scale, Cog, Database, MessageSquareText,
+  Route as RouteIcon, ArrowUpRight, Bell, Landmark, Lock, Shuffle,
+} from 'lucide-react';
 import CCLayout from '@/components/command-center/CCLayout';
+import { LENSES, ENGINES, TOOLS, STATUS, countBy } from '@/lib/platform-registry';
+import { nexus } from '@/lib/nexus/data';
+import StatusBadge from '@/components/shared/StatusBadge';
 
+const LENS_ICON = { gauge: Gauge, radar: Radar, droplet: Droplets, sun: SunMedium, shield: ShieldAlert, 'file-check': FileCheck2, scale: Scale, shuffle: Shuffle };
+const FONT = { fontFamily: "'Inter', 'Segoe UI', sans-serif" };
 
-// ─── Brand Logos (inline SVG, accurate brand colors) ────────────────────────
-
-function AWSBedrockLogo({ size = 36 }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 48 48" fill="none">
-      <rect width="48" height="48" rx="10" fill="#232F3E"/>
-      <path d="M24 8l12 7v14l-12 7-12-7V15z" fill="none" stroke="#FF9900" strokeWidth="1.5"/>
-      <path d="M24 8l12 7-12 7-12-7z" fill="#FF9900" opacity="0.9"/>
-      <path d="M12 15l12 7v14" stroke="#FF9900" strokeWidth="1.2" fill="none"/>
-      <path d="M36 15l-12 7v14" stroke="#FF9900" strokeWidth="1.2" fill="none" opacity="0.7"/>
-      <text x="24" y="43" textAnchor="middle" fill="#FF9900" fontSize="6" fontWeight="bold" fontFamily="Arial, sans-serif">BEDROCK</text>
-    </svg>
-  );
-}
-
-function ClaudeLogo({ size = 36 }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 48 48" fill="none">
-      <rect width="48" height="48" rx="10" fill="#D97757"/>
-      <path d="M16 36l5-14h2.5L17 36h-1zm4.5 0l5-14H28l-5.5 14H20.5zm4.5 0l5-14h2.5L27 36H25z" fill="white" opacity="0.92"/>
-    </svg>
-  );
-}
-
+// ── tool marks (generic glyphs; no vendor artwork) ────────────────────────
 function TavilyLogo({ size = 36 }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 48 48" fill="none">
-      <rect width="48" height="48" rx="10" fill="#18181B"/>
-      <rect x="10" y="14" width="28" height="3.5" rx="1.5" fill="#F5A623"/>
-      <rect x="14" y="21" width="20" height="3" rx="1.5" fill="#F5A623" opacity="0.8"/>
-      <rect x="18" y="27.5" width="12" height="2.5" rx="1.25" fill="#F5A623" opacity="0.6"/>
-      <circle cx="34" cy="36" r="6" fill="none" stroke="#F5A623" strokeWidth="2"/>
-      <line x1="38.2" y1="40.2" x2="42" y2="44" stroke="#F5A623" strokeWidth="2" strokeLinecap="round"/>
+    <svg width={size} height={size} viewBox="0 0 48 48" fill="none" aria-hidden>
+      <rect width="48" height="48" rx="10" fill="#18181B" />
+      <rect x="10" y="14" width="28" height="3.5" rx="1.5" fill="#F5A623" />
+      <rect x="14" y="21" width="20" height="3" rx="1.5" fill="#F5A623" opacity="0.8" />
+      <rect x="18" y="27.5" width="12" height="2.5" rx="1.25" fill="#F5A623" opacity="0.6" />
+      <circle cx="34" cy="36" r="6" fill="none" stroke="#F5A623" strokeWidth="2" />
+      <line x1="38.2" y1="40.2" x2="42" y2="44" stroke="#F5A623" strokeWidth="2" strokeLinecap="round" />
     </svg>
   );
 }
-
+function ExaLogo({ size = 36 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 48 48" fill="none" aria-hidden>
+      <rect width="48" height="48" rx="10" fill="#1E293B" />
+      <path d="M15 15h18M15 24h13M15 33h18M15 15v18" stroke="#94A3B8" strokeWidth="3" strokeLinecap="round" />
+    </svg>
+  );
+}
 function PeeringDBLogo({ size = 36 }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 48 48" fill="none">
-      <rect width="48" height="48" rx="10" fill="#003366"/>
-      <circle cx="14" cy="24" r="5" fill="none" stroke="#4A90D9" strokeWidth="2"/>
-      <circle cx="34" cy="16" r="4" fill="none" stroke="#4A90D9" strokeWidth="2"/>
-      <circle cx="34" cy="32" r="4" fill="none" stroke="#4A90D9" strokeWidth="2"/>
-      <circle cx="24" cy="24" r="3" fill="#4A90D9" opacity="0.5"/>
-      <line x1="19" y1="24" x2="21" y2="24" stroke="#4A90D9" strokeWidth="1.5"/>
-      <line x1="27" y1="22" x2="30.5" y2="18.5" stroke="#4A90D9" strokeWidth="1.5"/>
-      <line x1="27" y1="26" x2="30.5" y2="29.5" stroke="#4A90D9" strokeWidth="1.5"/>
+    <svg width={size} height={size} viewBox="0 0 48 48" fill="none" aria-hidden>
+      <rect width="48" height="48" rx="10" fill="#003366" />
+      <circle cx="14" cy="24" r="5" fill="none" stroke="#4A90D9" strokeWidth="2" />
+      <circle cx="34" cy="16" r="4" fill="none" stroke="#4A90D9" strokeWidth="2" />
+      <circle cx="34" cy="32" r="4" fill="none" stroke="#4A90D9" strokeWidth="2" />
+      <circle cx="24" cy="24" r="3" fill="#4A90D9" opacity="0.5" />
+      <line x1="19" y1="24" x2="21" y2="24" stroke="#4A90D9" strokeWidth="1.5" />
+      <line x1="27" y1="22" x2="30.5" y2="18.5" stroke="#4A90D9" strokeWidth="1.5" />
+      <line x1="27" y1="26" x2="30.5" y2="29.5" stroke="#4A90D9" strokeWidth="1.5" />
     </svg>
   );
 }
-
-
-function CrewAILogo({ size = 36 }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 48 48" fill="none">
-      <rect width="48" height="48" rx="10" fill="#0F172A"/>
-      <circle cx="24" cy="18" r="6" fill="none" stroke="#E11D48" strokeWidth="2"/>
-      <path d="M13 40c0-6.1 4.9-11 11-11s11 4.9 11 11" stroke="#E11D48" strokeWidth="2" strokeLinecap="round" fill="none"/>
-      <circle cx="13" cy="21" r="3.5" fill="none" stroke="#E11D48" strokeWidth="1.5" opacity="0.65"/>
-      <circle cx="35" cy="21" r="3.5" fill="none" stroke="#E11D48" strokeWidth="1.5" opacity="0.65"/>
-    </svg>
-  );
-}
-
 function KnowledgeGraphLogo({ size = 36 }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 48 48" fill="none">
-      <rect width="48" height="48" rx="10" fill="#064E3B"/>
-      <circle cx="24" cy="24" r="4.5" fill="#10B981"/>
-      <circle cx="11" cy="17" r="3.5" fill="#34D399" opacity="0.85"/>
-      <circle cx="37" cy="17" r="3.5" fill="#34D399" opacity="0.85"/>
-      <circle cx="11" cy="37" r="3.5" fill="#34D399" opacity="0.85"/>
-      <circle cx="37" cy="37" r="3.5" fill="#34D399" opacity="0.85"/>
-      <line x1="14.5" y1="19" x2="20.5" y2="22" stroke="#10B981" strokeWidth="1.5"/>
-      <line x1="33.5" y1="19" x2="27.5" y2="22" stroke="#10B981" strokeWidth="1.5"/>
-      <line x1="14.5" y1="35" x2="20.5" y2="27" stroke="#10B981" strokeWidth="1.5"/>
-      <line x1="33.5" y1="35" x2="27.5" y2="27" stroke="#10B981" strokeWidth="1.5"/>
+    <svg width={size} height={size} viewBox="0 0 48 48" fill="none" aria-hidden>
+      <rect width="48" height="48" rx="10" fill="#064E3B" />
+      <circle cx="24" cy="24" r="4.5" fill="#10B981" />
+      {[[11, 17], [37, 17], [11, 37], [37, 37]].map(([x, y]) => <circle key={`${x}${y}`} cx={x} cy={y} r="3.5" fill="#34D399" opacity="0.85" />)}
+      <path d="M14.5 19l6 3M33.5 19l-6 3M14.5 35l6-8M33.5 35l-6-8" stroke="#10B981" strokeWidth="1.5" />
     </svg>
   );
 }
+const TOOL_LOGO = { tavily: TavilyLogo, exa: ExaLogo, peeringdb: PeeringDBLogo, 'knowledge-graph': KnowledgeGraphLogo };
 
-function RAGLogo({ size = 36 }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 48 48" fill="none">
-      <rect width="48" height="48" rx="10" fill="#1E3A5F"/>
-      <ellipse cx="24" cy="16" rx="13" ry="5" fill="#2563EB"/>
-      <rect x="11" y="16" width="26" height="7" fill="#1D4ED8"/>
-      <ellipse cx="24" cy="23" rx="13" ry="5" fill="#3B82F6"/>
-      <rect x="11" y="23" width="26" height="7" fill="#2563EB"/>
-      <ellipse cx="24" cy="30" rx="13" ry="5" fill="#60A5FA"/>
-      <text x="24" y="18.5" textAnchor="middle" fill="white" fontSize="5.5" fontWeight="bold" fontFamily="Arial, sans-serif">KPMG</text>
-      <text x="24" y="32.5" textAnchor="middle" fill="white" fontSize="5" fontFamily="Arial, sans-serif">RAG</text>
-    </svg>
-  );
-}
+const Badge = ({ status }) => <StatusBadge status={status} variant="dot" />;
 
-// ─── Animated SVG connector arrow drawn on load ────────────────────────────
-
-function FlowConnector({ delay = 0, height = 32, color = '#0077C8' }) {
-  const pathRef = useRef(null);
-
+function Connector({ height = 28, delay = 0 }) {
+  const ref = useRef(null);
   useEffect(() => {
-    const el = pathRef.current;
-    if (!el) return;
+    const el = ref.current;
+    if (!el) return undefined;
     const len = el.getTotalLength();
     el.style.strokeDasharray = len;
     el.style.strokeDashoffset = len;
-    const timeout = setTimeout(() => {
-      el.style.transition = `stroke-dashoffset 0.5s ease-out`;
-      el.style.strokeDashoffset = '0';
-    }, delay);
-    return () => clearTimeout(timeout);
+    const t = setTimeout(() => { el.style.transition = 'stroke-dashoffset 0.45s ease-out'; el.style.strokeDashoffset = '0'; }, delay);
+    return () => clearTimeout(t);
   }, [delay]);
-
-  const mid = height / 2;
   return (
     <div className="flex justify-center" style={{ height }}>
-      <svg width="24" height={height} viewBox={`0 0 24 ${height}`} fill="none" overflow="visible">
-        <path
-          ref={pathRef}
-          d={`M12 0 L12 ${mid - 6}`}
-          stroke={color}
-          strokeWidth="1.8"
-          strokeLinecap="round"
-        />
-        <path
-          d={`M5 ${mid - 2} L12 ${mid + 6} L19 ${mid - 2}`}
-          stroke={color}
-          strokeWidth="1.8"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          fill="none"
-          style={{ opacity: 0.9 }}
-        />
+      <svg width="24" height={height} viewBox={`0 0 24 ${height}`} fill="none" overflow="visible" aria-hidden>
+        <path ref={ref} d={`M12 0 L12 ${height - 8}`} stroke="#005EB8" strokeWidth="1.8" strokeLinecap="round" />
+        <path d={`M6 ${height - 12} L12 ${height - 4} L18 ${height - 12}`} stroke="#005EB8" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     </div>
   );
 }
 
-// ─── Animated SVG fan-out from aggregator to 6 agents ─────────────────────
-
-function FanOutConnector({ count = 6, delay = 0 }) {
-  const svgRef = useRef(null);
-
-  useEffect(() => {
-    const paths = svgRef.current?.querySelectorAll('path[data-anim]');
-    if (!paths) return;
-    paths.forEach(p => {
-      const len = p.getTotalLength();
-      p.style.strokeDasharray = len;
-      p.style.strokeDashoffset = len;
-    });
-    const timeout = setTimeout(() => {
-      paths.forEach((p, i) => {
-        setTimeout(() => {
-          p.style.transition = 'stroke-dashoffset 0.4s ease-out';
-          p.style.strokeDashoffset = '0';
-        }, i * 40);
-      });
-    }, delay);
-    return () => clearTimeout(timeout);
-  }, [delay]);
-
-  const W = 600, H = 40;
-  const cx = W / 2;
-  const slotW = W / count;
-  const points = Array.from({ length: count }, (_, i) => (i + 0.5) * slotW);
-
+// Curves from one point out to n slots (fan out) or back in (fan in).
+function Fan({ count, direction = 'out', height = 40 }) {
+  const W = 700;
+  const xs = Array.from({ length: count }, (_, i) => ((i + 0.5) * W) / count);
   return (
-    <div className="w-full" style={{ height: H }}>
-      <svg ref={svgRef} width="100%" height={H} viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none">
-        {points.map((x, i) => (
-          <path
-            key={i}
-            data-anim="true"
-            d={`M${cx} 0 Q${cx} ${H / 2} ${x} ${H}`}
-            stroke="#0077C8"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            fill="none"
-            opacity="0.45"
-          />
-        ))}
-      </svg>
-    </div>
+    <svg width="100%" height={height} viewBox={`0 0 ${W} ${height}`} preserveAspectRatio="none" aria-hidden>
+      {xs.map((x) => (
+        <path key={x} d={direction === 'out' ? `M${W / 2} 0 C${W / 2} ${height / 2} ${x} ${height / 2} ${x} ${height}` : `M${x} 0 C${x} ${height / 2} ${W / 2} ${height / 2} ${W / 2} ${height}`}
+          stroke="#005EB8" strokeWidth="1.4" fill="none" opacity="0.4" vectorEffect="non-scaling-stroke" />
+      ))}
+    </svg>
   );
 }
 
-// ─── Data ─────────────────────────────────────────────────────────────────────
+function Layer({ children, className = '' }) {
+  return <div className={`bg-white rounded-2xl border border-[#D8DCE3] shadow-[0_2px_10px_rgba(0,51,141,0.06)] ${className}`}>{children}</div>;
+}
 
-const AGENTS = [
-  {
-    label: 'Strategy',
-    color: '#00338D',
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-    ),
-    desc: 'Market positioning, site selection, and long-term capacity strategy',
-    tools: ['Tavily Search', 'Knowledge Graph'],
-    model: 'Claude 3.5 Sonnet / 4.6 Opus | Gemini 3 Flash',
-  },
-  {
-    label: 'Sourcing',
-    color: '#0055A4',
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-    ),
-    desc: 'Vendor procurement, land acquisition, and supply chain coordination',
-    tools: ['PeeringDB', 'Tavily Search'],
-    model: 'Claude 3.5 Sonnet',
-  },
-  {
-    label: 'Design',
-    color: '#0077C8',
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-    ),
-    desc: 'Facility engineering, mechanical/electrical design, and build planning',
-    tools: ['Knowledge Graph', 'RAG Vector Store'],
-    model: 'Claude 3.5 Sonnet',
-  },
-  {
-    label: 'Compliance',
-    color: '#005F9E',
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-    ),
-    desc: 'Regulatory adherence, legal frameworks, and certification management',
-    tools: ['RAG Vector Store', 'Knowledge Graph'],
-    model: 'Claude 3.5 Sonnet / 4.6 Opus | Gemini 3 Flash',
-  },
-  {
-    label: 'Operations',
-    color: '#0099CC',
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>
-    ),
-    desc: 'Live facility management, SLA monitoring, and incident response',
-    tools: ['PeeringDB', 'Tavily Search', 'RAG Vector Store'],
-    model: 'Claude 3.5 Sonnet',
-  },
-  {
-    label: 'Monetization',
-    color: '#00A36C',
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-    ),
-    desc: 'Revenue optimisation, tenant acquisition, and pricing strategy',
-    tools: ['Tavily Search', 'Knowledge Graph', 'RAG Vector Store'],
-    model: 'Claude 3.5 Sonnet / 4.6 Opus | Gemini 3 Flash',
-  },
-];
-
-const DATA_TOOLS = [
-  {
-    label: 'Tavily Search',
-    sub: 'Live, verified market data',
-    Logo: TavilyLogo,
-    stat: '< 200ms',
-    statLabel: 'avg latency',
-    detail: 'Real-time web intelligence with source verification and fact-checking',
-    badge: 'Live',
-    badgeColor: '#F5A623',
-  },
-  {
-    label: 'PeeringDB',
-    sub: 'Global DC peering connectivity',
-    Logo: PeeringDBLogo,
-    stat: '12,000+',
-    statLabel: 'network records',
-    detail: 'Comprehensive interconnection data for 12,000+ global datacenters',
-    badge: 'API',
-    badgeColor: '#4A90D9',
-  },
-  {
-    label: 'Knowledge Graph',
-    sub: 'Entity relationship mappings',
-    Logo: KnowledgeGraphLogo,
-    stat: '2.4M',
-    statLabel: 'entities indexed',
-    detail: 'Semantic entity graph linking assets, vendors, regulations, and tenants',
-    badge: 'Indexed',
-    badgeColor: '#10B981',
-  },
-  {
-    label: 'RAG Vector Store',
-    sub: 'KPMG Frameworks — efficient retrieval',
-    Logo: RAGLogo,
-    stat: '99.8%',
-    statLabel: 'retrieval accuracy',
-    detail: 'KPMG proprietary vectorised knowledge base with semantic search',
-    badge: 'KPMG',
-    badgeColor: '#00338D',
-  },
-];
-
-
-const TOOL_FRAMEWORKS = [
-  { Logo: AWSBedrockLogo, label: 'AWS Bedrock', sub: 'Cloud Platform' },
-  { Logo: ClaudeLogo, label: 'Claude 3.5 Sonnet / 4.6 Opus | Gemini 3 Flash', sub: 'Foundation Models' },
-  { Logo: TavilyLogo, label: 'Tavily Search', sub: 'Live market data' },
-  { Logo: PeeringDBLogo, label: 'PeeringDB', sub: 'Network connectivity' },
-  { Logo: RAGLogo, label: 'RAG Vector Store', sub: 'KPMG Frameworks' },
-  { Logo: KnowledgeGraphLogo, label: 'Knowledge Graph', sub: 'Entity mappings' },
-];
-
-// ─── Agent Card ────────────────────────────────────────────────────────────────
-
-function AgentCard({ agent, isActive, onClick }) {
-  return (
-    <div className="relative flex flex-col">
-      <motion.div
-        onClick={onClick}
-        whileHover={{ y: -4, scale: 1.03 }}
-        transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-        className="cursor-pointer rounded-xl border bg-white shadow-sm overflow-hidden select-none"
-        style={{
-          borderColor: isActive ? agent.color : '#E2E8F0',
-          boxShadow: isActive ? `0 4px 20px ${agent.color}22` : undefined,
-        }}
-      >
-        {/* Top color strip */}
-        <div className="h-1 w-full" style={{ background: agent.color }} />
-        <div className="p-3 flex flex-col items-center gap-2">
-          <div
-            className="w-9 h-9 rounded-lg flex items-center justify-center"
-            style={{ background: `${agent.color}15`, color: agent.color }}
-          >
-            {agent.icon}
-          </div>
-          <p
-            className="text-[11px] font-bold text-center text-[#1A1F36]"
-            style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-          >
-            {agent.label}
-          </p>
-          <p className="text-[9px] text-[#9CA3AF] text-center">Agent</p>
+function LensCard({ lens, onHover, delay }) {
+  const Icon = LENS_ICON[lens.icon];
+  const disabled = lens.status === 'roadmap';
+  const body = (
+    <>
+      <div className="h-1 w-full" style={{ background: disabled ? '#CBD5E1' : lens.color }} />
+      <div className="p-3.5 flex flex-col gap-2 h-full">
+        <div className="flex items-center justify-between">
+          <span className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: `${lens.color}14`, border: `1px solid ${lens.color}33` }}>
+            <Icon size={17} style={{ color: lens.color }} />
+          </span>
+          {disabled ? <Lock size={14} className="text-[#94A3B8]" /> : <ArrowUpRight size={15} className="text-[#94A3B8] group-hover:text-[#005EB8] transition-colors" />}
         </div>
-      </motion.div>
-
-      <AnimatePresence>
-        {isActive && (
-          <motion.div
-            initial={{ opacity: 0, y: -6, scaleY: 0.9 }}
-            animate={{ opacity: 1, y: 0, scaleY: 1 }}
-            exit={{ opacity: 0, y: -4, scaleY: 0.9 }}
-            transition={{ duration: 0.2 }}
-            className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-52 bg-white rounded-xl border border-[#E2E8F0] shadow-xl p-3 z-30"
-            style={{ borderTop: `3px solid ${agent.color}` }}
-          >
-            <p className="text-[#1A1F36] font-bold text-xs mb-1.5">{agent.label} Agent</p>
-            <p className="text-[#6B7280] text-[10px] mb-2 leading-relaxed">{agent.desc}</p>
-            <div className="space-y-1">
-              <p className="text-[9px] font-bold uppercase tracking-widest text-[#9CA3AF]">Connected Tools</p>
-              {agent.tools.map(t => (
-                <span key={t} className="inline-flex items-center gap-1 mr-1 mb-1 px-1.5 py-0.5 bg-[#F4F6F9] border border-[#E2E8F0] rounded text-[9px] text-[#374151] font-medium">
-                  {t}
-                </span>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-}
-
-// ─── Data Tool Card ────────────────────────────────────────────────────────────
-
-function DataToolCard({ tool }) {
-  const [hovered, setHovered] = useState(false);
-  return (
-    <motion.div
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      whileHover={{ y: -4, boxShadow: '0 8px 28px rgba(0,0,0,0.10)' }}
-      transition={{ type: 'spring', stiffness: 400, damping: 28 }}
-      className="relative bg-white rounded-xl border border-[#E2E8F0] p-3.5 overflow-hidden cursor-default"
-    >
-      <div className="flex items-start gap-3">
-        <tool.Logo size={36} />
-        <div className="flex-1 min-w-0">
-          <p className="text-[#1A1F36] font-bold text-xs" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{tool.label}</p>
-          <p className="text-[#9CA3AF] text-[10px] mt-0.5 leading-tight">{tool.sub}</p>
-          <div className="mt-2 flex items-center gap-1.5">
-            <span
-              className="px-1.5 py-0.5 rounded text-[9px] font-bold"
-              style={{ background: `${tool.badgeColor}15`, color: tool.badgeColor }}
-            >
-              {tool.badge}
-            </span>
-          </div>
+        <div className="min-h-[54px]">
+          <p className="text-[13.5px] font-bold text-[#1A1F36] leading-tight" style={FONT}>{lens.label}</p>
+          <p className="text-[11.5px] text-[#64748B] mt-0.5 leading-snug">{lens.subtitle}</p>
         </div>
+        <Badge status={lens.status} />
       </div>
-
-      {/* Hover overlay */}
-      <AnimatePresence>
-        {hovered && (
-          <motion.div
-            initial={{ y: '100%' }}
-            animate={{ y: 0 }}
-            exit={{ y: '100%' }}
-            transition={{ duration: 0.22, ease: 'easeOut' }}
-            className="absolute inset-0 rounded-xl p-3 flex flex-col justify-end"
-            style={{ background: `linear-gradient(160deg, ${tool.badgeColor} 0%, ${tool.badgeColor} 100%)` }}
-          >
-            <p className="text-white font-bold text-xs mb-1">{tool.label}</p>
-            <p className="text-white/80 text-[10px] leading-relaxed mb-2">{tool.detail}</p>
-            <div className="flex items-center justify-between">
-              <span className="text-white/60 text-[9px]">{tool.statLabel}</span>
-              <span className="text-white font-bold text-sm" style={{ fontFamily: "'JetBrains Mono', monospace" }}>
-                {tool.stat}
-              </span>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.div>
+    </>
   );
-}
-
-// ─── Layer Card wrapper ────────────────────────────────────────────────────────
-
-function LayerCard({ children, glowColor = '#0077C8', className = '' }) {
   return (
-    <motion.div
-      whileHover={{ boxShadow: `0 8px 32px ${glowColor}22` }}
-      transition={{ duration: 0.25 }}
-      className={`bg-white rounded-2xl border border-[#E2E8F0] shadow-sm transition-colors hover:border-[#0077C8]/30 ${className}`}
-    >
-      {children}
+    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay }}
+      onMouseEnter={() => onHover(lens)} onMouseLeave={() => onHover(null)} onFocus={() => onHover(lens)} onBlur={() => onHover(null)}>
+      {disabled ? (
+        <div className="bg-white rounded-xl border border-[#D8DCE3] overflow-hidden opacity-70 cursor-not-allowed h-full" aria-disabled>{body}</div>
+      ) : (
+        <Link href={lens.href} className="group block bg-white rounded-xl border border-[#D8DCE3] overflow-hidden h-full shadow-sm hover:shadow-md hover:-translate-y-0.5 hover:border-[#005EB8]/40 transition-all">{body}</Link>
+      )}
     </motion.div>
   );
 }
-
-// ─── Capability row (right panel) ─────────────────────────────────────────────
-
-function CapabilityRow({ Logo, title, sub }) {
-  return (
-    <motion.div
-      whileHover={{ x: 4, backgroundColor: '#F4F6F9' }}
-      transition={{ duration: 0.18 }}
-      className="flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-default"
-    >
-      <div className="w-7 h-7 rounded-lg bg-[#F4F6F9] border border-[#E2E8F0] flex items-center justify-center flex-shrink-0">
-        {Logo ? <Logo size={18} /> : (
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0077C8" strokeWidth="2.5" strokeLinecap="round">
-            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01z"/>
-          </svg>
-        )}
-      </div>
-      <div className="min-w-0">
-        <p className="text-[#1A1F36] text-[11px] font-semibold truncate" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-          {title}
-        </p>
-        <p className="text-[#9CA3AF] text-[9px]">{sub}</p>
-      </div>
-    </motion.div>
-  );
-}
-
-// ─── Main Page ─────────────────────────────────────────────────────────────────
 
 export default function AgenticStackPage() {
-  const [activeAgent, setActiveAgent] = useState(null);
+  const [hovered, setHovered] = useState(null);
 
-  const handleAgentClick = (label) => {
-    setActiveAgent(prev => (prev === label ? null : label));
-  };
+  // Everything counted from the registry and the dataset, never typed.
+  const wiredLenses = LENSES.filter((l) => l.status !== 'roadmap').length;
+  const liveTools = countBy(TOOLS, 'live');
+  const model = useMemo(() => [
+    ['Facilities', nexus.facilities.length],
+    ['Halls', nexus.halls.length],
+    ['Rows', nexus.rows.length],
+    ['Racks', nexus.racks.length],
+    ['Components', nexus.components.length],
+    ['Dependency edges', nexus.dependencies.length],
+    ['Tenants', nexus.tenants.length],
+    ['Contracts', nexus.contracts.length],
+    ['Energy & water months', nexus.energy.length + nexus.water.length],
+    ['Hourly generation', nexus.hourlyGeneration.length],
+  ], []);
+  const examples = useMemo(() => {
+    const alert = [...nexus.activeAlerts].filter((a) => a.status !== 'resolved').sort((a, b) => ({ critical: 0, high: 1, medium: 2, low: 3 }[a.severity] - { critical: 0, high: 1, medium: 2, low: 3 }[b.severity]))[0];
+    const disclosure = nexus.statePolicy.find((p) => /BRSR/i.test(p.policy));
+    return [
+      { Icon: MessageSquareText, kind: 'A question', text: 'Can we take 2 MW at 60 kW density in Mumbai?' },
+      { Icon: Bell, kind: 'An alert', text: `${alert.alert_id} on ${alert.component_id}: ${alert.message}` },
+      { Icon: Landmark, kind: 'A regulator’s request', text: `${disclosure.policy}: ${disclosure.detail.toLowerCase()}` },
+    ];
+  }, []);
+  const activeEngines = new Set(hovered?.engines ?? []);
 
   return (
-    <CCLayout title="Agentic AI Stack">
-      <div className="relative min-h-full bg-[#F4F6F9] overflow-hidden">
-        <div className="relative z-10 p-5">
-          {/* ── Page header ── */}
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-            className="mb-6 flex items-start justify-between"
-          >
-            <div>
-              <h1
-                className="text-[#1A1F36] font-bold text-xl tracking-tight"
-                style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-              >
-                Data Center Life-Cycle Intelligence Platform
-              </h1>
-              <p className="text-[#6B7280] text-sm mt-0.5">
-                Proprietary KPMG Agentic AI Architecture
-              </p>
+    <CCLayout title="AI Stack">
+      <div className="min-h-full bg-[#F0F2F5] p-6">
+        {/* Header */}
+        <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} className="mb-6 flex flex-wrap items-start justify-between gap-3">
+          <div>
+            <h1 className="text-[#00338D] font-bold text-xl tracking-tight" style={FONT}>Data Center Life-Cycle Intelligence Platform</h1>
+            <p className="text-[#64748B] text-sm mt-0.5">One data model, {LENSES.length} lenses on it. Every number is computed in code.</p>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="px-3 py-1 rounded-full bg-[#00338D]/10 border border-[#00338D]/20 text-[#00338D] text-[11px] font-bold uppercase tracking-wider">Proprietary</span>
+            <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#00B0A0]/10 border border-[#00B0A0]/25 text-[#007A70] text-[11px] font-semibold" title="Counted from the platform registry">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#00B0A0] animate-pulse" />{wiredLenses} lenses wired · {liveTools} live data tools
+            </span>
+          </div>
+        </motion.div>
+
+        <div className="max-w-[1400px] mx-auto">
+          {/* Query / event */}
+          <Layer className="px-5 py-4">
+            <p className="text-center text-[10.5px] font-bold uppercase tracking-widest text-[#94A3B8] mb-3">User query or event</p>
+            <div className="grid md:grid-cols-3 gap-3">
+              {examples.map(({ Icon, kind, text }) => (
+                <div key={kind} className="flex items-start gap-2.5 rounded-xl bg-[#F7FAFD] border border-[#D6E4F2] px-3 py-2.5">
+                  <Icon size={15} className="text-[#005EB8] flex-shrink-0 mt-0.5" />
+                  <div className="min-w-0">
+                    <p className="text-[10.5px] font-semibold text-[#64748B]">{kind}</p>
+                    <p className="text-[12.5px] text-[#1A1F36] leading-snug">{text}</p>
+                  </div>
+                </div>
+              ))}
             </div>
-            <div className="flex items-center gap-2 flex-shrink-0">
-              <span className="px-3 py-1 rounded-full bg-[#00338D]/10 border border-[#00338D]/20 text-[#00338D] text-[11px] font-bold uppercase tracking-wider">
-                Proprietary
-              </span>
-              <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#00A36C]/10 border border-[#00A36C]/20 text-[#00A36C] text-[11px] font-semibold">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#00A36C] animate-pulse" />
-                Live
-              </span>
-            </div>
-          </motion.div>
+          </Layer>
+          <Connector delay={150} />
 
-          {/* ── Architecture Diagram ── */}
-          <div className="space-y-0">
-
-              {/* User Query */}
-              <motion.div
-                initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}
-                className="flex justify-center"
-              >
-                <LayerCard className="px-12 py-3.5">
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-7 h-7 rounded-lg bg-[#00338D]/10 flex items-center justify-center">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00338D" strokeWidth="2.5" strokeLinecap="round">
-                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-                      </svg>
-                    </div>
-                    <p className="text-[#1A1F36] font-bold text-sm" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-                      User Query
-                    </p>
-                  </div>
-                </LayerCard>
-              </motion.div>
-
-              <FlowConnector delay={200} height={30} />
-
-              {/* Memory + Planning — no connector inside the cards */}
-              <motion.div
-                initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
-                className="grid grid-cols-2 gap-4"
-              >
-                <LayerCard className="p-4">
-                  <div className="flex items-start gap-3">
-                    <div className="w-9 h-9 rounded-xl bg-[#00338D]/10 border border-[#00338D]/20 flex items-center justify-center flex-shrink-0">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00338D" strokeWidth="2" strokeLinecap="round">
-                        <ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
-                      </svg>
-                    </div>
-                    <div>
-                      <p className="text-[#1A1F36] font-bold text-sm" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Memory Layer</p>
-                      <p className="text-[#6B7280] text-[10px] mt-0.5">Short + long-term context storage</p>
-                    </div>
-                  </div>
-                </LayerCard>
-
-                <LayerCard className="p-4">
-                  <div className="flex items-start gap-3">
-                    <div className="w-9 h-9 rounded-xl bg-[#0077C8]/10 border border-[#0077C8]/20 flex items-center justify-center flex-shrink-0">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0077C8" strokeWidth="2" strokeLinecap="round">
-                        <circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/>
-                      </svg>
-                    </div>
-                    <div>
-                      <p className="text-[#1A1F36] font-bold text-sm" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Planning Layer</p>
-                      <p className="text-[#6B7280] text-[10px] mt-0.5">ReAct + Chain-of-Thought Reasoning</p>
-                    </div>
-                  </div>
-                </LayerCard>
-              </motion.div>
-
-              {/* Combined badge sits below both cards, outside them */}
-              <div className="flex items-center py-2">
-                <div className="flex-1 h-px bg-[#0077C8]/20 ml-6" />
-                <span className="mx-3 px-3 py-1 rounded-lg bg-white border border-[#0077C8]/30 text-[#0077C8] text-[10px] font-bold tracking-widest shadow-sm flex-shrink-0">
-                  Combined
-                </span>
-                <div className="flex-1 h-px bg-[#0077C8]/20 mr-6" />
+          {/* Orchestrator */}
+          <div className="flex justify-center">
+            <Layer className="px-6 py-3.5 flex items-center gap-3 max-w-xl w-full">
+              <span className="w-10 h-10 rounded-xl bg-[#00338D] flex items-center justify-center flex-shrink-0"><RouteIcon size={18} className="text-white" /></span>
+              <div className="flex-1">
+                <p className="text-[14px] font-bold text-[#1A1F36]" style={FONT}>Orchestrator</p>
+                <p className="text-[12px] text-[#64748B]">Parses the question or event and routes it to the lens that owns it.</p>
               </div>
+              <Badge status="dataset" />
+            </Layer>
+          </div>
+          <Fan count={LENSES.length} />
 
-              <FlowConnector delay={350} height={24} />
+          {/* Lenses */}
+          <div className="grid gap-3" style={{ gridTemplateColumns: `repeat(${LENSES.length}, minmax(0, 1fr))` }}>
+            {LENSES.map((l, i) => <LensCard key={l.id} lens={l} onHover={setHovered} delay={0.1 + i * 0.05} />)}
+          </div>
+          <Fan count={LENSES.length} direction="in" />
 
-              {/* Aggregator Agent */}
-              <motion.div
-                initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}
-                className="flex justify-center"
-              >
-                <LayerCard className="px-8 py-4" glowColor="#0077C8">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-[#0077C8]/10 border border-[#0077C8]/25 flex items-center justify-center flex-shrink-0">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0077C8" strokeWidth="2" strokeLinecap="round">
-                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-                      </svg>
-                    </div>
-                    <div>
-                      <p className="text-[#1A1F36] font-bold text-sm" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-                        Aggregator Agent
-                      </p>
-                      <p className="text-[#6B7280] text-[10px]">Routes and coordinates all specialist agents</p>
-                    </div>
-                  </div>
-                </LayerCard>
-              </motion.div>
+          {/* Deterministic engines */}
+          <div className="relative border-y-2 border-[#00338D] bg-[#EAF1FB] px-6 py-5">
+            <div className="flex flex-wrap items-start gap-4">
+              <span className="w-11 h-11 rounded-xl bg-white border border-[#00338D]/25 flex items-center justify-center flex-shrink-0"><Cog size={20} className="text-[#00338D]" /></span>
+              <div className="flex-1 min-w-[260px]">
+                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#00338D]">Deterministic engines</p>
+                <p className="text-[15px] font-semibold text-[#1A1F36] mt-1" style={FONT}>Every number is computed in code from facility data.</p>
+                <p className="text-[13px] text-[#334155]">The model parses questions and explains results. It never calculates, and every figure it writes is checked against the computed facts before it is shown.</p>
+              </div>
+            </div>
+            <div className="flex flex-wrap gap-2 mt-4">
+              {ENGINES.map((e) => {
+                const on = activeEngines.has(e.id);
+                return (
+                  <span key={e.id} title={`lib/nexus/${e.module}`}
+                    className="text-[11.5px] font-medium rounded-lg px-2.5 py-1 border transition-all"
+                    style={on ? { background: '#00338D', color: '#FFFFFF', borderColor: '#00338D' } : { background: '#FFFFFF', color: '#1A1F36', borderColor: '#C9D7EC', opacity: hovered ? 0.55 : 1 }}>
+                    {e.label}
+                  </span>
+                );
+              })}
+            </div>
+            {hovered && <p className="text-[11px] text-[#00338D] mt-2">{hovered.label} runs on the highlighted engines.</p>}
+          </div>
+          <Connector delay={300} />
 
-              {/* Fan-out connector */}
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}>
-                <FanOutConnector count={6} delay={400} />
-              </motion.div>
-
-              {/* 6 Specialist Agents */}
-              <motion.div
-                initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.22 }}
-              >
-                <p className="text-[9px] font-bold uppercase tracking-widest text-[#9CA3AF] text-center mb-2">
-                  Specialist Agents — click to explore
-                </p>
-                <div className="grid grid-cols-6 gap-2.5">
-                  {AGENTS.map(agent => (
-                    <AgentCard
-                      key={agent.label}
-                      agent={agent}
-                      isActive={activeAgent === agent.label}
-                      onClick={() => handleAgentClick(agent.label)}
-                    />
-                  ))}
+          {/* One data model */}
+          <Layer className="px-6 py-4">
+            <div className="flex items-center gap-3 mb-3">
+              <span className="w-10 h-10 rounded-xl bg-[#00338D]/10 border border-[#00338D]/20 flex items-center justify-center"><Database size={18} className="text-[#00338D]" /></span>
+              <div>
+                <p className="text-[14px] font-bold text-[#1A1F36]" style={FONT}>One data model</p>
+                <p className="text-[12px] text-[#64748B]">Every lens reads the same records, so an answer on one screen traces to the same rows as every other.</p>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
+              {model.map(([label, n]) => (
+                <div key={label} className="rounded-lg bg-[#F0F2F5] px-3 py-2">
+                  <p className="text-[16px] font-semibold text-[#00338D] tabular-nums" style={{ fontFamily: "'JetBrains Mono', monospace" }}>{n.toLocaleString('en-IN')}</p>
+                  <p className="text-[11px] text-[#64748B]">{label}</p>
                 </div>
-              </motion.div>
+              ))}
+            </div>
+          </Layer>
+          <Connector delay={420} />
 
-              {/* Space for agent expansion */}
-              <AnimatePresence>
-                {activeAgent && (
-                  <motion.div
-                    key="agent-spacer"
-                    initial={{ height: 0 }}
-                    animate={{ height: 24 }}
-                    exit={{ height: 0 }}
-                    transition={{ duration: 0.2 }}
-                  />
-                )}
-              </AnimatePresence>
-              {!activeAgent && <div style={{ height: 8 }} />}
-
-              <FlowConnector delay={550} height={30} />
-
-              {/* Data & Tools */}
-              <motion.div
-                initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.27 }}
-              >
-                <p className="text-[9px] font-bold uppercase tracking-widest text-[#9CA3AF] text-center mb-2">
-                  Data & Tools — hover for details
-                </p>
-                <div className="grid grid-cols-4 gap-3">
-                  {DATA_TOOLS.map(tool => <DataToolCard key={tool.label} tool={tool} />)}
-                </div>
-              </motion.div>
-
-              <FlowConnector delay={700} height={30} />
-
-              {/* AWS Bedrock (top-left) + Generative Model (bottom-left) + Reflect & Retry (right, full height) */}
-              <motion.div
-                initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.32 }}
-              >
-                <div className="flex gap-3 items-stretch">
-
-                  {/* Left column: AWS Bedrock stacked above Generative Model */}
-                  <div className="flex-1 flex flex-col gap-3">
-                    <LayerCard className="p-4" glowColor="#FF9900">
-                      <div className="flex items-center gap-4">
-                        <AWSBedrockLogo size={44} />
-                        <div className="flex-1">
-                          <p className="text-[#1A1F36] font-bold text-sm" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-                            KPMG Secure Cloud Hosting
-                          </p>
-                          <p className="text-[#6B7280] text-[10px] mt-0.5">
-                            Managed Foundation Models + Vector DB + Embeddings
-                          </p>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <span className="flex items-center gap-1 text-[10px] text-[#00A36C] font-semibold">
-                            <span className="w-1.5 h-1.5 rounded-full bg-[#00A36C] animate-pulse" />
-                            Active
-                          </span>
-                        </div>
+          {/* Data & tools */}
+          <Layer className="px-6 py-4">
+            <p className="text-[10.5px] font-bold uppercase tracking-widest text-[#94A3B8] mb-3">Data & tools</p>
+            <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-3">
+              {TOOLS.map((t) => {
+                const Logo = TOOL_LOGO[t.id];
+                const inner = (
+                  <div className={`flex items-start gap-3 rounded-xl border border-[#D8DCE3] p-3 h-full ${t.status === 'roadmap' ? 'opacity-70' : 'hover:border-[#005EB8]/40 hover:shadow-sm transition'}`}>
+                    <Logo size={38} />
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center justify-between gap-2">
+                        <p className="text-[13.5px] font-bold text-[#1A1F36]" style={FONT}>{t.label}</p>
+                        <Badge status={t.status} />
                       </div>
-                    </LayerCard>
-
-                    <LayerCard className="p-4" glowColor="#D97757">
-                      <div className="flex items-center gap-3">
-                        <ClaudeLogo size={44} />
-                        <div>
-                          <p className="text-[#1A1F36] font-bold text-sm" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-                            Generative Model
-                          </p>
-                          <p className="text-[#9CA3AF] text-[9px] mt-1">
-                            Inference, Scoring &amp; Output Generation
-                          </p>
-                        </div>
-                      </div>
-                    </LayerCard>
-                  </div>
-
-                  {/* Arrow column: up-arrow (R&R → AWS) top half, right-arrow (GenModel → R&R) bottom half */}
-                  <div className="w-10 flex flex-col items-center justify-between py-4 gap-1">
-                    {/* Arrow pointing up: from R&R back to AWS Bedrock */}
-                    <div className="flex flex-col items-center gap-1">
-                      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" rotate-0>
-                        <path d="M9 16V4" stroke="#0077C8" strokeWidth="1.6" strokeLinecap="round"/>
-                        <path d="M3 9l6-6 6 6" stroke="#0077C8" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                      <span className="text-[7px] text-[#0077C8]/60 font-bold uppercase tracking-wide text-center leading-tight rotate-0">loop</span>
-                    </div>
-                    <div className="flex-1 w-px bg-[#0077C8]/20" />
-                    {/* Arrow pointing right: from Generative Model to R&R */}
-                    <div className="flex flex-col items-center gap-1">
-                      <span className="text-[7px] text-[#0077C8]/60 font-bold uppercase tracking-wide text-center leading-tight">send</span>
-                      <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                        <path d="M2 9h13" stroke="#0077C8" strokeWidth="1.6" strokeLinecap="round"/>
-                        <path d="M10 4l5 5-5 5" stroke="#0077C8" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
+                      <p className="text-[12px] text-[#64748B]">{t.description}</p>
+                      <p className="text-[11px] text-[#94A3B8] mt-0.5">{t.detail}</p>
                     </div>
                   </div>
+                );
+                return t.href && t.status !== 'roadmap' ? <Link key={t.id} href={t.href}>{inner}</Link> : <div key={t.id}>{inner}</div>;
+              })}
+            </div>
+          </Layer>
 
-                  {/* Right column: Reflect & Retry spanning full height */}
-                  <div className="w-48 flex">
-                    <LayerCard className="p-4 flex-1 flex flex-col justify-center" glowColor="#0077C8">
-                      <div className="flex flex-col items-center text-center gap-3">
-                        <div className="w-11 h-11 rounded-xl bg-[#0077C8]/10 border border-[#0077C8]/20 flex items-center justify-center">
-                          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0077C8" strokeWidth="2" strokeLinecap="round">
-                            <path d="M21 2v6h-6M3 12a9 9 0 0115-6.7L21 8M3 22v-6h6M21 12a9 9 0 01-15 6.7L3 16"/>
-                          </svg>
-                        </div>
-                        <div>
-                          <p className="text-[#1A1F36] font-bold text-sm" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-                            Reflect &amp; Retry
-                          </p>
-                          <p className="text-[#6B7280] text-[10px] mt-1 leading-relaxed">
-                            Autonomous self-correction loop
-                          </p>
-                        </div>
-                        <span className="px-2.5 py-1 bg-[#0077C8]/10 border border-[#0077C8]/20 rounded-lg text-[10px] text-[#0077C8] font-bold">
-                          Agent
-                        </span>
-                      </div>
-                    </LayerCard>
-                  </div>
-
-                </div>
-              </motion.div>
-
+          {/* Badge legend */}
+          <div className="flex flex-wrap items-center gap-5 mt-4 text-[11px] text-[#64748B]">
+            {Object.entries(STATUS).map(([k, s]) => (
+              <span key={k} className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full" style={{ background: s.color }} /><b style={{ color: s.color }}>{s.label}</b> {s.note.charAt(0).toLowerCase() + s.note.slice(1)}</span>
+            ))}
           </div>
         </div>
       </div>

@@ -8,12 +8,12 @@ const ForceGraph2D =
     ? require('react-force-graph-2d').default
     : null;
 
-function catColor(categoryId) {
-  return CATEGORIES.find(c => c.id === categoryId)?.color ?? '#64748b';
+function catColor(categoryId, categories = CATEGORIES) {
+  return categories.find(c => c.id === categoryId)?.color ?? '#64748b';
 }
 
-function catLabel(categoryId) {
-  return CATEGORIES.find(c => c.id === categoryId)?.label ?? categoryId;
+function catLabel(categoryId, categories = CATEGORIES) {
+  return categories.find(c => c.id === categoryId)?.label ?? categoryId;
 }
 
 function buildNeighborSet(nodeId, edges) {
@@ -27,7 +27,9 @@ function buildNeighborSet(nodeId, edges) {
   return s;
 }
 
-export default function DCKnowledgeGraph({ activeCategory = 'all' }) {
+// nodes / edges / categories default to the market knowledge graph; the wiki's
+// pattern-memory mode passes the Nexus pattern graph instead.
+export default function DCKnowledgeGraph({ activeCategory = 'all', nodes: srcNodes = NODES, edges: srcEdges = EDGES, categories = CATEGORIES, onSelect }) {
   const fgRef = useRef(null);
   const containerRef = useRef(null);
   const zoomedRef = useRef(false);
@@ -50,26 +52,26 @@ export default function DCKnowledgeGraph({ activeCategory = 'all' }) {
   }, []);
 
   // Reset zoom flag when category changes so new layout auto-fits
-  useEffect(() => { zoomedRef.current = false; }, [activeCategory]);
+  useEffect(() => { zoomedRef.current = false; }, [activeCategory, srcNodes]);
 
   // Reset selected node when category changes
-  useEffect(() => { setSelectedNode(null); }, [activeCategory]);
+  useEffect(() => { setSelectedNode(null); }, [activeCategory, srcNodes]);
 
   const graphData = useMemo(() => {
     let nodes, links;
     if (activeCategory === 'all') {
-      nodes = NODES.map(n => ({ ...n }));
-      links = EDGES.filter(e => e.source && e.target).map(e => ({ ...e }));
+      nodes = srcNodes.map(n => ({ ...n }));
+      links = srcEdges.filter(e => e.source && e.target).map(e => ({ ...e }));
     } else {
-      const ids = new Set(NODES.filter(n => n.category === activeCategory).map(n => n.id));
-      const validEdges = EDGES.filter(e => e.source && e.target);
+      const ids = new Set(srcNodes.filter(n => n.category === activeCategory).map(n => n.id));
+      const validEdges = srcEdges.filter(e => e.source && e.target);
       validEdges.forEach(e => {
         const s = e.source?.id ?? e.source;
         const t = e.target?.id ?? e.target;
         if (ids.has(s)) ids.add(t);
         if (ids.has(t)) ids.add(s);
       });
-      nodes = NODES.filter(n => ids.has(n.id)).map(n => ({ ...n }));
+      nodes = srcNodes.filter(n => ids.has(n.id)).map(n => ({ ...n }));
       links = validEdges.filter(e => {
         const s = e.source?.id ?? e.source;
         const t = e.target?.id ?? e.target;
@@ -77,7 +79,23 @@ export default function DCKnowledgeGraph({ activeCategory = 'all' }) {
       }).map(e => ({ ...e }));
     }
     return { nodes, links };
-  }, [activeCategory]);
+  }, [activeCategory, srcNodes, srcEdges]);
+
+  // Weak pull toward the centre so nodes without links stay with the graph
+  // instead of drifting to the edge of the canvas.
+  useEffect(() => {
+    const fg = fgRef.current;
+    if (!fg) return;
+    let simNodes = [];
+    const gravity = (alpha) => {
+      for (const n of simNodes) {
+        n.vx -= (n.x ?? 0) * 0.03 * alpha;
+        n.vy -= (n.y ?? 0) * 0.03 * alpha;
+      }
+    };
+    gravity.initialize = (ns) => { simNodes = ns; };
+    fg.d3Force('gravity', gravity);
+  }, [mounted, graphData]);
 
   const neighborSet = useMemo(() => {
     if (!selectedNode) return new Set();
@@ -89,7 +107,7 @@ export default function DCKnowledgeGraph({ activeCategory = 'all' }) {
     const y = node.y ?? 0;
     const baseR = (node.size ?? 8) * 0.55;
     const r = Math.max(3, baseR / Math.max(0.6, Math.sqrt(globalScale) * 0.75));
-    const color = catColor(node.category);
+    const color = catColor(node.category, categories);
 
     const isSelected = selectedNode?.id === node.id;
     const isHovered = hoveredNode?.id === node.id;
@@ -136,7 +154,7 @@ export default function DCKnowledgeGraph({ activeCategory = 'all' }) {
     }
 
     ctx.globalAlpha = 1;
-  }, [selectedNode, hoveredNode, neighborSet]);
+  }, [selectedNode, hoveredNode, neighborSet, categories]);
 
   const linkCanvasObject = useCallback((link, ctx, globalScale) => {
     const src = link.source;
@@ -167,8 +185,12 @@ export default function DCKnowledgeGraph({ activeCategory = 'all' }) {
   }, []);
 
   const handleNodeClick = useCallback((node) => {
-    setSelectedNode(prev => prev?.id === node.id ? null : node);
-  }, []);
+    setSelectedNode(prev => {
+      const next = prev?.id === node.id ? null : node;
+      onSelect?.(next);
+      return next;
+    });
+  }, [onSelect]);
 
   const handleEngineStop = useCallback(() => {
     if (!zoomedRef.current && fgRef.current) {
@@ -180,7 +202,8 @@ export default function DCKnowledgeGraph({ activeCategory = 'all' }) {
   const activeNode = selectedNode ?? hoveredNode;
 
   return (
-    <div ref={containerRef} className="relative w-full h-full bg-white">
+    <div className="relative w-full h-full bg-white p-3">
+    <div ref={containerRef} className="relative w-full h-full">
       {mounted && ForceGraph2D && (
         <ForceGraph2D
           ref={fgRef}
@@ -194,7 +217,7 @@ export default function DCKnowledgeGraph({ activeCategory = 'all' }) {
           linkCanvasObjectMode={() => 'replace'}
           onNodeHover={handleNodeHover}
           onNodeClick={handleNodeClick}
-          onBackgroundClick={() => setSelectedNode(null)}
+          onBackgroundClick={() => { setSelectedNode(null); onSelect?.(null); }}
           nodeLabel=""
           enableNodeDrag
           enableZoomInteraction
@@ -220,18 +243,18 @@ export default function DCKnowledgeGraph({ activeCategory = 'all' }) {
             <div className="flex items-center gap-2 mb-2">
               <div
                 className="w-3 h-3 rounded-full flex-shrink-0"
-                style={{ background: catColor(activeNode.category) }}
+                style={{ background: catColor(activeNode.category, categories) }}
               />
               <span className="font-bold text-text-primary text-sm leading-tight">{activeNode.label}</span>
             </div>
             <span
               className="inline-block text-[9px] px-2 py-0.5 rounded-full font-semibold mb-2"
               style={{
-                background: catColor(activeNode.category) + '18',
-                color: catColor(activeNode.category),
+                background: catColor(activeNode.category, categories) + '18',
+                color: catColor(activeNode.category, categories),
               }}
             >
-              {catLabel(activeNode.category)}
+              {catLabel(activeNode.category, categories)}
             </span>
             <p className="text-[10px] text-text-secondary leading-relaxed">{activeNode.description}</p>
             {selectedNode?.id === activeNode.id && (
@@ -264,6 +287,7 @@ export default function DCKnowledgeGraph({ activeCategory = 'all' }) {
           Drag to explore · Scroll to zoom · Click a node to highlight connections
         </div>
       )}
+    </div>
     </div>
   );
 }

@@ -28,7 +28,7 @@ function GraphSkeleton() {
 const LEGEND_TYPES = [
   { type: 'ontology', label: 'Ontology Node', shape: 'circle', color: '#1e40af' },
   { type: 'metric',   label: 'Metric',        shape: 'ring',   color: '#0d9488' },
-  { type: 'decision', label: 'Decision Gate',  shape: 'tri',    color: '#dc2626' },
+  { type: 'decision', label: 'Decision Gate',  shape: 'tri',    color: '#C8102E' },
 ];
 
 export default function OntologyPage() {
@@ -53,11 +53,11 @@ export default function OntologyPage() {
     <div className="fixed inset-0 z-50 bg-[#F8FAFD] flex flex-col overflow-hidden">
 
       {/* ── Header ─────────────────────────────────────────────────────── */}
-      <div className="flex-shrink-0 bg-white border-b border-[#E2E8F0] px-6 py-3 flex items-center justify-between">
+      <div className="flex-shrink-0 bg-white border-b border-[#D8DCE3] px-6 py-3 flex items-center justify-between">
         <div className="flex items-center gap-4">
           <button
             onClick={() => router.back()}
-            className="w-8 h-8 rounded-lg border border-[#E2E8F0] flex items-center justify-center hover:bg-[#F4F6F9] transition-colors"
+            className="w-8 h-8 rounded-lg border border-[#D8DCE3] flex items-center justify-center hover:bg-[#F0F2F5] transition-colors"
           >
             <X size={15} className="text-[#6B7280]" />
           </button>
@@ -65,7 +65,7 @@ export default function OntologyPage() {
             <div className="flex items-center gap-2">
               <span
                 className="font-extrabold text-[#1A1F36] text-base"
-                style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+                style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}
               >
                 DC Ontology Graph
               </span>
@@ -87,7 +87,7 @@ export default function OntologyPage() {
             { label: 'Edges',  value: stats.edges,   color: '#7c3aed' },
             { label: 'Categories', value: CATEGORIES.length, color: '#059669' },
           ].map((s) => (
-            <div key={s.label} className="flex items-center gap-1 px-2.5 py-1 bg-[#F4F6F9] rounded-lg">
+            <div key={s.label} className="flex items-center gap-1 px-2.5 py-1 bg-[#F0F2F5] rounded-lg">
               <span className="text-sm font-black" style={{ color: s.color }}>{s.value}</span>
               <span className="text-[9px] text-[#9CA3AF]">{s.label}</span>
             </div>
@@ -99,10 +99,10 @@ export default function OntologyPage() {
       <div className="flex-1 flex overflow-hidden">
 
         {/* Left sidebar */}
-        <div className="w-56 flex-shrink-0 bg-white border-r border-[#E2E8F0] flex flex-col overflow-hidden">
+        <div className="w-56 flex-shrink-0 bg-white border-r border-[#D8DCE3] flex flex-col overflow-hidden">
 
           {/* Category filter */}
-          <div className="p-4 border-b border-[#F4F6F9]">
+          <div className="p-4 border-b border-[#F0F2F5]">
             <p className="text-[10px] font-bold text-[#9CA3AF] uppercase tracking-wider mb-3">
               Filter by Domain
             </p>
@@ -112,7 +112,7 @@ export default function OntologyPage() {
                 className={`w-full text-left px-2 py-1.5 rounded-lg text-[11px] font-semibold transition-colors flex items-center gap-2 ${
                   activeCategory === 'all'
                     ? 'bg-[#EBF5FF] text-[#00338D]'
-                    : 'text-[#6B7280] hover:bg-[#F4F6F9]'
+                    : 'text-[#6B7280] hover:bg-[#F0F2F5]'
                 }`}
               >
                 <div className="w-2.5 h-2.5 rounded-full bg-slate-400" />
@@ -125,7 +125,7 @@ export default function OntologyPage() {
                   className={`w-full text-left px-2 py-1.5 rounded-lg text-[11px] font-semibold transition-colors flex items-center gap-2 ${
                     activeCategory === cat.id
                       ? 'bg-opacity-10 font-bold'
-                      : 'text-[#6B7280] hover:bg-[#F4F6F9]'
+                      : 'text-[#6B7280] hover:bg-[#F0F2F5]'
                   }`}
                   style={
                     activeCategory === cat.id
@@ -141,7 +141,7 @@ export default function OntologyPage() {
           </div>
 
           {/* Node type legend */}
-          <div className="p-4 border-b border-[#F4F6F9]">
+          <div className="p-4 border-b border-[#F0F2F5]">
             <p className="text-[10px] font-bold text-[#9CA3AF] uppercase tracking-wider mb-3">
               Node Types
             </p>

@@ -2,7 +2,7 @@
 export function FormField({ label, hint, children }) {
   return (
     <div>
-      <label className="block text-sm font-semibold text-[#1A1F36] mb-1.5" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+      <label className="block text-sm font-semibold text-[#1A1F36] mb-1.5" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
         {label}
         {hint && <span className="text-[#9CA3AF] font-normal ml-1.5 text-xs">({hint})</span>}
       </label>
@@ -16,7 +16,7 @@ export function Select({ value, onChange, options, placeholder }) {
     <select
       value={value || ''}
       onChange={e => onChange(e.target.value)}
-      className="w-full bg-[#F4F6F9] border border-[#E2E8F0] rounded-xl px-4 py-2.5 text-sm text-[#1A1F36] focus:outline-none focus:border-[#0077C8]/60 focus:bg-white transition-all appearance-none cursor-pointer"
+      className="w-full bg-[#F0F2F5] border border-[#D8DCE3] rounded-xl px-4 py-2.5 text-sm text-[#1A1F36] focus:outline-none focus:border-[#005EB8]/60 focus:bg-white transition-all appearance-none cursor-pointer"
       style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 12px center' }}
     >
       <option value="" disabled>{placeholder || 'Select...'}</option>
@@ -50,7 +50,7 @@ export function MultiSelect({ value = [], onChange, options }) {
             className={`px-3 py-1.5 rounded-full text-xs font-semibold border transition-all ${
               selected
                 ? 'bg-[#00338D] text-white border-[#00338D] shadow-sm'
-                : 'bg-[#F4F6F9] text-[#6B7280] border-[#E2E8F0] hover:border-[#CBD5E1] hover:text-[#1A1F36]'
+                : 'bg-[#F0F2F5] text-[#6B7280] border-[#D8DCE3] hover:border-[#CBD5E1] hover:text-[#1A1F36]'
             }`}
           >
             {selected && <span className="mr-1">✓</span>}
@@ -74,9 +74,9 @@ export function SliderField({ value, onChange, min, max, step = 1, formatValue, 
         {rightLabel && <span className="text-xs text-[#9CA3AF] ml-2">{rightLabel}</span>}
       </div>
       <div className="relative h-2">
-        <div className="absolute inset-0 bg-[#E2E8F0] rounded-full" />
+        <div className="absolute inset-0 bg-[#D8DCE3] rounded-full" />
         <div
-          className="absolute top-0 left-0 h-full bg-gradient-to-r from-[#00338D] to-[#0077C8] rounded-full"
+          className="absolute top-0 left-0 h-full bg-gradient-to-r from-[#00338D] to-[#005EB8] rounded-full"
           style={{ width: `${pct}%` }}
         />
         <input
@@ -108,7 +108,7 @@ export function TextInput({ value, onChange, placeholder, type = 'text' }) {
       value={value || ''}
       onChange={e => onChange(e.target.value)}
       placeholder={placeholder}
-      className="w-full bg-[#F4F6F9] border border-[#E2E8F0] rounded-xl px-4 py-2.5 text-sm text-[#1A1F36] focus:outline-none focus:border-[#0077C8]/60 focus:bg-white transition-all placeholder:text-[#9CA3AF]"
+      className="w-full bg-[#F0F2F5] border border-[#D8DCE3] rounded-xl px-4 py-2.5 text-sm text-[#1A1F36] focus:outline-none focus:border-[#005EB8]/60 focus:bg-white transition-all placeholder:text-[#9CA3AF]"
     />
   );
 }
@@ -120,7 +120,7 @@ export function Toggle({ checked, onChange, label }) {
       <button
         type="button"
         onClick={() => onChange(!checked)}
-        className={`relative w-11 h-6 rounded-full transition-colors ${checked ? 'bg-[#00338D]' : 'bg-[#E2E8F0]'}`}
+        className={`relative w-11 h-6 rounded-full transition-colors ${checked ? 'bg-[#00338D]' : 'bg-[#D8DCE3]'}`}
       >
         <div
           className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow-sm transition-transform ${checked ? 'translate-x-6' : 'translate-x-1'}`}

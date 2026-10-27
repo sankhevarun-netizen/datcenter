@@ -1,0 +1,38 @@
+[
+  {
+    "scene": "Scene 1",
+    "name": "Stranded capacity",
+    "where": "MUM-1",
+    "action": "One click on 'Stranded capacity'",
+    "what the system returns": "640 kW structural stranded. Row K 380 kW cooling-limited, Row C 190 kW space-limited, Rows P and Q 70 kW combined.",
+    "source sheets": "03_rows",
+    "the line to say": "Rs 49 lakh annual carrying cost. Rs 6.4 crore of revenue it cannot earn."
+  },
+  {
+    "scene": "Scene 2",
+    "name": "Can we take this customer",
+    "where": "MUM-1 Hall 4",
+    "action": "Type: Can we take 2MW at 60kW density?",
+    "what the system returns": "Space 34 racks, power 22 racks (1,320 kW), cooling 14 racks (840 kW). Cooling binds.",
+    "source sheets": "03_rows",
+    "the line to say": "Answer: 840 kW deployable today. Quote it in the call, not next Thursday."
+  },
+  {
+    "scene": "Scene 3",
+    "name": "Cascade impact",
+    "where": "MUM-1 Row G",
+    "action": "Drag density slider 10 kW -> 60 kW",
+    "what the system returns": "5 components exceeded across 3 systems. UPS-1/UPS-2 pair loses N+1. +4.12 GWh/year, +7.41 million litres/year, PUE 1.58 -> 1.71.",
+    "source sheets": "07_cascade_result, 08_secondary_effects",
+    "the line to say": "Rs 2.50 crore of upgrades, 16-week critical path. Fourteen seconds versus two weeks."
+  },
+  {
+    "scene": "Scene 4",
+    "name": "Retrospective replay",
+    "where": "MUM-1 UPS-1",
+    "action": "Open incident INC-2026-0318",
+    "what the system returns": "Operator detected 04:12. Agent flags degradation 22:40 previous evening. 5 hours 32 minutes earlier.",
+    "source sheets": "11_incidents, 12_telemetry_replay",
+    "the line to say": "Rs 4 lakh scheduled swap versus Rs 18 lakh emergency. Data was already in the building."
+  }
+]

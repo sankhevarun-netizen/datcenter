@@ -6,13 +6,13 @@ import { X, MapPin, Boxes } from 'lucide-react';
 import { GOOGLE_DC_MASTER } from '@/data/googleDCMasterData';
 
 const C = {
-  bg:     '#F4F6F9',
+  bg:     '#F0F2F5',
   card:   '#FFFFFF',
-  border: '#E2E8F0',
-  blue:   '#0077C8',
-  green:  '#00A36C',
-  amber:  '#D4A017',
-  red:    '#DC2626',
+  border: '#D8DCE3',
+  blue:   '#005EB8',
+  green:  '#00B0A0',
+  amber:  '#E87722',
+  red:    '#C8102E',
   cyan:   '#06B6D4',
   purple: '#7C3AED',
   text:   '#1A1F36',
@@ -43,7 +43,7 @@ function KPIModal({ label, value, sub, color, elaboration, impact, onClose }) {
         <p style={{ fontSize: 10, fontWeight: 700, color, textTransform: 'uppercase', letterSpacing: '0.12em', margin: '0 0 8px' }}>{label}</p>
         {value != null && <p style={{ fontSize: 52, fontWeight: 800, color, fontFamily: "'JetBrains Mono', monospace", lineHeight: 1, margin: '0 0 6px' }}>{value}</p>}
         {sub && <p style={{ fontSize: 12, color: '#9CA3AF', margin: 0 }}>{sub}</p>}
-        <div style={{ borderTop: '1px solid #E2E8F0', margin: '28px 0' }} />
+        <div style={{ borderTop: '1px solid #D8DCE3', margin: '28px 0' }} />
         <div style={{ marginBottom: 24 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14 }}>
             <div style={{ width: 24, height: 24, borderRadius: 7, background: color + '18', border: `1px solid ${color}28`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, color }}>✦</div>
@@ -79,7 +79,7 @@ function calcTooltipPos(rect, tooltipW = 270) {
 
 const TOOLTIP_STYLE = {
   position: 'fixed', zIndex: 9990, width: 270,
-  background: '#1A1F36', color: '#fff',
+  background: '#00338D', color: '#fff',
   borderRadius: 10, padding: '12px 14px',
   boxShadow: '0 8px 24px rgba(0,0,0,0.3)',
   border: '1px solid rgba(255,255,255,0.12)',
@@ -365,7 +365,7 @@ export default function DCCommandCenter({ dc, onClose, allDCs = GOOGLE_DC_MASTER
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
             <span style={{ fontSize: 20 }}>{flag}</span>
-            <h2 style={{ fontSize: 16, fontWeight: 700, color: C.text, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{dc.name}</h2>
+            <h2 style={{ fontSize: 16, fontWeight: 700, color: C.text, fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>{dc.name}</h2>
             <span style={{
               fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 20,
               background: dc.status === 'Active' ? 'rgba(0,163,108,0.15)' : 'rgba(212,160,23,0.15)',

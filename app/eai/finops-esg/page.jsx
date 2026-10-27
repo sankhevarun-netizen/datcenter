@@ -9,7 +9,7 @@ import {
   DollarSign, BarChart2, Briefcase, Zap, CheckCircle2, TrendingUp,
   Filter, Download, ChevronDown, ChevronUp, Leaf, Users, Shield,
   MapPin, Layers, Wallet, Gauge, Plus, Bell, AlertTriangle,
-  FileSpreadsheet, FileText, FileDown,
+  FileSpreadsheet, FileText, FileDown, Snowflake,
 } from 'lucide-react';
 
 import DonutChart          from '@/components/eai/widgets/DonutChart';
@@ -30,6 +30,18 @@ import {
   EMISSIONS_BY_SCOPE, EMISSIONS_BY_LOCATION, ESG_INITIATIVES,
   COMPLIANCE_REPORTING, ESG_INSIGHTS,
 } from '@/data/eaiFinOpsEsgMock';
+import { COOLING_PROFILES } from '@/data/gpuChipProfiles';
+
+// Real-world adoption mix across the 115-facility public repository
+// (public/data/datacenter_repository.json), each facility's free-text
+// cooling_type classified into these four tiers by keyword match
+// (immersion / direct-to-chip liquid / rear-door heat exchanger / air) —
+// computed once offline, not fetched at render time.
+const COOLING_ADOPTION = [
+  { name: 'Air / Chilled Water', value: 105, pct: 91.3, color: '#94A3B8' },
+  { name: 'Direct-to-Chip Liquid', value: 8, pct: 7.0,  color: '#0077C8' },
+  { name: 'Immersion',           value: 2, pct: 1.7,   color: '#10B981' },
+];
 
 // ─── shared card styles ──────────────────────────────────────────────────────
 const CARD = {
@@ -981,6 +993,76 @@ function FinOpsEsgPageInner() {
 
           {/* ESG Insights */}
           <InsightsCard title="ESG Insights" items={ESG_INSIGHTS} footerLink="View All ESG Insights" onFooterClick={() => openDrawer('esg-insights-all')} />
+        </div>
+
+        {/* Row 3: Cooling Intelligence */}
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginTop: 4 }}>
+          <Snowflake size={13} color="#0077C8" />
+          <h2 style={{ fontSize: 12, fontWeight: 800, color: '#1A1F36', margin: 0 }}>Cooling Intelligence</h2>
+          <span style={{ fontSize: 9, color: '#9CA3AF' }}>Technology tradeoffs for AI-density racks, and how the market is actually cooling today</span>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1.1fr 0.9fr 1fr', gap: 12, minHeight: 220 }}>
+
+          {/* Cooling technology tiers */}
+          <div style={CARD}>
+            <div style={CARD_HDR}><span style={CARD_TITLE}>Cooling Technology Tiers</span></div>
+            <div style={{ padding: '12px 14px', flex: 1 }}>
+              <p style={{ fontSize: 9, color: '#9CA3AF', marginBottom: 10 }}>Max supportable rack density, by cooling approach</p>
+              <HorizontalBarList
+                items={COOLING_PROFILES.map(c => ({ label: c.label, value: c.max_rack_kw, color: c.facility_class === 'liquid_ready' ? '#0077C8' : '#94A3B8' }))}
+                unit=" kW"
+                labelWidth={140}
+              />
+              <div style={{ marginTop: 12, borderTop: '1px solid #E2E8F0', paddingTop: 10, display: 'flex', flexDirection: 'column', gap: 4 }}>
+                {COOLING_PROFILES.map(c => (
+                  <div key={c.id} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 9, color: '#6B7280' }}>
+                    <span>{c.label}</span>
+                    <span style={{ fontFamily: 'ui-monospace,monospace' }}>PUE +{c.pue_penalty.toFixed(2)} · WUE {c.wue_l_per_kwh} L/kWh · capex ×{c.capex_multiplier}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Real-world adoption */}
+          <div style={CARD}>
+            <div style={CARD_HDR}><span style={CARD_TITLE}>Real-World Adoption</span></div>
+            <div style={{ padding: '8px 14px 12px', flex: 1, overflowY: 'auto' }}>
+              <p style={{ fontSize: 9, color: '#9CA3AF', marginBottom: 6 }}>115 global facilities, by cooling type on record</p>
+              <DonutChart data={COOLING_ADOPTION} centerLabel="115" centerSublabel="Facilities" height={130} innerRadius={42} outerRadius={60} showLegend={false} />
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 5, marginTop: 8 }}>
+                {COOLING_ADOPTION.map(item => (
+                  <div key={item.name} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 9.5 }}>
+                    <span style={{ width: 8, height: 8, borderRadius: 2, background: item.color, flexShrink: 0 }} />
+                    <span style={{ flex: 1, color: '#374151' }}>{item.name}</span>
+                    <span style={{ fontWeight: 700, color: '#1A1F36', fontFamily: 'ui-monospace,monospace' }}>{item.pct}%</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Achievable PUE by tier vs. portfolio actual */}
+          <div style={CARD}>
+            <div style={CARD_HDR}><span style={CARD_TITLE}>Achievable PUE by Tier</span></div>
+            <div style={{ padding: '12px 14px', flex: 1, display: 'flex', flexDirection: 'column' }}>
+              <p style={{ fontSize: 9, color: '#9CA3AF', marginBottom: 10 }}>Lower is better · baseline at full load, no chip-specific tuning</p>
+              <HorizontalBarList
+                items={[
+                  { label: 'Portfolio Avg (today)', value: Number(UNIT_ECONOMICS.find(u => u.metric === 'PUE (Avg)')?.value ?? 1.31), color: '#F59E0B' },
+                  ...COOLING_PROFILES.map(c => ({ label: c.label, value: Math.round((1 + c.pue_penalty) * 100) / 100, color: c.facility_class === 'liquid_ready' ? '#0077C8' : '#94A3B8' })),
+                ]}
+                maxValue={1.4}
+                labelWidth={140}
+              />
+              <div style={{ marginTop: 'auto', paddingTop: 10, borderTop: '1px dashed #E2E8F0', display: 'flex', gap: 6, alignItems: 'flex-start' }}>
+                <Snowflake size={11} style={{ color: '#CBD5E1', flexShrink: 0, marginTop: 1 }} />
+                <p style={{ fontSize: 9, color: '#9CA3AF', lineHeight: 1.5 }}>
+                  The portfolio's actual PUE runs slightly behind even the air-cooled baseline — before any tier upgrade, this is where a cooling-technology partner's efficiency and fluids expertise would show up first.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );

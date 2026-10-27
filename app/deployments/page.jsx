@@ -35,16 +35,16 @@ export default function DeploymentsPage() {
     <CCLayout title="Virtual Loading Bay">
       <div className="flex flex-col h-full">
         {/* Page header */}
-        <div className="flex-shrink-0 flex items-center justify-between px-6 py-4 border-b border-[#E2E8F0] bg-white">
+        <div className="flex-shrink-0 flex items-center justify-between px-6 py-4 border-b border-[#D8DCE3] bg-white">
           <div>
-            <h1 className="text-lg font-bold text-[#1A1F36]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+            <h1 className="text-lg font-bold text-[#1A1F36]" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
               Virtual Loading Bay
             </h1>
             <p className="text-xs text-[#9CA3AF] mt-0.5">Track equipment deployments from request to installation</p>
           </div>
           <div className="flex items-center gap-3">
             {/* Priority filter */}
-            <div className="flex items-center gap-1 p-0.5 bg-[#F4F6F9] rounded-lg border border-[#E2E8F0]">
+            <div className="flex items-center gap-1 p-0.5 bg-[#F0F2F5] rounded-lg border border-[#D8DCE3]">
               {['all', 'critical', 'high', 'medium'].map(p => (
                 <button
                   key={p}
@@ -60,7 +60,7 @@ export default function DeploymentsPage() {
             <button
               onClick={() => setShowForm(true)}
               className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold text-white transition-colors"
-              style={{ backgroundColor: '#0077C8' }}
+              style={{ backgroundColor: '#005EB8' }}
             >
               <Plus size={14} />
               New Deployment
@@ -69,7 +69,7 @@ export default function DeploymentsPage() {
         </div>
 
         {/* Summary strip */}
-        <div className="flex-shrink-0 flex items-center gap-4 px-6 py-3 bg-[#F8FAFC] border-b border-[#E2E8F0]">
+        <div className="flex-shrink-0 flex items-center gap-4 px-6 py-3 bg-[#F8FAFC] border-b border-[#D8DCE3]">
           {[
             { label: 'Requested', count: counts.requested, icon: Clock, color: '#6366f1' },
             { label: 'Approved', count: counts.approved, icon: CheckCircle, color: '#f59e0b' },
@@ -90,9 +90,9 @@ export default function DeploymentsPage() {
             );
           })}
           {criticalCount > 0 && (
-            <div className="ml-auto flex items-center gap-2 px-3 py-1.5 bg-[#FEF2F2] border border-[#DC262630] rounded-lg">
-              <AlertTriangle size={12} className="text-[#DC2626]" />
-              <span className="text-xs font-semibold text-[#DC2626]">{criticalCount} deployment{criticalCount > 1 ? 's' : ''} with capacity issues</span>
+            <div className="ml-auto flex items-center gap-2 px-3 py-1.5 bg-[#FEF2F2] border border-[#C8102E30] rounded-lg">
+              <AlertTriangle size={12} className="text-[#C8102E]" />
+              <span className="text-xs font-semibold text-[#C8102E]">{criticalCount} deployment{criticalCount > 1 ? 's' : ''} with capacity issues</span>
             </div>
           )}
         </div>

@@ -9,7 +9,7 @@ const STAGE_ICONS = {
   delivered: PackageCheck,
 };
 
-export default function FlowPipeline({ stages = [] }) {
+export default function FlowPipeline({ stages = [], onStageClick }) {
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: 0, width: '100%', height: '100%' }}>
       {stages.map((stage, i) => {
@@ -18,7 +18,18 @@ export default function FlowPipeline({ stages = [] }) {
           <div key={stage.key} style={{ display: 'flex', alignItems: 'center', flex: 1, minWidth: 0 }}>
 
             {/* Stage node */}
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6, flex: 1, minWidth: 0, padding: '4px 6px' }}>
+            <div
+              onClick={onStageClick ? () => onStageClick(stage) : undefined}
+              role={onStageClick ? 'button' : undefined}
+              tabIndex={onStageClick ? 0 : undefined}
+              onKeyDown={onStageClick ? (e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onStageClick(stage); } }) : undefined}
+              style={{
+                display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6, flex: 1, minWidth: 0, padding: '4px 6px',
+                borderRadius: 10, cursor: onStageClick ? 'pointer' : 'default', transition: 'background 0.15s',
+              }}
+              onMouseEnter={e => { if (onStageClick) e.currentTarget.style.background = '#F4F6F9'; }}
+              onMouseLeave={e => { if (onStageClick) e.currentTarget.style.background = 'transparent'; }}
+            >
               {/* Icon circle */}
               <div style={{
                 width: 52, height: 52, borderRadius: '50%', flexShrink: 0,

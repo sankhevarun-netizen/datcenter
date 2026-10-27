@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import {
-  Sparkles, Send, ChevronRight, X, Paperclip, FileText,
+  Sparkles, Send, ChevronRight, X, Paperclip, FileText, Maximize2, Minimize2,
   LayoutDashboard, FileSearch, Download, Zap, Building2,
   TrendingUp, Wrench, DollarSign, Package, Shield, Activity,
 } from 'lucide-react';
@@ -12,6 +12,9 @@ import { callClaude } from '@/lib/claude-api';
 import { writeToWiki } from '@/lib/wiki';
 import { researchClientLight } from '@/lib/research';
 import DecisionQuickStarts from '@/components/decision-cockpit/DecisionQuickStarts';
+import TransitionOverlay from '@/components/cockpit/TransitionOverlay';
+import { matchCockpit, isCockpitShortcut } from '@/lib/cockpit/trigger';
+import { COCKPITS, DEFAULT_COCKPIT, cockpitPath } from '@/data/cockpit';
 
 // ── Stage directory ──────────────────────────────────────────────────────────
 const STAGE_DIRECTORY = [
@@ -29,7 +32,7 @@ const PERSONAS = [
     key: 'builder',
     label: 'Builder',
     Icon: Building2,
-    color: '#0077C8',
+    color: '#005EB8',
     bg: 'rgba(0,119,200,0.10)',
     border: 'rgba(0,119,200,0.25)',
     greeting: "Great — I'll help you build a compelling case for your new datacenter. Tell me about the market you're targeting, the capacity you have in mind, or any specific questions about the build journey.",
@@ -114,14 +117,14 @@ async function exportAssessmentPDF(clientName, reportType, reportContent) {
 
   const CONTENT_CSS = `*{box-sizing:border-box;margin:0;padding:0;}body{font-family:Arial,Helvetica,sans-serif;}
     .section{break-inside:avoid;margin-bottom:22px;}
-    .h1{font-size:16px;font-weight:800;color:#00338D;margin-bottom:6px;padding-bottom:6px;border-bottom:2px solid #E2E8F0;}
-    .h2{font-size:14px;font-weight:700;color:#00338D;margin-bottom:5px;border-bottom:1px solid #E2E8F0;padding-bottom:5px;}
+    .h1{font-size:16px;font-weight:800;color:#00338D;margin-bottom:6px;padding-bottom:6px;border-bottom:2px solid #D8DCE3;}
+    .h2{font-size:14px;font-weight:700;color:#00338D;margin-bottom:5px;border-bottom:1px solid #D8DCE3;padding-bottom:5px;}
     .para{font-size:12px;line-height:1.8;color:#374151;}
     .bullet-list{margin:0;padding-left:0;list-style:none;}
     .bullet-list li{font-size:12px;line-height:1.75;color:#374151;padding-left:16px;position:relative;margin-bottom:3px;}
-    .bullet-list li::before{content:"•";position:absolute;left:2px;color:#0077C8;font-size:11px;}
+    .bullet-list li::before{content:"•";position:absolute;left:2px;color:#005EB8;font-size:11px;}
     .badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;background:#E8F0FB;color:#00338D;display:inline-block;margin-bottom:16px;}
-    .footer-row{padding-top:12px;border-top:1px solid #E2E8F0;display:flex;justify-content:space-between;font-size:10px;color:#9CA3AF;}
+    .footer-row{padding-top:12px;border-top:1px solid #D8DCE3;display:flex;justify-content:space-between;font-size:10px;color:#9CA3AF;}
     .page-num{position:absolute;bottom:24px;right:${PAD}px;font-size:10px;color:#CBD5E1;}`;
 
   function inlineFormat(t) { return t.replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>').replace(/\*([^*]+)\*/g,'<em>$1</em>'); }
@@ -170,7 +173,7 @@ async function exportAssessmentPDF(clientName, reportType, reportContent) {
   };
 
   const coverCanvas = await capture(`<style>*{box-sizing:border-box;margin:0;padding:0;}body{font-family:Arial,Helvetica,sans-serif;}</style>
-    <div style="background:linear-gradient(135deg,#00338D 0%,#0077C8 100%);color:white;width:${PAGE_W}px;height:${PAGE_H}px;padding:60px ${PAD}px;">
+    <div style="background:linear-gradient(135deg,#00338D 0%,#005EB8 100%);color:white;width:${PAGE_W}px;height:${PAGE_H}px;padding:60px ${PAD}px;">
       <div style="font-size:32px;font-weight:900;letter-spacing:4px;margin-bottom:8px;">K-Nexus.AI</div>
       <div style="font-size:11px;letter-spacing:3px;opacity:0.6;text-transform:uppercase;margin-bottom:48px;">Datacenter Lifecycle Intelligence</div>
       <div style="font-size:36px;font-weight:800;margin-bottom:16px;">${clientName}</div>
@@ -194,7 +197,7 @@ function renderBotText(text) {
     const t = line.trim();
     if (/^[-•*]\s+/.test(t)) return (
       <div key={i} className="flex gap-1.5 items-start">
-        <span className="text-[#0077C8] flex-shrink-0 mt-0.5">•</span>
+        <span className="text-[#005EB8] flex-shrink-0 mt-0.5">•</span>
         <span>{t.replace(/^[-•*]\s+/, '')}</span>
       </div>
     );
@@ -202,7 +205,7 @@ function renderBotText(text) {
       const num = t.match(/^(\d+)\./)[1];
       return (
         <div key={i} className="flex gap-1.5 items-start">
-          <span className="text-[#0077C8] font-bold flex-shrink-0">{num}.</span>
+          <span className="text-[#005EB8] font-bold flex-shrink-0">{num}.</span>
           <span>{t.replace(/^\d+\.\s+/, '')}</span>
         </div>
       );
@@ -250,7 +253,7 @@ function IdleStatePanel() {
 }
 
 // ── Main component ────────────────────────────────────────────────────────────
-export default function LandingChatPanel() {
+export default function LandingChatPanel({ onToggleExpand, expanded = false }) {
   const router = useRouter();
 
   const [selectedPersona, setSelectedPersona] = useState(null);
@@ -276,6 +279,10 @@ export default function LandingChatPanel() {
   const inputRef = useRef(null);
   const messagesContainerRef = useRef(null);
   const shouldScrollRef = useRef(false);
+  // Presentation cockpit launched from the Guide (static, no model call).
+  const [cockpitLaunch, setCockpitLaunch] = useState(null);
+  // Prefetch the route so launching makes no requests.
+  useEffect(() => { router.prefetch(cockpitPath(DEFAULT_COCKPIT)); }, [router]);
 
   const isIdle = messages.length <= 1 && botPhase === 'chat' && !loading;
 
@@ -349,7 +356,19 @@ export default function LandingChatPanel() {
   // sendMessage accepts optional overrideText (from quick-start chips)
   const sendMessage = async (overrideText) => {
     const trimmed = (overrideText ?? input).trim();
-    if (!trimmed || loading) return;
+    if (!trimmed || loading || cockpitLaunch) return;
+
+    // Presentation cockpits answer before any model call: '/cockpit' goes straight
+    // there; a matching client brief plays the analysing beat, then routes.
+    if (isCockpitShortcut(trimmed)) { setInput(''); router.push(cockpitPath(DEFAULT_COCKPIT), { scroll: false }); return; }
+    const cockpit = matchCockpit(trimmed);
+    if (cockpit) {
+      shouldScrollRef.current = true;
+      setMessages(prev => [...prev, { role: 'user', text: trimmed }]);
+      setInput('');
+      setCockpitLaunch(cockpit);
+      return;
+    }
 
     const fileContext = buildFileContext(attachedFiles, fileTexts);
     const userMsg = { role: 'user', text: trimmed + (attachedFiles.length ? ` [${attachedFiles.length} file(s) attached]` : '') };
@@ -389,9 +408,10 @@ export default function LandingChatPanel() {
           if (stageData.isComplex) { setBotPhase('assessment-offer'); runPersonaDetection(trimmed, researchResult); }
         }
       }
-    } catch {
+    } catch (err) {
+      console.error('[K-Nexus Guide] chat request failed:', err);
       shouldScrollRef.current = true;
-      setMessages(prev => [...prev, { role: 'assistant', text: 'Sorry, I hit an error. Please try again.' }]);
+      setMessages(prev => [...prev, { role: 'assistant', text: `Sorry, I hit an error: ${err.message}` }]);
     } finally { setLoading(false); }
   };
 
@@ -433,33 +453,52 @@ export default function LandingChatPanel() {
       onDragLeave={() => setIsDraggingFile(false)}
       onDrop={handleFileDrop}
     >
+      {cockpitLaunch && (
+        <TransitionOverlay
+          lines={COCKPITS[cockpitLaunch].trigger.analysing}
+          onDone={() => router.push(cockpitPath(cockpitLaunch), { scroll: false })}
+        />
+      )}
       {/* ── Header ── */}
       <div className="px-5 py-4 border-b border-[#F0F2F5] flex-shrink-0">
         <div className="flex items-center gap-3 mb-4">
-          <div className="w-9 h-9 rounded-xl bg-[#00338D] flex items-center justify-center flex-shrink-0">
-            <Sparkles size={16} className="text-white" />
+          <div className="w-10 h-10 rounded-xl bg-[#EEF3FD] flex items-center justify-center flex-shrink-0">
+            <Sparkles size={17} className="text-[#2F5EA8]" />
           </div>
-          <div>
-            <p className="text-[#1A1F36] font-bold text-sm leading-none" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+          <div className="min-w-0">
+            <p className="text-[#17233F] font-bold text-[15px] leading-none" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
               K-Nexus Guide
             </p>
-            <p className="text-[#9CA3AF] text-[10px] mt-0.5">Datacenter lifecycle advisor</p>
+            <p className="text-[#8B95A9] text-[12px] mt-1">Datacenter lifecycle advisor</p>
           </div>
+          {onToggleExpand && (
+            <button
+              onClick={onToggleExpand}
+              aria-label={expanded ? 'Collapse guide' : 'Expand guide'}
+              className="ml-auto w-7 h-7 rounded-lg flex items-center justify-center text-[#9BAAC6] hover:text-[#2F5EA8] hover:bg-[#F2F6FD] transition-colors flex-shrink-0"
+            >
+              {expanded ? <Minimize2 size={15} /> : <Maximize2 size={15} />}
+            </button>
+          )}
         </div>
 
         {/* Persona selector */}
-        <div className="grid grid-cols-4 gap-1.5">
+        <p className="text-[#9BA6BC] text-[10px] font-bold uppercase tracking-[1.3px] mb-2">Who are you?</p>
+        <div className="grid grid-cols-4 gap-2">
           {PERSONAS.map(p => {
             const active = selectedPersona?.key === p.key;
             return (
               <button
                 key={p.key}
                 onClick={() => handlePersonaSelect(p)}
-                className="flex flex-col items-center gap-1 px-2 py-2 rounded-xl text-center transition-all duration-150"
-                style={{ background: active ? p.bg : 'transparent', border: `1px solid ${active ? p.border : 'rgba(0,0,0,0.07)'}` }}
+                className="flex flex-col items-center gap-1.5 px-2 py-2.5 rounded-xl text-center transition-all duration-150 hover:border-[#BBD0EE]"
+                style={{
+                  background: active ? '#EEF3FD' : '#FFFFFF',
+                  border: `1px solid ${active ? '#9EBDEA' : '#E7ECF5'}`,
+                }}
               >
-                <p.Icon size={14} style={{ color: active ? p.color : '#9CA3AF' }} />
-                <span className="text-[10px] font-bold leading-none" style={{ color: active ? p.color : '#9CA3AF' }}>
+                <p.Icon size={16} style={{ color: active ? '#2F5EA8' : '#97A3B8' }} strokeWidth={1.9} />
+                <span className="text-[11.5px] font-semibold leading-none" style={{ color: active ? '#1D3E80' : '#6C788F' }}>
                   {p.label}
                 </span>
               </button>
@@ -470,10 +509,10 @@ export default function LandingChatPanel() {
 
       {/* ── Messages area (flex-1 = takes remaining height, internal scroll) ── */}
       <div ref={messagesContainerRef} className="flex-1 overflow-y-auto px-4 py-4 space-y-3 min-h-0">
-        {messages.map((msg, i) => (
+        {!isIdle && messages.map((msg, i) => (
           <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
             <div className={`max-w-[88%] px-3.5 py-2.5 rounded-2xl text-xs space-y-1 ${
-              msg.role === 'user' ? 'bg-[#00338D] text-white rounded-br-sm' : 'bg-[#F4F6F9] text-[#374151] rounded-bl-sm'
+              msg.role === 'user' ? 'bg-[#00338D] text-white rounded-br-sm' : 'bg-[#F0F2F5] text-[#374151] rounded-bl-sm'
             }`}>
               {msg.role === 'user' ? msg.text : renderBotText(msg.text)}
             </div>
@@ -487,7 +526,7 @@ export default function LandingChatPanel() {
 
         {loading && (
           <div className="flex justify-start">
-            <div className="bg-[#F4F6F9] px-3.5 py-2.5 rounded-2xl rounded-bl-sm flex items-center gap-1.5">
+            <div className="bg-[#F0F2F5] px-3.5 py-2.5 rounded-2xl rounded-bl-sm flex items-center gap-1.5">
               {[0, 1, 2].map(i => (
                 <motion.div key={i} className="w-1.5 h-1.5 rounded-full bg-[#9CA3AF]"
                   animate={{ opacity: [0.3, 1, 0.3], y: [0, -3, 0] }}
@@ -504,13 +543,13 @@ export default function LandingChatPanel() {
             <p className="text-[10px] text-[#6B7280] mb-2">Recommended starting stage</p>
             <div className="flex items-start justify-between gap-2 mb-3">
               <div>
-                <p className="text-xs font-bold text-[#00338D]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+                <p className="text-xs font-bold text-[#00338D]" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
                   Stage {redirect.stage} — {redirect.label}
                 </p>
                 {redirect.reason && <p className="text-[10px] text-[#6B7280] mt-0.5">{redirect.reason}</p>}
               </div>
               <button onClick={() => router.push(redirect.path)}
-                className="flex-shrink-0 flex items-center gap-1 px-3 py-1.5 bg-[#00338D] text-white text-[10px] font-bold rounded-lg hover:bg-[#0044b8] transition-colors">
+                className="flex-shrink-0 flex items-center gap-1 px-3 py-1.5 bg-[#00338D] text-white text-[10px] font-bold rounded-lg hover:bg-[#002A73] transition-colors">
                 Go <ChevronRight size={10} />
               </button>
             </div>
@@ -533,7 +572,7 @@ export default function LandingChatPanel() {
                 )}
                 {personaLoading && !personaClarificationQ && !detectedPersona && (
                   <div className="flex items-center gap-2 py-1">
-                    <div className="w-3 h-3 border-2 border-[#0077C8]/30 border-t-[#0077C8] rounded-full animate-spin flex-shrink-0" />
+                    <div className="w-3 h-3 border-2 border-[#005EB8]/30 border-t-[#005EB8] rounded-full animate-spin flex-shrink-0" />
                     <span className="text-[9px] text-[#9CA3AF]">Analysing client profile...</span>
                   </div>
                 )}
@@ -542,7 +581,7 @@ export default function LandingChatPanel() {
                   router.push(`/client-cockpit?${params.toString()}`);
                 }}
                   className="w-full flex items-center justify-center gap-1.5 px-3 py-2.5 text-white text-[10px] font-bold rounded-xl transition-colors"
-                  style={{ background: 'linear-gradient(135deg, #00338D 0%, #0077C8 100%)' }}>
+                  style={{ background: 'linear-gradient(135deg, #00338D 0%, #005EB8 100%)' }}>
                   <LayoutDashboard size={11} /> Client Cockpit — Live Dashboard
                 </button>
                 <button onClick={() => setBotPhase('report-type')}
@@ -559,7 +598,7 @@ export default function LandingChatPanel() {
                   <button key={type} onClick={() => handleGenerateReport(type)}
                     className="w-full text-left px-3 py-2.5 bg-white border border-[#00338D]/20 rounded-xl hover:border-[#00338D] hover:bg-[#00338D]/5 transition-all">
                     <div className="flex items-center gap-2">
-                      <Icon size={12} className="text-[#0077C8] flex-shrink-0" />
+                      <Icon size={12} className="text-[#005EB8] flex-shrink-0" />
                       <div><p className="text-[10px] font-bold text-[#00338D]">{label}</p><p className="text-[9px] text-[#9CA3AF]">{desc}</p></div>
                     </div>
                   </button>
@@ -573,25 +612,25 @@ export default function LandingChatPanel() {
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
             className="bg-[#F0F4FF] border border-[#00338D]/15 rounded-2xl p-4 flex flex-col items-center gap-3">
             <div className="relative">
-              <div className="w-10 h-10 rounded-xl bg-[#00338D]/10 flex items-center justify-center"><Sparkles size={18} className="text-[#0077C8]" /></div>
-              <div className="absolute -top-1 -right-1 w-4 h-4 border-2 border-[#0077C8]/40 border-t-[#0077C8] rounded-full animate-spin" />
+              <div className="w-10 h-10 rounded-xl bg-[#00338D]/10 flex items-center justify-center"><Sparkles size={18} className="text-[#005EB8]" /></div>
+              <div className="absolute -top-1 -right-1 w-4 h-4 border-2 border-[#005EB8]/40 border-t-[#005EB8] rounded-full animate-spin" />
             </div>
             <div className="text-center">
               <p className="text-[11px] font-bold text-[#00338D]">Generating assessment...</p>
               <p className="text-[9px] text-[#9CA3AF] mt-0.5">Researching {clientName} & analysing lifecycle</p>
             </div>
-            <LoadingDots color="#0077C8" size={6} />
+            <LoadingDots color="#005EB8" size={6} />
           </motion.div>
         )}
 
         {botPhase === 'done' && reportContent && (
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
-            className="bg-[#F0FFF8] border border-[#00A36C]/20 rounded-2xl p-3.5">
+            className="bg-[#F0FFF8] border border-[#00B0A0]/20 rounded-2xl p-3.5">
             <p className="text-[10px] text-[#6B7280] mb-2">
               {reportType === 'quick' ? 'Quick Assessment' : 'Detailed Report'} ready for {clientName}
             </p>
             <button onClick={handleDownloadPDF} disabled={pdfLoading}
-              className="w-full flex items-center justify-center gap-2 px-3 py-2.5 bg-[#00338D] text-white text-[10px] font-bold rounded-xl hover:bg-[#0044b8] transition-colors disabled:opacity-60">
+              className="w-full flex items-center justify-center gap-2 px-3 py-2.5 bg-[#00338D] text-white text-[10px] font-bold rounded-xl hover:bg-[#002A73] transition-colors disabled:opacity-60">
               {pdfLoading ? <><div className="w-3 h-3 border-2 border-white/40 border-t-white rounded-full animate-spin" />Preparing PDF...</> : <><Download size={11} />Download PDF Report</>}
             </button>
             <button onClick={() => { setBotPhase('report-type'); setReportContent(''); }}
@@ -638,7 +677,7 @@ export default function LandingChatPanel() {
             <button
               onClick={() => fileInputRef.current?.click()}
               disabled={attachedFiles.length >= 5}
-              className="w-8 h-8 rounded-xl bg-[#F4F6F9] flex items-center justify-center text-[#9CA3AF] hover:text-[#00338D] hover:bg-[#F0F4FF] transition-colors flex-shrink-0 mb-0.5 disabled:opacity-40"
+              className="w-8 h-8 rounded-xl bg-[#F0F2F5] flex items-center justify-center text-[#9CA3AF] hover:text-[#00338D] hover:bg-[#F0F4FF] transition-colors flex-shrink-0 mb-0.5 disabled:opacity-40"
               title="Attach file (PDF, Excel, CSV, TSV)"
             >
               <Paperclip size={14} />
@@ -646,21 +685,26 @@ export default function LandingChatPanel() {
             <input ref={fileInputRef} type="file" accept={ACCEPT} multiple className="hidden"
               onChange={e => { if (e.target.files) addFiles(e.target.files); e.target.value = ''; }} />
 
-            <div className="flex-1 bg-[#F4F6F9] rounded-xl px-3.5 py-2.5 flex items-end gap-2">
+            <div
+              className="flex-1 rounded-2xl pl-3.5 pr-2 py-2 flex items-end gap-2.5"
+              style={{ background: '#F7F9FD', border: '1px solid #E7ECF5' }}
+            >
+              <Sparkles size={15} className="text-[#9BAAC6] flex-shrink-0 mb-2" />
               <textarea
                 ref={inputRef}
                 value={input}
                 onChange={e => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
-                placeholder="Describe your goal or ask a question…"
+                disabled={!!cockpitLaunch}
+                placeholder="Ask K-Nexus anything…"
                 rows={1}
-                className="flex-1 bg-transparent text-xs text-[#1A1F36] placeholder-[#9CA3AF] outline-none resize-none leading-5"
+                className="flex-1 bg-transparent text-[13px] text-[#1A1F36] placeholder-[#9BA6BC] outline-none resize-none leading-6 py-1"
                 style={{ maxHeight: '80px', overflowY: 'auto' }}
                 onInput={e => { e.target.style.height = 'auto'; e.target.style.height = Math.min(e.target.scrollHeight, 80) + 'px'; }}
               />
               <button onClick={() => sendMessage()} disabled={!input.trim() || loading}
-                className="w-7 h-7 rounded-lg bg-[#00338D] text-white flex items-center justify-center disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[#0044b8] transition-colors flex-shrink-0">
-                <Send size={12} />
+                className="w-8 h-8 rounded-full bg-[#2F5EA8] text-white flex items-center justify-center disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[#1D3E80] transition-colors flex-shrink-0">
+                <Send size={14} />
               </button>
             </div>
           </div>

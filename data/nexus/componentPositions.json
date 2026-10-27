@@ -1,0 +1,1334 @@
+[
+  {
+    "component_id": "UPS-1",
+    "facility_id": "MUM-1",
+    "x_m": -14,
+    "y_m": 0,
+    "z_m": 4,
+    "zone": "plant room",
+    "note": null
+  },
+  {
+    "component_id": "UPS-2",
+    "facility_id": "MUM-1",
+    "x_m": -14,
+    "y_m": 0,
+    "z_m": 8,
+    "zone": "plant room",
+    "note": null
+  },
+  {
+    "component_id": "UPS-3",
+    "facility_id": "MUM-1",
+    "x_m": -14,
+    "y_m": 0,
+    "z_m": 12,
+    "zone": "plant room",
+    "note": null
+  },
+  {
+    "component_id": "UPS-4",
+    "facility_id": "MUM-1",
+    "x_m": -14,
+    "y_m": 0,
+    "z_m": 16,
+    "zone": "plant room",
+    "note": null
+  },
+  {
+    "component_id": "UPS-5",
+    "facility_id": "MUM-1",
+    "x_m": -14,
+    "y_m": 0,
+    "z_m": 20,
+    "zone": "plant room",
+    "note": null
+  },
+  {
+    "component_id": "UPS-6",
+    "facility_id": "MUM-1",
+    "x_m": -14,
+    "y_m": 0,
+    "z_m": 24,
+    "zone": "plant room",
+    "note": null
+  },
+  {
+    "component_id": "SWGR-A",
+    "facility_id": "MUM-1",
+    "x_m": -9,
+    "y_m": 0,
+    "z_m": 6,
+    "zone": "plant room",
+    "note": null
+  },
+  {
+    "component_id": "SWGR-B",
+    "facility_id": "MUM-1",
+    "x_m": -9,
+    "y_m": 0,
+    "z_m": 14,
+    "zone": "plant room",
+    "note": null
+  },
+  {
+    "component_id": "TX-1",
+    "facility_id": "MUM-1",
+    "x_m": -5,
+    "y_m": 0,
+    "z_m": 6,
+    "zone": "plant room",
+    "note": null
+  },
+  {
+    "component_id": "TX-2",
+    "facility_id": "MUM-1",
+    "x_m": -5,
+    "y_m": 0,
+    "z_m": 14,
+    "zone": "plant room",
+    "note": null
+  },
+  {
+    "component_id": "RPP-1",
+    "facility_id": "MUM-1",
+    "x_m": -2,
+    "y_m": 0,
+    "z_m": 4,
+    "zone": "plant room",
+    "note": null
+  },
+  {
+    "component_id": "RPP-2",
+    "facility_id": "MUM-1",
+    "x_m": -2,
+    "y_m": 0,
+    "z_m": 10,
+    "zone": "plant room",
+    "note": null
+  },
+  {
+    "component_id": "RPP-3",
+    "facility_id": "MUM-1",
+    "x_m": -2,
+    "y_m": 0,
+    "z_m": 18,
+    "zone": "plant room",
+    "note": null
+  },
+  {
+    "component_id": "RPP-4",
+    "facility_id": "MUM-1",
+    "x_m": -2,
+    "y_m": 0,
+    "z_m": 26,
+    "zone": "plant room",
+    "note": null
+  },
+  {
+    "component_id": "UTIL-FEED-A",
+    "facility_id": "MUM-1",
+    "x_m": -6,
+    "y_m": 0,
+    "z_m": -14,
+    "zone": "outdoor yard",
+    "note": null
+  },
+  {
+    "component_id": "UTIL-FEED-B",
+    "facility_id": "MUM-1",
+    "x_m": 2,
+    "y_m": 0,
+    "z_m": -14,
+    "zone": "outdoor yard",
+    "note": null
+  },
+  {
+    "component_id": "GEN-1",
+    "facility_id": "MUM-1",
+    "x_m": 10,
+    "y_m": 0,
+    "z_m": -12,
+    "zone": "outdoor yard",
+    "note": null
+  },
+  {
+    "component_id": "GEN-2",
+    "facility_id": "MUM-1",
+    "x_m": 16,
+    "y_m": 0,
+    "z_m": -12,
+    "zone": "outdoor yard",
+    "note": null
+  },
+  {
+    "component_id": "CHILLER-1",
+    "facility_id": "MUM-1",
+    "x_m": 24,
+    "y_m": 0,
+    "z_m": -12,
+    "zone": "outdoor yard",
+    "note": null
+  },
+  {
+    "component_id": "CHILLER-2",
+    "facility_id": "MUM-1",
+    "x_m": 30,
+    "y_m": 0,
+    "z_m": -12,
+    "zone": "outdoor yard",
+    "note": null
+  },
+  {
+    "component_id": "CT-1",
+    "facility_id": "MUM-1",
+    "x_m": 36,
+    "y_m": 0,
+    "z_m": -12,
+    "zone": "outdoor yard",
+    "note": null
+  },
+  {
+    "component_id": "CT-2",
+    "facility_id": "MUM-1",
+    "x_m": 42,
+    "y_m": 0,
+    "z_m": -12,
+    "zone": "outdoor yard",
+    "note": null
+  },
+  {
+    "component_id": "CHW-LOOP-1",
+    "facility_id": "MUM-1",
+    "x_m": 26,
+    "y_m": 0,
+    "z_m": -6,
+    "zone": "outdoor yard",
+    "note": null
+  },
+  {
+    "component_id": "CHW-LOOP-2",
+    "facility_id": "MUM-1",
+    "x_m": 34,
+    "y_m": 0,
+    "z_m": -6,
+    "zone": "outdoor yard",
+    "note": null
+  },
+  {
+    "component_id": "BUSWAY-B1",
+    "facility_id": "MUM-1",
+    "x_m": 8,
+    "y_m": 3.5,
+    "z_m": 1,
+    "zone": "overhead",
+    "note": "Runs the length of the hall"
+  },
+  {
+    "component_id": "BUSWAY-B2",
+    "facility_id": "MUM-1",
+    "x_m": 28,
+    "y_m": 3.5,
+    "z_m": 1,
+    "zone": "overhead",
+    "note": "Runs the length of the hall"
+  },
+  {
+    "component_id": "BUSWAY-B3",
+    "facility_id": "MUM-1",
+    "x_m": 8,
+    "y_m": 3.5,
+    "z_m": 45,
+    "zone": "overhead",
+    "note": "Runs the length of the hall"
+  },
+  {
+    "component_id": "BUSWAY-B4",
+    "facility_id": "MUM-1",
+    "x_m": 28,
+    "y_m": 3.5,
+    "z_m": 45,
+    "zone": "overhead",
+    "note": "Runs the length of the hall"
+  },
+  {
+    "component_id": "PDU-A1",
+    "facility_id": "MUM-1",
+    "x_m": 0.8,
+    "y_m": 0,
+    "z_m": 3,
+    "zone": "row end",
+    "note": "West end of Row A"
+  },
+  {
+    "component_id": "PDU-A2",
+    "facility_id": "MUM-1",
+    "x_m": 15.2,
+    "y_m": 0,
+    "z_m": 3,
+    "zone": "row end",
+    "note": "East end of Row A"
+  },
+  {
+    "component_id": "CRAH-A-01",
+    "facility_id": "MUM-1",
+    "x_m": -0.6,
+    "y_m": 0,
+    "z_m": 3,
+    "zone": "row end",
+    "note": "West CRAH, Row A"
+  },
+  {
+    "component_id": "CRAH-A-02",
+    "facility_id": "MUM-1",
+    "x_m": 16.6,
+    "y_m": 0,
+    "z_m": 3,
+    "zone": "row end",
+    "note": "East CRAH, Row A"
+  },
+  {
+    "component_id": "PDU-B1",
+    "facility_id": "MUM-1",
+    "x_m": 0.8,
+    "y_m": 0,
+    "z_m": 5.4,
+    "zone": "row end",
+    "note": "West end of Row B"
+  },
+  {
+    "component_id": "PDU-B2",
+    "facility_id": "MUM-1",
+    "x_m": 15.2,
+    "y_m": 0,
+    "z_m": 5.4,
+    "zone": "row end",
+    "note": "East end of Row B"
+  },
+  {
+    "component_id": "CRAH-B-01",
+    "facility_id": "MUM-1",
+    "x_m": -0.6,
+    "y_m": 0,
+    "z_m": 5.4,
+    "zone": "row end",
+    "note": "West CRAH, Row B"
+  },
+  {
+    "component_id": "CRAH-B-02",
+    "facility_id": "MUM-1",
+    "x_m": 16.6,
+    "y_m": 0,
+    "z_m": 5.4,
+    "zone": "row end",
+    "note": "East CRAH, Row B"
+  },
+  {
+    "component_id": "PDU-C1",
+    "facility_id": "MUM-1",
+    "x_m": 0.8,
+    "y_m": 0,
+    "z_m": 7.8,
+    "zone": "row end",
+    "note": "West end of Row C"
+  },
+  {
+    "component_id": "PDU-C2",
+    "facility_id": "MUM-1",
+    "x_m": 15.2,
+    "y_m": 0,
+    "z_m": 7.8,
+    "zone": "row end",
+    "note": "East end of Row C"
+  },
+  {
+    "component_id": "CRAH-C-01",
+    "facility_id": "MUM-1",
+    "x_m": -0.6,
+    "y_m": 0,
+    "z_m": 7.8,
+    "zone": "row end",
+    "note": "West CRAH, Row C"
+  },
+  {
+    "component_id": "CRAH-C-02",
+    "facility_id": "MUM-1",
+    "x_m": 16.6,
+    "y_m": 0,
+    "z_m": 7.8,
+    "zone": "row end",
+    "note": "East CRAH, Row C"
+  },
+  {
+    "component_id": "PDU-D1",
+    "facility_id": "MUM-1",
+    "x_m": 0.8,
+    "y_m": 0,
+    "z_m": 10.2,
+    "zone": "row end",
+    "note": "West end of Row D"
+  },
+  {
+    "component_id": "PDU-D2",
+    "facility_id": "MUM-1",
+    "x_m": 15.2,
+    "y_m": 0,
+    "z_m": 10.2,
+    "zone": "row end",
+    "note": "East end of Row D"
+  },
+  {
+    "component_id": "CRAH-D-01",
+    "facility_id": "MUM-1",
+    "x_m": -0.6,
+    "y_m": 0,
+    "z_m": 10.2,
+    "zone": "row end",
+    "note": "West CRAH, Row D"
+  },
+  {
+    "component_id": "CRAH-D-02",
+    "facility_id": "MUM-1",
+    "x_m": 16.6,
+    "y_m": 0,
+    "z_m": 10.2,
+    "zone": "row end",
+    "note": "East CRAH, Row D"
+  },
+  {
+    "component_id": "PDU-E1",
+    "facility_id": "MUM-1",
+    "x_m": 0.8,
+    "y_m": 0,
+    "z_m": 12.6,
+    "zone": "row end",
+    "note": "West end of Row E"
+  },
+  {
+    "component_id": "PDU-E2",
+    "facility_id": "MUM-1",
+    "x_m": 15.2,
+    "y_m": 0,
+    "z_m": 12.6,
+    "zone": "row end",
+    "note": "East end of Row E"
+  },
+  {
+    "component_id": "CRAH-E-01",
+    "facility_id": "MUM-1",
+    "x_m": -0.6,
+    "y_m": 0,
+    "z_m": 12.6,
+    "zone": "row end",
+    "note": "West CRAH, Row E"
+  },
+  {
+    "component_id": "CRAH-E-02",
+    "facility_id": "MUM-1",
+    "x_m": 16.6,
+    "y_m": 0,
+    "z_m": 12.6,
+    "zone": "row end",
+    "note": "East CRAH, Row E"
+  },
+  {
+    "component_id": "PDU-F1",
+    "facility_id": "MUM-1",
+    "x_m": 0.8,
+    "y_m": 0,
+    "z_m": 15,
+    "zone": "row end",
+    "note": "West end of Row F"
+  },
+  {
+    "component_id": "PDU-F2",
+    "facility_id": "MUM-1",
+    "x_m": 15.2,
+    "y_m": 0,
+    "z_m": 15,
+    "zone": "row end",
+    "note": "East end of Row F"
+  },
+  {
+    "component_id": "CRAH-F-01",
+    "facility_id": "MUM-1",
+    "x_m": -0.6,
+    "y_m": 0,
+    "z_m": 15,
+    "zone": "row end",
+    "note": "West CRAH, Row F"
+  },
+  {
+    "component_id": "CRAH-F-02",
+    "facility_id": "MUM-1",
+    "x_m": 16.6,
+    "y_m": 0,
+    "z_m": 15,
+    "zone": "row end",
+    "note": "East CRAH, Row F"
+  },
+  {
+    "component_id": "PDU-G1",
+    "facility_id": "MUM-1",
+    "x_m": 20.8,
+    "y_m": 0,
+    "z_m": 3,
+    "zone": "row end",
+    "note": "West end of Row G"
+  },
+  {
+    "component_id": "PDU-G2",
+    "facility_id": "MUM-1",
+    "x_m": 35.2,
+    "y_m": 0,
+    "z_m": 3,
+    "zone": "row end",
+    "note": "East end of Row G"
+  },
+  {
+    "component_id": "CRAH-G-01",
+    "facility_id": "MUM-1",
+    "x_m": 19.4,
+    "y_m": 0,
+    "z_m": 3,
+    "zone": "row end",
+    "note": "West CRAH, Row G"
+  },
+  {
+    "component_id": "CRAH-G-02",
+    "facility_id": "MUM-1",
+    "x_m": 36.6,
+    "y_m": 0,
+    "z_m": 3,
+    "zone": "row end",
+    "note": "East CRAH, Row G"
+  },
+  {
+    "component_id": "PDU-H1",
+    "facility_id": "MUM-1",
+    "x_m": 20.8,
+    "y_m": 0,
+    "z_m": 5.4,
+    "zone": "row end",
+    "note": "West end of Row H"
+  },
+  {
+    "component_id": "PDU-H2",
+    "facility_id": "MUM-1",
+    "x_m": 35.2,
+    "y_m": 0,
+    "z_m": 5.4,
+    "zone": "row end",
+    "note": "East end of Row H"
+  },
+  {
+    "component_id": "CRAH-H-01",
+    "facility_id": "MUM-1",
+    "x_m": 19.4,
+    "y_m": 0,
+    "z_m": 5.4,
+    "zone": "row end",
+    "note": "West CRAH, Row H"
+  },
+  {
+    "component_id": "CRAH-H-02",
+    "facility_id": "MUM-1",
+    "x_m": 36.6,
+    "y_m": 0,
+    "z_m": 5.4,
+    "zone": "row end",
+    "note": "East CRAH, Row H"
+  },
+  {
+    "component_id": "PDU-I1",
+    "facility_id": "MUM-1",
+    "x_m": 20.8,
+    "y_m": 0,
+    "z_m": 7.8,
+    "zone": "row end",
+    "note": "West end of Row I"
+  },
+  {
+    "component_id": "PDU-I2",
+    "facility_id": "MUM-1",
+    "x_m": 35.2,
+    "y_m": 0,
+    "z_m": 7.8,
+    "zone": "row end",
+    "note": "East end of Row I"
+  },
+  {
+    "component_id": "CRAH-I-01",
+    "facility_id": "MUM-1",
+    "x_m": 19.4,
+    "y_m": 0,
+    "z_m": 7.8,
+    "zone": "row end",
+    "note": "West CRAH, Row I"
+  },
+  {
+    "component_id": "CRAH-I-02",
+    "facility_id": "MUM-1",
+    "x_m": 36.6,
+    "y_m": 0,
+    "z_m": 7.8,
+    "zone": "row end",
+    "note": "East CRAH, Row I"
+  },
+  {
+    "component_id": "PDU-J1",
+    "facility_id": "MUM-1",
+    "x_m": 20.8,
+    "y_m": 0,
+    "z_m": 10.2,
+    "zone": "row end",
+    "note": "West end of Row J"
+  },
+  {
+    "component_id": "PDU-J2",
+    "facility_id": "MUM-1",
+    "x_m": 35.2,
+    "y_m": 0,
+    "z_m": 10.2,
+    "zone": "row end",
+    "note": "East end of Row J"
+  },
+  {
+    "component_id": "CRAH-J-01",
+    "facility_id": "MUM-1",
+    "x_m": 19.4,
+    "y_m": 0,
+    "z_m": 10.2,
+    "zone": "row end",
+    "note": "West CRAH, Row J"
+  },
+  {
+    "component_id": "CRAH-J-02",
+    "facility_id": "MUM-1",
+    "x_m": 36.6,
+    "y_m": 0,
+    "z_m": 10.2,
+    "zone": "row end",
+    "note": "East CRAH, Row J"
+  },
+  {
+    "component_id": "PDU-K1",
+    "facility_id": "MUM-1",
+    "x_m": 20.8,
+    "y_m": 0,
+    "z_m": 12.6,
+    "zone": "row end",
+    "note": "West end of Row K"
+  },
+  {
+    "component_id": "PDU-K2",
+    "facility_id": "MUM-1",
+    "x_m": 35.2,
+    "y_m": 0,
+    "z_m": 12.6,
+    "zone": "row end",
+    "note": "East end of Row K"
+  },
+  {
+    "component_id": "CRAH-K-01",
+    "facility_id": "MUM-1",
+    "x_m": 19.4,
+    "y_m": 0,
+    "z_m": 12.6,
+    "zone": "row end",
+    "note": "West CRAH, Row K"
+  },
+  {
+    "component_id": "CRAH-K-02",
+    "facility_id": "MUM-1",
+    "x_m": 36.6,
+    "y_m": 0,
+    "z_m": 12.6,
+    "zone": "row end",
+    "note": "East CRAH, Row K"
+  },
+  {
+    "component_id": "PDU-L1",
+    "facility_id": "MUM-1",
+    "x_m": 20.8,
+    "y_m": 0,
+    "z_m": 15,
+    "zone": "row end",
+    "note": "West end of Row L"
+  },
+  {
+    "component_id": "PDU-L2",
+    "facility_id": "MUM-1",
+    "x_m": 35.2,
+    "y_m": 0,
+    "z_m": 15,
+    "zone": "row end",
+    "note": "East end of Row L"
+  },
+  {
+    "component_id": "CRAH-L-01",
+    "facility_id": "MUM-1",
+    "x_m": 19.4,
+    "y_m": 0,
+    "z_m": 15,
+    "zone": "row end",
+    "note": "West CRAH, Row L"
+  },
+  {
+    "component_id": "CRAH-L-02",
+    "facility_id": "MUM-1",
+    "x_m": 36.6,
+    "y_m": 0,
+    "z_m": 15,
+    "zone": "row end",
+    "note": "East CRAH, Row L"
+  },
+  {
+    "component_id": "PDU-M1",
+    "facility_id": "MUM-1",
+    "x_m": 0.8,
+    "y_m": 0,
+    "z_m": 25,
+    "zone": "row end",
+    "note": "West end of Row M"
+  },
+  {
+    "component_id": "PDU-M2",
+    "facility_id": "MUM-1",
+    "x_m": 15.2,
+    "y_m": 0,
+    "z_m": 25,
+    "zone": "row end",
+    "note": "East end of Row M"
+  },
+  {
+    "component_id": "CRAH-M-01",
+    "facility_id": "MUM-1",
+    "x_m": -0.6,
+    "y_m": 0,
+    "z_m": 25,
+    "zone": "row end",
+    "note": "West CRAH, Row M"
+  },
+  {
+    "component_id": "CRAH-M-02",
+    "facility_id": "MUM-1",
+    "x_m": 16.6,
+    "y_m": 0,
+    "z_m": 25,
+    "zone": "row end",
+    "note": "East CRAH, Row M"
+  },
+  {
+    "component_id": "PDU-N1",
+    "facility_id": "MUM-1",
+    "x_m": 0.8,
+    "y_m": 0,
+    "z_m": 27.4,
+    "zone": "row end",
+    "note": "West end of Row N"
+  },
+  {
+    "component_id": "PDU-N2",
+    "facility_id": "MUM-1",
+    "x_m": 15.2,
+    "y_m": 0,
+    "z_m": 27.4,
+    "zone": "row end",
+    "note": "East end of Row N"
+  },
+  {
+    "component_id": "CRAH-N-01",
+    "facility_id": "MUM-1",
+    "x_m": -0.6,
+    "y_m": 0,
+    "z_m": 27.4,
+    "zone": "row end",
+    "note": "West CRAH, Row N"
+  },
+  {
+    "component_id": "CRAH-N-02",
+    "facility_id": "MUM-1",
+    "x_m": 16.6,
+    "y_m": 0,
+    "z_m": 27.4,
+    "zone": "row end",
+    "note": "East CRAH, Row N"
+  },
+  {
+    "component_id": "PDU-O1",
+    "facility_id": "MUM-1",
+    "x_m": 0.8,
+    "y_m": 0,
+    "z_m": 29.8,
+    "zone": "row end",
+    "note": "West end of Row O"
+  },
+  {
+    "component_id": "PDU-O2",
+    "facility_id": "MUM-1",
+    "x_m": 15.2,
+    "y_m": 0,
+    "z_m": 29.8,
+    "zone": "row end",
+    "note": "East end of Row O"
+  },
+  {
+    "component_id": "CRAH-O-01",
+    "facility_id": "MUM-1",
+    "x_m": -0.6,
+    "y_m": 0,
+    "z_m": 29.8,
+    "zone": "row end",
+    "note": "West CRAH, Row O"
+  },
+  {
+    "component_id": "CRAH-O-02",
+    "facility_id": "MUM-1",
+    "x_m": 16.6,
+    "y_m": 0,
+    "z_m": 29.8,
+    "zone": "row end",
+    "note": "East CRAH, Row O"
+  },
+  {
+    "component_id": "PDU-P1",
+    "facility_id": "MUM-1",
+    "x_m": 0.8,
+    "y_m": 0,
+    "z_m": 32.2,
+    "zone": "row end",
+    "note": "West end of Row P"
+  },
+  {
+    "component_id": "PDU-P2",
+    "facility_id": "MUM-1",
+    "x_m": 15.2,
+    "y_m": 0,
+    "z_m": 32.2,
+    "zone": "row end",
+    "note": "East end of Row P"
+  },
+  {
+    "component_id": "CRAH-P-01",
+    "facility_id": "MUM-1",
+    "x_m": -0.6,
+    "y_m": 0,
+    "z_m": 32.2,
+    "zone": "row end",
+    "note": "West CRAH, Row P"
+  },
+  {
+    "component_id": "CRAH-P-02",
+    "facility_id": "MUM-1",
+    "x_m": 16.6,
+    "y_m": 0,
+    "z_m": 32.2,
+    "zone": "row end",
+    "note": "East CRAH, Row P"
+  },
+  {
+    "component_id": "PDU-Q1",
+    "facility_id": "MUM-1",
+    "x_m": 0.8,
+    "y_m": 0,
+    "z_m": 34.6,
+    "zone": "row end",
+    "note": "West end of Row Q"
+  },
+  {
+    "component_id": "PDU-Q2",
+    "facility_id": "MUM-1",
+    "x_m": 15.2,
+    "y_m": 0,
+    "z_m": 34.6,
+    "zone": "row end",
+    "note": "East end of Row Q"
+  },
+  {
+    "component_id": "CRAH-Q-01",
+    "facility_id": "MUM-1",
+    "x_m": -0.6,
+    "y_m": 0,
+    "z_m": 34.6,
+    "zone": "row end",
+    "note": "West CRAH, Row Q"
+  },
+  {
+    "component_id": "CRAH-Q-02",
+    "facility_id": "MUM-1",
+    "x_m": 16.6,
+    "y_m": 0,
+    "z_m": 34.6,
+    "zone": "row end",
+    "note": "East CRAH, Row Q"
+  },
+  {
+    "component_id": "PDU-R1",
+    "facility_id": "MUM-1",
+    "x_m": 0.8,
+    "y_m": 0,
+    "z_m": 37,
+    "zone": "row end",
+    "note": "West end of Row R"
+  },
+  {
+    "component_id": "PDU-R2",
+    "facility_id": "MUM-1",
+    "x_m": 15.2,
+    "y_m": 0,
+    "z_m": 37,
+    "zone": "row end",
+    "note": "East end of Row R"
+  },
+  {
+    "component_id": "CRAH-R-01",
+    "facility_id": "MUM-1",
+    "x_m": -0.6,
+    "y_m": 0,
+    "z_m": 37,
+    "zone": "row end",
+    "note": "West CRAH, Row R"
+  },
+  {
+    "component_id": "CRAH-R-02",
+    "facility_id": "MUM-1",
+    "x_m": 16.6,
+    "y_m": 0,
+    "z_m": 37,
+    "zone": "row end",
+    "note": "East CRAH, Row R"
+  },
+  {
+    "component_id": "PDU-S1",
+    "facility_id": "MUM-1",
+    "x_m": 20.8,
+    "y_m": 0,
+    "z_m": 25,
+    "zone": "row end",
+    "note": "West end of Row S"
+  },
+  {
+    "component_id": "PDU-S2",
+    "facility_id": "MUM-1",
+    "x_m": 35.2,
+    "y_m": 0,
+    "z_m": 25,
+    "zone": "row end",
+    "note": "East end of Row S"
+  },
+  {
+    "component_id": "CRAH-S-01",
+    "facility_id": "MUM-1",
+    "x_m": 19.4,
+    "y_m": 0,
+    "z_m": 25,
+    "zone": "row end",
+    "note": "West CRAH, Row S"
+  },
+  {
+    "component_id": "CRAH-S-02",
+    "facility_id": "MUM-1",
+    "x_m": 36.6,
+    "y_m": 0,
+    "z_m": 25,
+    "zone": "row end",
+    "note": "East CRAH, Row S"
+  },
+  {
+    "component_id": "PDU-T1",
+    "facility_id": "MUM-1",
+    "x_m": 20.8,
+    "y_m": 0,
+    "z_m": 27.4,
+    "zone": "row end",
+    "note": "West end of Row T"
+  },
+  {
+    "component_id": "PDU-T2",
+    "facility_id": "MUM-1",
+    "x_m": 35.2,
+    "y_m": 0,
+    "z_m": 27.4,
+    "zone": "row end",
+    "note": "East end of Row T"
+  },
+  {
+    "component_id": "CRAH-T-01",
+    "facility_id": "MUM-1",
+    "x_m": 19.4,
+    "y_m": 0,
+    "z_m": 27.4,
+    "zone": "row end",
+    "note": "West CRAH, Row T"
+  },
+  {
+    "component_id": "CRAH-T-02",
+    "facility_id": "MUM-1",
+    "x_m": 36.6,
+    "y_m": 0,
+    "z_m": 27.4,
+    "zone": "row end",
+    "note": "East CRAH, Row T"
+  },
+  {
+    "component_id": "PDU-U1",
+    "facility_id": "MUM-1",
+    "x_m": 20.8,
+    "y_m": 0,
+    "z_m": 29.8,
+    "zone": "row end",
+    "note": "West end of Row U"
+  },
+  {
+    "component_id": "PDU-U2",
+    "facility_id": "MUM-1",
+    "x_m": 35.2,
+    "y_m": 0,
+    "z_m": 29.8,
+    "zone": "row end",
+    "note": "East end of Row U"
+  },
+  {
+    "component_id": "CRAH-U-01",
+    "facility_id": "MUM-1",
+    "x_m": 19.4,
+    "y_m": 0,
+    "z_m": 29.8,
+    "zone": "row end",
+    "note": "West CRAH, Row U"
+  },
+  {
+    "component_id": "CRAH-U-02",
+    "facility_id": "MUM-1",
+    "x_m": 36.6,
+    "y_m": 0,
+    "z_m": 29.8,
+    "zone": "row end",
+    "note": "East CRAH, Row U"
+  },
+  {
+    "component_id": "PDU-V1",
+    "facility_id": "MUM-1",
+    "x_m": 20.8,
+    "y_m": 0,
+    "z_m": 32.2,
+    "zone": "row end",
+    "note": "West end of Row V"
+  },
+  {
+    "component_id": "PDU-V2",
+    "facility_id": "MUM-1",
+    "x_m": 35.2,
+    "y_m": 0,
+    "z_m": 32.2,
+    "zone": "row end",
+    "note": "East end of Row V"
+  },
+  {
+    "component_id": "CRAH-V-01",
+    "facility_id": "MUM-1",
+    "x_m": 19.4,
+    "y_m": 0,
+    "z_m": 32.2,
+    "zone": "row end",
+    "note": "West CRAH, Row V"
+  },
+  {
+    "component_id": "CRAH-V-02",
+    "facility_id": "MUM-1",
+    "x_m": 36.6,
+    "y_m": 0,
+    "z_m": 32.2,
+    "zone": "row end",
+    "note": "East CRAH, Row V"
+  },
+  {
+    "component_id": "PDU-W1",
+    "facility_id": "MUM-1",
+    "x_m": 20.8,
+    "y_m": 0,
+    "z_m": 34.6,
+    "zone": "row end",
+    "note": "West end of Row W"
+  },
+  {
+    "component_id": "PDU-W2",
+    "facility_id": "MUM-1",
+    "x_m": 35.2,
+    "y_m": 0,
+    "z_m": 34.6,
+    "zone": "row end",
+    "note": "East end of Row W"
+  },
+  {
+    "component_id": "CRAH-W-01",
+    "facility_id": "MUM-1",
+    "x_m": 19.4,
+    "y_m": 0,
+    "z_m": 34.6,
+    "zone": "row end",
+    "note": "West CRAH, Row W"
+  },
+  {
+    "component_id": "CRAH-W-02",
+    "facility_id": "MUM-1",
+    "x_m": 36.6,
+    "y_m": 0,
+    "z_m": 34.6,
+    "zone": "row end",
+    "note": "East CRAH, Row W"
+  },
+  {
+    "component_id": "PDU-X1",
+    "facility_id": "MUM-1",
+    "x_m": 20.8,
+    "y_m": 0,
+    "z_m": 37,
+    "zone": "row end",
+    "note": "West end of Row X"
+  },
+  {
+    "component_id": "PDU-X2",
+    "facility_id": "MUM-1",
+    "x_m": 35.2,
+    "y_m": 0,
+    "z_m": 37,
+    "zone": "row end",
+    "note": "East end of Row X"
+  },
+  {
+    "component_id": "CRAH-X-01",
+    "facility_id": "MUM-1",
+    "x_m": 19.4,
+    "y_m": 0,
+    "z_m": 37,
+    "zone": "row end",
+    "note": "West CRAH, Row X"
+  },
+  {
+    "component_id": "CRAH-X-02",
+    "facility_id": "MUM-1",
+    "x_m": 36.6,
+    "y_m": 0,
+    "z_m": 37,
+    "zone": "row end",
+    "note": "East CRAH, Row X"
+  },
+  {
+    "component_id": "ROW-A",
+    "facility_id": "MUM-1",
+    "x_m": 8,
+    "y_m": 1,
+    "z_m": 3,
+    "zone": "hall floor",
+    "note": "Row A centroid"
+  },
+  {
+    "component_id": "ROW-B",
+    "facility_id": "MUM-1",
+    "x_m": 8,
+    "y_m": 1,
+    "z_m": 5.4,
+    "zone": "hall floor",
+    "note": "Row B centroid"
+  },
+  {
+    "component_id": "ROW-C",
+    "facility_id": "MUM-1",
+    "x_m": 8,
+    "y_m": 1,
+    "z_m": 7.8,
+    "zone": "hall floor",
+    "note": "Row C centroid"
+  },
+  {
+    "component_id": "ROW-D",
+    "facility_id": "MUM-1",
+    "x_m": 8,
+    "y_m": 1,
+    "z_m": 10.2,
+    "zone": "hall floor",
+    "note": "Row D centroid"
+  },
+  {
+    "component_id": "ROW-E",
+    "facility_id": "MUM-1",
+    "x_m": 8,
+    "y_m": 1,
+    "z_m": 12.6,
+    "zone": "hall floor",
+    "note": "Row E centroid"
+  },
+  {
+    "component_id": "ROW-F",
+    "facility_id": "MUM-1",
+    "x_m": 8,
+    "y_m": 1,
+    "z_m": 15,
+    "zone": "hall floor",
+    "note": "Row F centroid"
+  },
+  {
+    "component_id": "ROW-G",
+    "facility_id": "MUM-1",
+    "x_m": 28,
+    "y_m": 1,
+    "z_m": 3,
+    "zone": "hall floor",
+    "note": "Row G centroid"
+  },
+  {
+    "component_id": "ROW-H",
+    "facility_id": "MUM-1",
+    "x_m": 28,
+    "y_m": 1,
+    "z_m": 5.4,
+    "zone": "hall floor",
+    "note": "Row H centroid"
+  },
+  {
+    "component_id": "ROW-I",
+    "facility_id": "MUM-1",
+    "x_m": 28,
+    "y_m": 1,
+    "z_m": 7.8,
+    "zone": "hall floor",
+    "note": "Row I centroid"
+  },
+  {
+    "component_id": "ROW-J",
+    "facility_id": "MUM-1",
+    "x_m": 28,
+    "y_m": 1,
+    "z_m": 10.2,
+    "zone": "hall floor",
+    "note": "Row J centroid"
+  },
+  {
+    "component_id": "ROW-K",
+    "facility_id": "MUM-1",
+    "x_m": 28,
+    "y_m": 1,
+    "z_m": 12.6,
+    "zone": "hall floor",
+    "note": "Row K centroid"
+  },
+  {
+    "component_id": "ROW-L",
+    "facility_id": "MUM-1",
+    "x_m": 28,
+    "y_m": 1,
+    "z_m": 15,
+    "zone": "hall floor",
+    "note": "Row L centroid"
+  },
+  {
+    "component_id": "ROW-M",
+    "facility_id": "MUM-1",
+    "x_m": 8,
+    "y_m": 1,
+    "z_m": 25,
+    "zone": "hall floor",
+    "note": "Row M centroid"
+  },
+  {
+    "component_id": "ROW-N",
+    "facility_id": "MUM-1",
+    "x_m": 8,
+    "y_m": 1,
+    "z_m": 27.4,
+    "zone": "hall floor",
+    "note": "Row N centroid"
+  },
+  {
+    "component_id": "ROW-O",
+    "facility_id": "MUM-1",
+    "x_m": 8,
+    "y_m": 1,
+    "z_m": 29.8,
+    "zone": "hall floor",
+    "note": "Row O centroid"
+  },
+  {
+    "component_id": "ROW-P",
+    "facility_id": "MUM-1",
+    "x_m": 8,
+    "y_m": 1,
+    "z_m": 32.2,
+    "zone": "hall floor",
+    "note": "Row P centroid"
+  },
+  {
+    "component_id": "ROW-Q",
+    "facility_id": "MUM-1",
+    "x_m": 8,
+    "y_m": 1,
+    "z_m": 34.6,
+    "zone": "hall floor",
+    "note": "Row Q centroid"
+  },
+  {
+    "component_id": "ROW-R",
+    "facility_id": "MUM-1",
+    "x_m": 8,
+    "y_m": 1,
+    "z_m": 37,
+    "zone": "hall floor",
+    "note": "Row R centroid"
+  },
+  {
+    "component_id": "ROW-S",
+    "facility_id": "MUM-1",
+    "x_m": 28,
+    "y_m": 1,
+    "z_m": 25,
+    "zone": "hall floor",
+    "note": "Row S centroid"
+  },
+  {
+    "component_id": "ROW-T",
+    "facility_id": "MUM-1",
+    "x_m": 28,
+    "y_m": 1,
+    "z_m": 27.4,
+    "zone": "hall floor",
+    "note": "Row T centroid"
+  },
+  {
+    "component_id": "ROW-U",
+    "facility_id": "MUM-1",
+    "x_m": 28,
+    "y_m": 1,
+    "z_m": 29.8,
+    "zone": "hall floor",
+    "note": "Row U centroid"
+  },
+  {
+    "component_id": "ROW-V",
+    "facility_id": "MUM-1",
+    "x_m": 28,
+    "y_m": 1,
+    "z_m": 32.2,
+    "zone": "hall floor",
+    "note": "Row V centroid"
+  },
+  {
+    "component_id": "ROW-W",
+    "facility_id": "MUM-1",
+    "x_m": 28,
+    "y_m": 1,
+    "z_m": 34.6,
+    "zone": "hall floor",
+    "note": "Row W centroid"
+  },
+  {
+    "component_id": "ROW-X",
+    "facility_id": "MUM-1",
+    "x_m": 28,
+    "y_m": 1,
+    "z_m": 37,
+    "zone": "hall floor",
+    "note": "Row X centroid"
+  }
+]

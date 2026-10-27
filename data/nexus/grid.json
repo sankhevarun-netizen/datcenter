@@ -1,0 +1,74 @@
+[
+  {
+    "facility_id": "MUM-1",
+    "utility": "MSEDCL",
+    "voltage_kv": 33,
+    "sanctioned_load_kw": 12000,
+    "current_draw_kw": 10744,
+    "headroom_kw": 1256,
+    "feed_count": 2,
+    "connection_status": "Connected",
+    "queue_position": 0,
+    "note": "Dual 33kV feed, 2N"
+  },
+  {
+    "facility_id": "MUM-2",
+    "utility": "MSEDCL",
+    "voltage_kv": 33,
+    "sanctioned_load_kw": 9000,
+    "current_draw_kw": 8613,
+    "headroom_kw": 387,
+    "feed_count": 2,
+    "connection_status": "Connected",
+    "queue_position": 0,
+    "note": "Capacity nearly exhausted"
+  },
+  {
+    "facility_id": "CHN-1",
+    "utility": "TANGEDCO",
+    "voltage_kv": 33,
+    "sanctioned_load_kw": 10000,
+    "current_draw_kw": 8813,
+    "headroom_kw": 1187,
+    "feed_count": 2,
+    "connection_status": "Connected",
+    "queue_position": 0,
+    "note": "Cyclone exposure on feed B"
+  },
+  {
+    "facility_id": "HYD-1",
+    "utility": "TSSPDCL",
+    "voltage_kv": 132,
+    "sanctioned_load_kw": 22000,
+    "current_draw_kw": 10318,
+    "headroom_kw": 11682,
+    "feed_count": 2,
+    "connection_status": "Connected",
+    "queue_position": 0,
+    "note": "Headroom for phase 2"
+  },
+  {
+    "facility_id": "NCR-1",
+    "utility": "NPCL",
+    "voltage_kv": 33,
+    "sanctioned_load_kw": 13000,
+    "current_draw_kw": 12550,
+    "headroom_kw": 450,
+    "feed_count": 2,
+    "connection_status": "Connected",
+    "queue_position": 0,
+    "note": "GRID CONSTRAINED. Expansion request in queue."
+  },
+  {
+    "facility_id": "BLR-1",
+    "utility": "BESCOM",
+    "voltage_kv": 220,
+    "sanctioned_load_kw": 30000,
+    "current_draw_kw": 0,
+    "headroom_kw": 30000,
+    "feed_count": 2,
+    "connection_status": "In queue",
+    "queue_position": 31,
+    "note": "Interconnection queue position 31. Estimated energisation Q1 2028."
+  }
+]

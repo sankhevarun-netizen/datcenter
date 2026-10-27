@@ -29,7 +29,7 @@ function KpiCardButton({ kpi, onSelect, isActive }) {
       type="button"
       onClick={() => onSelect?.(kpi)}
       aria-pressed={isActive}
-      className={`text-left w-full rounded-xl transition-all ${isActive ? 'ring-2 ring-[#0077C8] ring-offset-2 ring-offset-[#F4F6F9]' : 'hover:-translate-y-0.5'}`}
+      className={`text-left w-full rounded-xl transition-all ${isActive ? 'ring-2 ring-[#005EB8] ring-offset-2 ring-offset-[#F0F2F5]' : 'hover:-translate-y-0.5'}`}
     >
       <KPICard {...toKpiCardProps(kpi, animatedValue)} />
     </button>

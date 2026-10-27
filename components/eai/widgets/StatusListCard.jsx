@@ -7,6 +7,10 @@ const STATUS_STYLE = {
   'Submitted':   { color: '#7C3AED', bg: 'rgba(124,58,237,0.15)',  border: 'rgba(124,58,237,0.30)'  },
   'Certified':   { color: '#06B6D4', bg: 'rgba(6,182,212,0.15)',   border: 'rgba(6,182,212,0.30)'   },
   'At Risk':     { color: '#EF4444', bg: 'rgba(239,68,68,0.15)',   border: 'rgba(239,68,68,0.30)'   },
+  'Pending':     { color: '#F59E0B', bg: 'rgba(245,158,11,0.15)',  border: 'rgba(245,158,11,0.30)'  },
+  'Proposed':    { color: '#7C3AED', bg: 'rgba(124,58,237,0.15)',  border: 'rgba(124,58,237,0.30)'  },
+  'Finalized':   { color: '#0077C8', bg: 'rgba(0,119,200,0.15)',   border: 'rgba(0,119,200,0.30)'   },
+  'In Force':    { color: '#00A36C', bg: 'rgba(0,163,108,0.15)',   border: 'rgba(0,163,108,0.30)'   },
 };
 
 export default function StatusListCard({ title, items = [], viewAllHref, onItemClick }) {

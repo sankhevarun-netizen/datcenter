@@ -6,28 +6,28 @@ import { Play, RotateCcw, AlertTriangle, CheckCircle, Zap, Thermometer, Network,
 import { motion, AnimatePresence } from 'framer-motion';
 
 const OUTCOME_CONFIG = {
-  no_impact:     { label: 'No Impact', color: '#00A36C', bg: '#F0FDF4', icon: CheckCircle },
+  no_impact:     { label: 'No Impact', color: '#00B0A0', bg: '#F0FDF4', icon: CheckCircle },
   partial_outage: { label: 'Partial Outage', color: '#D97706', bg: '#FFFBEB', icon: AlertTriangle },
   degraded:      { label: 'Degraded Service', color: '#D97706', bg: '#FFFBEB', icon: AlertTriangle },
-  major_outage:  { label: 'Major Outage', color: '#DC2626', bg: '#FEF2F2', icon: AlertTriangle },
+  major_outage:  { label: 'Major Outage', color: '#C8102E', bg: '#FEF2F2', icon: AlertTriangle },
   blocked:       { label: 'Deployment Blocked', color: '#7C3AED', bg: '#F5F3FF', icon: AlertTriangle },
 };
 
 const SEV_COLORS = {
-  critical: { color: '#DC2626', bg: '#FEF2F2' },
+  critical: { color: '#C8102E', bg: '#FEF2F2' },
   warning:  { color: '#D97706', bg: '#FFFBEB' },
-  info:     { color: '#0077C8', bg: '#EFF6FF' },
+  info:     { color: '#005EB8', bg: '#EFF6FF' },
 };
 
 function ResilienceGauge({ score }) {
-  const color = score >= 80 ? '#00A36C' : score >= 60 ? '#D97706' : '#DC2626';
+  const color = score >= 80 ? '#00B0A0' : score >= 60 ? '#D97706' : '#C8102E';
   const dashTotal = 2 * Math.PI * 28;
   const dashFill = (score / 100) * dashTotal;
   return (
     <div className="flex flex-col items-center gap-1">
       <div className="relative w-20 h-20">
         <svg viewBox="0 0 64 64" className="w-full h-full -rotate-90">
-          <circle cx="32" cy="32" r="28" fill="none" stroke="#E2E8F0" strokeWidth="6" />
+          <circle cx="32" cy="32" r="28" fill="none" stroke="#D8DCE3" strokeWidth="6" />
           <circle
             cx="32" cy="32" r="28"
             fill="none"
@@ -93,18 +93,18 @@ export default function ScenarioRunner({ scenarioType }) {
   return (
     <div className="h-full flex flex-col overflow-hidden">
       {/* Config panel */}
-      <div className="flex-shrink-0 px-6 py-4 border-b border-[#E2E8F0] bg-white">
+      <div className="flex-shrink-0 px-6 py-4 border-b border-[#D8DCE3] bg-white">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: scenarioType.color }} />
-            <h3 className="text-sm font-bold text-[#1A1F36]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+            <h3 className="text-sm font-bold text-[#1A1F36]" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
               {scenarioType.label}
             </h3>
           </div>
           {result && (
             <button
               onClick={handleReset}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border border-[#E2E8F0] text-[#6B7280] hover:bg-[#F8FAFC] transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border border-[#D8DCE3] text-[#6B7280] hover:bg-[#F8FAFC] transition-colors"
             >
               <RotateCcw size={11} />
               Reset
@@ -119,7 +119,7 @@ export default function ScenarioRunner({ scenarioType }) {
             <select
               value={selectedDcId}
               onChange={e => { setSelectedDcId(e.target.value); handleReset(); }}
-              className="px-3 py-2 rounded-lg border border-[#E2E8F0] text-xs text-[#1A1F36] focus:outline-none focus:border-[#0077C8] bg-white"
+              className="px-3 py-2 rounded-lg border border-[#D8DCE3] text-xs text-[#1A1F36] focus:outline-none focus:border-[#005EB8] bg-white"
               disabled={isRunning}
             >
               {mockDatacenters.map(dc => (
@@ -135,7 +135,7 @@ export default function ScenarioRunner({ scenarioType }) {
               <select
                 value={config[param.id] || param.options[0]}
                 onChange={e => setConfig(c => ({ ...c, [param.id]: e.target.value }))}
-                className="px-3 py-2 rounded-lg border border-[#E2E8F0] text-xs text-[#1A1F36] focus:outline-none focus:border-[#0077C8] bg-white"
+                className="px-3 py-2 rounded-lg border border-[#D8DCE3] text-xs text-[#1A1F36] focus:outline-none focus:border-[#005EB8] bg-white"
                 disabled={isRunning}
               >
                 {param.options.map(opt => <option key={opt} value={opt}>{opt}</option>)}
@@ -252,15 +252,15 @@ export default function ScenarioRunner({ scenarioType }) {
 
               {/* Mitigations */}
               {result.mitigations?.length > 0 && (
-                <div className="bg-[#EFF6FF] border border-[#0077C8]/20 rounded-xl p-4">
-                  <h4 className="text-xs font-bold text-[#0077C8] mb-2 flex items-center gap-1.5">
+                <div className="bg-[#EFF6FF] border border-[#005EB8]/20 rounded-xl p-4">
+                  <h4 className="text-xs font-bold text-[#005EB8] mb-2 flex items-center gap-1.5">
                     <CheckCircle size={12} />
                     AI-Recommended Mitigations
                   </h4>
                   <ul className="space-y-2">
                     {result.mitigations.map((m, i) => (
                       <li key={i} className="flex gap-2 items-start text-xs text-[#1e3a5f]">
-                        <span className="flex-shrink-0 w-4 h-4 rounded-full bg-[#0077C8] text-white text-[9px] flex items-center justify-center font-bold mt-0.5">{i + 1}</span>
+                        <span className="flex-shrink-0 w-4 h-4 rounded-full bg-[#005EB8] text-white text-[9px] flex items-center justify-center font-bold mt-0.5">{i + 1}</span>
                         {m}
                       </li>
                     ))}

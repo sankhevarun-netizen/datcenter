@@ -94,7 +94,7 @@ export default function AssetPortfolioTablePage() {
   return (
     <div className="relative px-6 py-5">
       <div className="flex items-center justify-between mb-4">
-        <h1 className="text-lg font-extrabold text-text-primary" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+        <h1 className="text-lg font-extrabold text-text-primary" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
           Portfolio Assets ({sorted.length})
         </h1>
         <button

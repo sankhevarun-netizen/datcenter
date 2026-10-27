@@ -20,10 +20,10 @@ const C = {
   card:   '#0d1f3c',
   card2:  'rgba(255,255,255,0.05)',
   border: 'rgba(255,255,255,0.09)',
-  green:  '#00A36C',
-  amber:  '#D4A017',
-  red:    '#DC2626',
-  blue:   '#0077C8',
+  green:  '#00B0A0',
+  amber:  '#E87722',
+  red:    '#C8102E',
+  blue:   '#005EB8',
   navy:   '#00338D',
   purple: '#7C3AED',
   cyan:   '#06B6D4',
@@ -33,7 +33,7 @@ const C = {
 function DarkTooltip({ active, payload, label }) {
   if (!active || !payload?.length) return null;
   return (
-    <div style={{ background: '#1A1F36', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 8, padding: '8px 12px', fontSize: 11 }}>
+    <div style={{ background: '#00338D', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 8, padding: '8px 12px', fontSize: 11 }}>
       {label && <p style={{ color: 'rgba(255,255,255,0.45)', marginBottom: 4 }}>{label}</p>}
       {payload.map((p, i) => (
         <p key={i} style={{ color: p.color || '#fff', margin: '2px 0' }}>{p.name}: <b>{typeof p.value === 'number' ? p.value.toLocaleString() : p.value}</b></p>
@@ -44,7 +44,7 @@ function DarkTooltip({ active, payload, label }) {
 
 function SectionTitle({ children }) {
   return (
-    <h2 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", letterSpacing: '0.1em' }}
+    <h2 style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif", letterSpacing: '0.1em' }}
       className="text-white font-bold text-xs uppercase tracking-widest mb-4 flex items-center gap-3">
       <span className="flex-1 h-px opacity-20" style={{ background: 'white' }} />
       {children}
@@ -65,7 +65,7 @@ function Card({ children, className = '', style = {} }) {
 function CardLabel({ children }) {
   return (
     <p className="text-[10px] text-white/50 uppercase tracking-widest mb-3 font-bold"
-      style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+      style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
       {children}
     </p>
   );
@@ -91,7 +91,7 @@ function MiniStatBox({ label, value, color = 'white' }) {
   return (
     <div className="rounded-lg p-2.5" style={{ background: C.card2 }}>
       <p className="text-[9px] text-white/40 uppercase tracking-wider mb-1"
-        style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{label}</p>
+        style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>{label}</p>
       <Mono color={color} size="text-base">{value}</Mono>
     </div>
   );
@@ -193,7 +193,7 @@ function AssetCompositionCard() {
                 style={{
                   background: groupKey === g ? C.blue : 'transparent',
                   color: groupKey === g ? '#fff' : 'rgba(255,255,255,0.5)',
-                  fontFamily: "'Plus Jakarta Sans', sans-serif",
+                  fontFamily: "'Inter', 'Segoe UI', sans-serif",
                 }}
               >
                 {g}
@@ -363,7 +363,7 @@ export default function DashboardsPage() {
       <div className="flex items-center gap-3 mb-8">
         <button
           className="px-5 py-2 rounded-lg text-xs font-bold text-white"
-          style={{ background: C.navy, border: `1px solid ${C.blue}`, fontFamily: "'Plus Jakarta Sans', sans-serif", letterSpacing: '0.05em' }}>
+          style={{ background: C.navy, border: `1px solid ${C.blue}`, fontFamily: "'Inter', 'Segoe UI', sans-serif", letterSpacing: '0.05em' }}>
           Overall Dashboard
         </button>
       </div>
@@ -383,7 +383,7 @@ export default function DashboardsPage() {
           <Card key={label}>
             <div className="flex items-start justify-between mb-3">
               <p className="text-[10px] text-white/50 uppercase tracking-wider leading-snug"
-                style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{label}</p>
+                style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>{label}</p>
               <div className="p-1.5 rounded-lg flex-shrink-0" style={{ background: `${color}22` }}>
                 <Icon size={16} style={{ color }} />
               </div>
@@ -591,7 +591,7 @@ export default function DashboardsPage() {
           <Card key={label} className="flex flex-col gap-2">
             <div className="flex items-start justify-between">
               <p className="text-[10px] text-white/50 uppercase tracking-wider leading-snug"
-                style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{label}</p>
+                style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>{label}</p>
               <div className="p-1.5 rounded-md flex-shrink-0 ml-2" style={{ background: `${color}25` }}>
                 <Icon size={14} style={{ color }} />
               </div>
@@ -611,7 +611,7 @@ export default function DashboardsPage() {
         {financialPills.map(({ label, value }) => (
           <Card key={label} className="text-center py-3">
             <p className="text-[9px] text-white/40 uppercase tracking-wider mb-1.5"
-              style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{label}</p>
+              style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>{label}</p>
             <Mono size="text-sm">{value}</Mono>
           </Card>
         ))}
@@ -703,7 +703,7 @@ export default function DashboardsPage() {
                 style={{ background: C.card2, borderLeft: `3px solid ${a.sev === 'red' ? C.red : C.amber}` }}>
                 <div className="flex items-start justify-between gap-2 mb-0.5">
                   <p className="text-xs font-bold text-white leading-snug"
-                    style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{a.title}</p>
+                    style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>{a.title}</p>
                   <span className="text-[10px] text-white/30 whitespace-nowrap flex-shrink-0">{a.time}</span>
                 </div>
                 <p className="text-[10px] text-white/45 mb-1">Site/Warehouse: {a.site}</p>
@@ -757,7 +757,7 @@ export default function DashboardsPage() {
                   <td />
                   {STS_CITIES.map(c => (
                     <td key={c} className="text-[9px] text-white/40 pb-1 font-semibold px-1"
-                      style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+                      style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
                       {c.slice(0, 5)}
                     </td>
                   ))}
@@ -767,7 +767,7 @@ export default function DashboardsPage() {
                 {STS_CITIES.map(from => (
                   <tr key={from}>
                     <td className="text-[9px] text-white/40 pr-2 font-semibold text-left whitespace-nowrap"
-                      style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+                      style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
                       {from.slice(0, 5)}
                     </td>
                     {STS_CITIES.map(to => {

@@ -3,15 +3,15 @@ import { useState } from 'react';
 import { Zap, Server, Weight, Network, ChevronDown, ChevronUp, ArrowRight } from 'lucide-react';
 
 const PRIORITY_STYLES = {
-  critical: { color: '#DC2626', bg: '#FEF2F2' },
+  critical: { color: '#C8102E', bg: '#FEF2F2' },
   high:     { color: '#D97706', bg: '#FFFBEB' },
-  medium:   { color: '#0077C8', bg: '#EFF6FF' },
+  medium:   { color: '#005EB8', bg: '#EFF6FF' },
 };
 
 const CAPACITY_STYLES = {
-  ok:       { color: '#00A36C', bg: '#F0FDF4', label: 'OK' },
-  warning:  { color: '#D4A017', bg: '#FFFBEB', label: 'Near limit' },
-  critical: { color: '#DC2626', bg: '#FEF2F2', label: 'Capacity breach' },
+  ok:       { color: '#00B0A0', bg: '#F0FDF4', label: 'OK' },
+  warning:  { color: '#E87722', bg: '#FFFBEB', label: 'Near limit' },
+  critical: { color: '#C8102E', bg: '#FEF2F2', label: 'Capacity breach' },
 };
 
 function ImpactBadge({ icon: Icon, value, unit, label }) {
@@ -36,7 +36,7 @@ export default function DeploymentCard({ deployment: dep, columns, onStatusChang
   const formatDate = (iso) => iso ? new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) : null;
 
   return (
-    <div className="bg-white rounded-xl border border-[#E2E8F0] shadow-sm overflow-hidden">
+    <div className="bg-white rounded-xl border border-[#D8DCE3] shadow-sm overflow-hidden">
       {/* Top accent bar */}
       <div className="h-0.5" style={{ backgroundColor: PRIORITY_STYLES[dep.priority]?.color || '#9CA3AF' }} />
 
@@ -44,7 +44,7 @@ export default function DeploymentCard({ deployment: dep, columns, onStatusChang
         {/* Header */}
         <div className="flex items-start justify-between gap-2">
           <div className="flex-1 min-w-0">
-            <p className="text-xs font-bold text-[#1A1F36] leading-tight" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+            <p className="text-xs font-bold text-[#1A1F36] leading-tight" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
               {dep.equipment}
             </p>
             <p className="text-[10px] text-[#9CA3AF] mt-0.5">{dep.dcName} · {dep.rackLabel || 'Floor mount'}</p>
@@ -87,7 +87,7 @@ export default function DeploymentCard({ deployment: dep, columns, onStatusChang
 
         {/* Expanded notes */}
         {expanded && (
-          <div className="border-t border-[#F4F6F9] pt-2 space-y-2">
+          <div className="border-t border-[#F0F2F5] pt-2 space-y-2">
             {dep.notes && (
               <p className="text-[10px] text-[#6B7280] leading-relaxed">{dep.notes}</p>
             )}
@@ -102,7 +102,7 @@ export default function DeploymentCard({ deployment: dep, columns, onStatusChang
 
         {/* Action buttons */}
         {dep.status !== 'installed' && (
-          <div className="flex items-center gap-2 pt-1 border-t border-[#F4F6F9]">
+          <div className="flex items-center gap-2 pt-1 border-t border-[#F0F2F5]">
             {nextCol && (
               <button
                 onClick={() => onStatusChange(dep.id, nextCol.id)}
@@ -116,7 +116,7 @@ export default function DeploymentCard({ deployment: dep, columns, onStatusChang
             {prevCol && dep.status === 'requested' && (
               <button
                 onClick={() => onStatusChange(dep.id, 'rejected')}
-                className="px-2 py-1.5 rounded-lg text-[10px] font-semibold border border-[#E2E8F0] text-[#9CA3AF] hover:bg-[#FEF2F2] hover:text-[#DC2626] hover:border-[#DC262630] transition-colors"
+                className="px-2 py-1.5 rounded-lg text-[10px] font-semibold border border-[#D8DCE3] text-[#9CA3AF] hover:bg-[#FEF2F2] hover:text-[#C8102E] hover:border-[#C8102E30] transition-colors"
               >
                 Reject
               </button>
@@ -124,9 +124,9 @@ export default function DeploymentCard({ deployment: dep, columns, onStatusChang
           </div>
         )}
         {dep.status === 'installed' && (
-          <div className="flex items-center gap-1.5 pt-1 border-t border-[#F4F6F9]">
-            <div className="w-2 h-2 rounded-full bg-[#00A36C]" />
-            <span className="text-[10px] text-[#00A36C] font-semibold">Installed {formatDate(dep.installedAt)}</span>
+          <div className="flex items-center gap-1.5 pt-1 border-t border-[#F0F2F5]">
+            <div className="w-2 h-2 rounded-full bg-[#00B0A0]" />
+            <span className="text-[10px] text-[#00B0A0] font-semibold">Installed {formatDate(dep.installedAt)}</span>
           </div>
         )}
       </div>

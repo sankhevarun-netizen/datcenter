@@ -4,9 +4,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { AlertTriangle, Info, AlertOctagon, ChevronDown, Sparkles } from 'lucide-react';
 
 const SEV_CONFIG = {
-  warning:  { Icon: AlertTriangle, iconColor: 'text-[#D4A017]', bg: 'bg-[#D4A017]/10', border: 'border-[#D4A017]/20' },
-  info:     { Icon: Info,          iconColor: 'text-[#0077C8]', bg: 'bg-[#0077C8]/10', border: 'border-[#0077C8]/20' },
-  critical: { Icon: AlertOctagon,  iconColor: 'text-[#DC2626]', bg: 'bg-[#DC2626]/10', border: 'border-[#DC2626]/20' },
+  warning:  { Icon: AlertTriangle, iconColor: 'text-[#E87722]', bg: 'bg-[#E87722]/10', border: 'border-[#E87722]/20' },
+  info:     { Icon: Info,          iconColor: 'text-[#005EB8]', bg: 'bg-[#005EB8]/10', border: 'border-[#005EB8]/20' },
+  critical: { Icon: AlertOctagon,  iconColor: 'text-[#C8102E]', bg: 'bg-[#C8102E]/10', border: 'border-[#C8102E]/20' },
 };
 
 export default function AIInsightCard({ insight, onAction }) {
@@ -30,8 +30,8 @@ export default function AIInsightCard({ insight, onAction }) {
 
             {/* Confidence bar */}
             <div className="flex items-center gap-2 mt-2">
-              <div className="flex-1 h-1 bg-[#E2E8F0] rounded-full overflow-hidden">
-                <div className="h-full bg-[#0077C8] rounded-full" style={{ width: `${insight.confidence}%` }} />
+              <div className="flex-1 h-1 bg-[#D8DCE3] rounded-full overflow-hidden">
+                <div className="h-full bg-[#005EB8] rounded-full" style={{ width: `${insight.confidence}%` }} />
               </div>
               <span className="text-[10px] text-[#9CA3AF] font-semibold" style={{ fontFamily: "'JetBrains Mono', monospace" }}>{insight.confidence}% confidence</span>
             </div>
@@ -59,7 +59,7 @@ export default function AIInsightCard({ insight, onAction }) {
                 </span>
                 <button
                   onClick={(e) => { e.stopPropagation(); onAction?.(); }}
-                  className="px-2.5 py-1 bg-[#00338D] hover:bg-[#0044b8] text-white text-[10px] font-bold rounded-lg transition-colors"
+                  className="px-2.5 py-1 bg-[#00338D] hover:bg-[#002A73] text-white text-[10px] font-bold rounded-lg transition-colors"
                 >
                   Take Action
                 </button>

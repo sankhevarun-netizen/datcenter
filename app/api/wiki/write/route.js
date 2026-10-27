@@ -1,53 +1,32 @@
-import fs from 'fs';
-import path from 'path';
+// /api/wiki/write — turns a knowledge event into wiki pages.
+//
+// The model extracts pages; every page is then normalised through the
+// ontology (lib/wiki/ontology.js), merged with any existing page for the same
+// idea, embedded and stored (Supabase, or the folder outside the repository).
+import { wikiStore, saveWikiPage } from '@/lib/wiki/store';
+import { canonicalPath } from '@/lib/wiki/ontology';
+import { requirePermission } from '@/lib/auth/session';
+import { recordUsage } from '@/lib/usage-server';
 
-const ANTHROPIC_API_URL = 'https://api.anthropic.com/v1/messages';
+const MODEL_URL = 'https://api.anthropic.com/v1/messages';
+const MODEL = 'claude-sonnet-4-5';
 
-const WIKI_ROOT = process.env.WIKI_PATH
-  ? path.resolve(process.env.WIKI_PATH)
-  : path.resolve(process.cwd(), 'wiki');
-
-function ensureDir(dirPath) {
-  if (!fs.existsSync(dirPath)) fs.mkdirSync(dirPath, { recursive: true });
-}
-
-function toSlug(str) {
-  return str.toLowerCase().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').slice(0, 60);
-}
-
-function readWikiFile(relPath) {
-  const full = path.join(WIKI_ROOT, relPath);
-  if (fs.existsSync(full)) return fs.readFileSync(full, 'utf8');
-  return null;
-}
-
-function writeWikiFile(relPath, content) {
-  const full = path.join(WIKI_ROOT, relPath);
-  ensureDir(path.dirname(full));
-  fs.writeFileSync(full, content, 'utf8');
-  return full;
-}
-
-async function claudeCall(system, prompt, maxTokens = 3000) {
-  const res = await fetch(ANTHROPIC_API_URL, {
+async function modelCall(request, system, prompt, maxTokens = 3000) {
+  const res = await fetch(MODEL_URL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'x-api-key': process.env.ANTHROPIC_API_KEY,
       'anthropic-version': '2023-06-01',
     },
-    body: JSON.stringify({
-      model: 'claude-sonnet-4-5',
-      max_tokens: maxTokens,
-      system,
-      messages: [{ role: 'user', content: prompt }],
-    }),
+    body: JSON.stringify({ model: MODEL, max_tokens: maxTokens, system, messages: [{ role: 'user', content: prompt }] }),
   });
   if (!res.ok) {
     const err = await res.json().catch(() => ({}));
-    throw new Error(`Claude API error ${res.status}: ${err?.error?.message || 'unknown'}`);
+    throw new Error(`Extraction service error ${res.status}: ${err?.error?.message || 'unknown'}`);
   }
   const data = await res.json();
+  await recordUsage(request, { model: MODEL, inputTokens: data.usage?.input_tokens ?? 0, outputTokens: data.usage?.output_tokens ?? 0 });
   return data.content[0].text;
 }
 
@@ -98,15 +77,18 @@ Rules:
 - Preserve all [[wikilinks]], add new ones
 - Output ONLY the final merged markdown — no explanation`;
 
-async function extractKnowledge(eventType, content, metadata) {
+async function extractKnowledge(request, eventType, content, metadata, known) {
   const prompt = `Extract wiki knowledge from this ${eventType} event.
 
 Metadata: ${JSON.stringify(metadata)}
 
+Pages that already exist — when an idea matches one, use its exact relPath so it is merged, not duplicated:
+${known.join('\n')}
+
 Content (first 4000 chars):
 ${content.slice(0, 4000)}`;
 
-  const raw = await claudeCall(EXTRACTION_SYSTEM, prompt, 6000);
+  const raw = await modelCall(request, EXTRACTION_SYSTEM, prompt, 6000);
   // Strip any accidental markdown fences
   const cleaned = raw.replace(/```json|```/gi, '').trim();
   // Find JSON object in response
@@ -120,7 +102,7 @@ ${content.slice(0, 4000)}`;
     const opens = (partial.match(/\[/g) || []).length - (partial.match(/\]/g) || []).length;
     const braces = (partial.match(/\{/g) || []).length - (partial.match(/\}/g) || []).length;
     // Strip trailing incomplete token (last comma or partial string)
-    partial = partial.replace(/,\s*$/, '').replace(/"[^"]*$/, '"...');;
+    partial = partial.replace(/,\s*$/, '').replace(/"[^"]*$/, '"...');
     partial += ']'.repeat(Math.max(0, opens)) + '}'.repeat(Math.max(0, braces));
     try {
       return JSON.parse(partial);
@@ -130,7 +112,7 @@ ${content.slice(0, 4000)}`;
   }
 }
 
-async function mergeIntoExisting(existingContent, newContent, title) {
+async function mergeIntoExisting(request, existingContent, newContent, title) {
   const prompt = `Merge this new information into the existing wiki file titled "${title}".
 
 EXISTING:
@@ -141,60 +123,22 @@ ${newContent.slice(0, 1500)}
 
 Output the final merged markdown file only.`;
 
-  return claudeCall(MERGE_SYSTEM, prompt, 2000);
+  return modelCall(request, MERGE_SYSTEM, prompt, 2000);
 }
 
-async function processFile(fileSpec) {
-  const existing = readWikiFile(fileSpec.relPath);
-  let finalContent;
-  if (existing) {
-    finalContent = await mergeIntoExisting(existing, fileSpec.content, fileSpec.title);
-  } else {
-    finalContent = fileSpec.content;
-  }
-  writeWikiFile(fileSpec.relPath, finalContent);
-  return { relPath: fileSpec.relPath, action: existing ? 'merged' : 'created' };
-}
-
-function updateIndex(writtenFiles) {
-  const now = new Date().toISOString().split('T')[0];
-  const indexPath = '_index.md';
-  let existing = readWikiFile(indexPath) || `---
-title: "K-Nexus Wiki — Master Index"
-tags: [index, meta]
-updated: "${now}"
----
-
-# K-Nexus Knowledge Wiki
-
-Auto-maintained by K-Nexus AI. Never edit manually.
-
-## Recent Updates
-
-`;
-  const newEntries = writtenFiles.map(f => `- ${now}: [[${f.relPath.replace('.md', '')}]] (${f.action})`).join('\n');
-  const lines = existing.split('\n');
-  const recentIdx = lines.findIndex(l => l.includes('## Recent Updates'));
-  if (recentIdx !== -1) {
-    const before = lines.slice(0, recentIdx + 2).join('\n');
-    const existingEntries = lines.slice(recentIdx + 2).filter(l => l.trim());
-    const allEntries = [...newEntries.split('\n'), ...existingEntries].slice(0, 50);
-    existing = before + '\n' + allEntries.join('\n') + '\n';
-  }
-  writeWikiFile(indexPath, existing);
-}
-
-function updateMeta(eventType, filesWritten) {
-  const now = new Date().toISOString();
-  const metaPath = '_meta/last-updated.md';
-  const existing = readWikiFile(metaPath) || `---\ntitle: "Wiki Update Log"\ntags: [meta]\n---\n\n# Wiki Update Log\n\n`;
-  const entry = `## ${now}\n- Event: ${eventType}\n- Files: ${filesWritten.map(f => f.relPath).join(', ')}\n\n`;
-  writeWikiFile(metaPath, existing + entry);
+async function processFile(request, fileSpec) {
+  const path = canonicalPath(fileSpec.relPath);
+  const existing = await wikiStore.get(path);
+  const content = existing ? await mergeIntoExisting(request, existing.content, fileSpec.content, fileSpec.title) : fileSpec.content;
+  const saved = await saveWikiPage({ path, content });
+  return { relPath: saved.relPath, action: existing ? 'merged' : 'created' };
 }
 
 export async function POST(request) {
+  const { error } = await requirePermission('use:copilot');
+  if (error) return error;
   if (!process.env.ANTHROPIC_API_KEY) {
-    return Response.json({ error: 'ANTHROPIC_API_KEY not configured' }, { status: 500 });
+    return Response.json({ error: 'Knowledge extraction is not configured' }, { status: 503 });
   }
 
   let body;
@@ -210,37 +154,21 @@ export async function POST(request) {
   }
 
   try {
-    ensureDir(WIKI_ROOT);
-    ['clients','concepts','market','patterns','_meta'].forEach(d =>
-      ensureDir(path.join(WIKI_ROOT, d))
-    );
-
-    const extracted = await extractKnowledge(eventType, content, metadata);
-
+    const known = (await wikiStore.list()).map((p) => p.path).filter((p) => !p.startsWith('clients/') && !p.startsWith('_')).map((p) => `${p}.md`);
+    const extracted = await extractKnowledge(request, eventType, content, metadata, known);
     const allFiles = [
       ...(extracted.clientFiles || []),
       ...(extracted.conceptFiles || []),
       ...(extracted.marketFiles || []),
       ...(extracted.patternFiles || []),
-    ];
+    ].filter((f) => f?.relPath && f?.content);
 
-    if (allFiles.length === 0) {
-      return Response.json({ success: true, filesWritten: [], message: 'No files extracted' });
-    }
-
-    const results = await Promise.all(allFiles.map(processFile));
-    updateIndex(results);
-    updateMeta(eventType, results);
-
-    return Response.json({
-      success: true,
-      filesWritten: results,
-      clientName: extracted.clientName,
-      wikiRoot: WIKI_ROOT,
-    });
-
+    // Two extracted files for one idea are written one after the other, so the second merges into the first.
+    const results = [];
+    for (const f of allFiles) results.push(await processFile(request, f));
+    return Response.json({ success: true, filesWritten: results });
   } catch (err) {
-    console.error('[Wiki Write Error]', err.message, err.stack);
-    return Response.json({ error: err.message }, { status: 500 });
+    console.error('[wiki/write]', err.message);
+    return Response.json({ error: 'Knowledge write failed' }, { status: 500 });
   }
 }

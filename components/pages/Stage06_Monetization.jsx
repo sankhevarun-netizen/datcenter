@@ -34,5 +34,5 @@ async function generateInsights(formData, sessionContext, stageOutputs, research
 }
 
 export default function Stage06() {
-  return <StageLayout stageNum="06" stageName="Monetization" stageDescription="Maximize revenue from your datacenter assets." stageIcon={DollarSign} color="#0077C8" formFields={Fields} generateInsights={generateInsights} />;
+  return <StageLayout stageNum="06" stageName="Monetization" stageDescription="Maximize revenue from your datacenter assets." stageIcon={DollarSign} color="#005EB8" formFields={Fields} generateInsights={generateInsights} />;
 }

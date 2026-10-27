@@ -1,206 +1,137 @@
 'use client';
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { AlertTriangle, CheckCircle, ChevronDown, Loader2, Clock, User } from 'lucide-react';
+// Incident intelligence: the live alert queue and recorded incidents from the
+// Nexus dataset, each opening a brief that answers what happened, why, who is
+// exposed and what to do.
+import { useEffect, useMemo, useState } from 'react';
 import CCLayout from '@/components/command-center/CCLayout';
-import { mockIncidents } from '@/data/mock/index';
+import IncidentBrief, { SEVERITY_STYLE } from '@/components/nexus/IncidentBrief';
+import { analyseIncident, incidentQueue } from '@/lib/nexus/incident-engine';
+import { IMPACT_LABEL } from '@/lib/nexus/incident-brief';
+import { nexus, index } from '@/lib/nexus/data';
+import { AS_OF, daysBetween, timeLabel } from '@/lib/nexus/time';
+import { fmtDuration, fmtDurationShort } from '@/lib/nexus/format';
+import { usePersistentState } from '@/lib/use-persistent-state';
+import { logEvent } from '@/lib/audit-client';
 
-const SEV_CONFIG = {
-  critical: { color: '#DC2626', bg: '#FEF2F2', border: '#FCA5A5' },
-  high:     { color: '#D97706', bg: '#FFFBEB', border: '#FCD34D' },
-  medium:   { color: '#D4A017', bg: '#FFFBEB', border: '#FDE68A' },
-  low:      { color: '#0077C8', bg: '#EFF6FF', border: '#93C5FD' },
-};
+const MONO = { fontFamily: "'JetBrains Mono', monospace" };
+const IMPACTS = ['outage', 'capacity', 'compliance', 'efficiency'];
+const OWN_SITES = new Set(nexus.facilities.map((f) => f.facility_id));
 
-function IncidentCard({ incident, showToast }) {
-  const [expanded, setExpanded] = useState(false);
-  const [ackState, setAckState] = useState('idle'); // idle | loading | done
-  const [actionState, setActionState] = useState('idle');
-  const [localStatus, setLocalStatus] = useState(incident.status);
+// Impact class per alert, computed once from the dataset.
+const QUEUE = incidentQueue().map((a) => ({ ...a, impact: analyseIncident({ alertId: a.alert_id }).impact }));
+const RECENT_INCIDENTS = nexus.incidents
+  .filter((i) => OWN_SITES.has(i.facility_id) && daysBetween(i.detected_at.slice(0, 10), AS_OF.slice(0, 10)) <= 365)
+  .sort((a, b) => b.detected_at.localeCompare(a.detected_at));
 
-  const sc = SEV_CONFIG[incident.severity] || SEV_CONFIG.medium;
-  const isResolved = incident.status === 'resolved';
-
-  const handleAck = () => {
-    if (ackState !== 'idle') return;
-    setAckState('loading');
-    setTimeout(() => {
-      setAckState('done');
-      setLocalStatus('acknowledged');
-      showToast(`${incident.id} acknowledged by Arjun Mehta`);
-    }, 1500);
-  };
-
-  const handleAction = () => {
-    if (actionState !== 'idle') return;
-    setActionState('loading');
-    setTimeout(() => {
-      setActionState('done');
-      showToast(`Action dispatched to operations team for: ${incident.title}`);
-    }, 2000);
-  };
-
+function Tile({ label, value, sub }) {
   return (
-    <div className="flex gap-4">
-      {/* Timeline spine */}
-      <div className="flex flex-col items-center flex-shrink-0 w-6">
-        <div className={`w-3 h-3 rounded-full flex-shrink-0 mt-3 ${isResolved ? 'bg-[#00A36C]' : incident.severity === 'critical' ? 'bg-[#DC2626]' : incident.severity === 'high' ? 'bg-[#D97706]' : 'bg-[#D4A017]'}`} />
-        <div className="w-px flex-1 bg-[#E2E8F0] mt-1" />
-      </div>
-
-      {/* Card */}
-      <div className="flex-1 pb-6">
-        <div className="bg-white rounded-2xl border border-[#E2E8F0] shadow-sm overflow-hidden">
-          <div className="p-4">
-            <div className="flex items-start gap-3 mb-2">
-              <div className="flex-1">
-                <div className="flex flex-wrap items-center gap-2 mb-1">
-                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase" style={{ backgroundColor: sc.bg, color: sc.color, border: `1px solid ${sc.border}` }}>{incident.severity}</span>
-                  <span className="text-[10px] font-bold px-2 py-0.5 bg-[#F4F6F9] text-[#6B7280] rounded-full capitalize">{localStatus}</span>
-                  <span className="font-mono text-[10px] text-[#9CA3AF]">{incident.id}</span>
-                </div>
-                <h3 className="text-sm font-bold text-[#1A1F36]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{incident.title}</h3>
-              </div>
-              <div className="text-right flex-shrink-0">
-                {isResolved ? (
-                  <div className="flex items-center gap-1 text-[#00A36C]">
-                    <CheckCircle size={12} />
-                    <span className="text-[10px] font-bold">Resolved</span>
-                  </div>
-                ) : (
-                  <div className="flex items-center gap-1 text-[#9CA3AF]">
-                    <Clock size={10} />
-                    <span className="text-[10px]">{incident.timeSinceDetection}</span>
-                  </div>
-                )}
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3 text-xs text-[#9CA3AF] mb-3">
-              <span className="flex items-center gap-1"><AlertTriangle size={10} />{incident.site}</span>
-              <span className="flex items-center gap-1"><User size={10} />{incident.resolutionOwner}</span>
-              {incident.impactedTenants > 0 && <span className="text-[#D4A017]">{incident.impactedTenants} tenants impacted</span>}
-            </div>
-
-            <p className="text-xs text-[#6B7280] mb-3">{incident.rootCause}</p>
-
-            {!isResolved && (
-              <div className="bg-[#EFF6FF] border border-[#0077C8]/20 rounded-lg p-2.5 mb-3">
-                <p className="text-[10px] font-bold text-[#0077C8] mb-0.5">AI Recommendation</p>
-                <p className="text-[10px] text-[#1A1F36] leading-relaxed">{incident.aiRecommendation}</p>
-              </div>
-            )}
-
-            {isResolved && incident.resolution && (
-              <div className="bg-[#F0FDF4] border border-[#00A36C]/20 rounded-lg p-2.5 mb-3">
-                <p className="text-[10px] font-bold text-[#00A36C] mb-0.5">Resolution</p>
-                <p className="text-[10px] text-[#1A1F36] leading-relaxed">{incident.resolution}</p>
-              </div>
-            )}
-
-            {/* Status timeline */}
-            {incident.timeline && (
-              <div className="flex gap-2 mb-3 overflow-x-auto">
-                {['Detected', 'Investigating', 'Identified', 'Monitoring', 'Resolved'].map((step, i) => {
-                  const reached = incident.timeline.some(t => t.status === step);
-                  const current = incident.timeline[incident.timeline.length - 1]?.status === step;
-                  return (
-                    <div key={step} className="flex items-center gap-1 flex-shrink-0">
-                      <div className={`w-1.5 h-1.5 rounded-full ${reached ? (current && !isResolved ? 'bg-[#0077C8] animate-pulse' : 'bg-[#00A36C]') : 'bg-[#E2E8F0]'}`} />
-                      <span className={`text-[9px] font-medium ${reached ? 'text-[#1A1F36]' : 'text-[#9CA3AF]'}`}>{step}</span>
-                      {i < 4 && <div className={`w-4 h-px ${reached ? 'bg-[#00A36C]' : 'bg-[#E2E8F0]'}`} />}
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-
-            {!isResolved && (
-              <div className="flex gap-2">
-                <button onClick={handleAck} disabled={ackState !== 'idle'}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-colors ${ackState === 'done' ? 'bg-[#00A36C] text-white' : 'bg-[#00338D] hover:bg-[#0044b8] text-white'}`}>
-                  {ackState === 'loading' ? <Loader2 size={11} className="animate-spin" /> : ackState === 'done' ? '✓ Acknowledged' : 'Acknowledge'}
-                </button>
-                <button onClick={handleAction} disabled={actionState !== 'idle'}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold border transition-colors ${actionState === 'done' ? 'bg-[#00A36C] text-white border-[#00A36C]' : 'border-[#0077C8] text-[#0077C8] hover:bg-[#0077C8]/5'}`}>
-                  {actionState === 'loading' ? <Loader2 size={11} className="animate-spin" /> : actionState === 'done' ? '✓ Dispatched' : 'Take Action'}
-                </button>
-                <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold border border-[#E2E8F0] text-[#6B7280] hover:bg-[#F4F6F9] transition-colors">
-                  Escalate
-                </button>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
+    <div className="bg-white rounded-xl border border-[#D8DCE3] px-4 py-3">
+      <p className="text-[10px] font-bold uppercase tracking-widest text-[#94A3B8]">{label}</p>
+      <p className="text-2xl font-semibold text-[#1A1F36] tabular-nums" style={MONO}>{value}</p>
+      {sub && <p className="text-[11px] text-[#64748B]">{sub}</p>}
     </div>
   );
 }
 
+function QueueItem({ active, onClick, severity, id, title, meta, chip }) {
+  const sev = SEVERITY_STYLE[severity] ?? SEVERITY_STYLE.medium;
+  return (
+    <button onClick={onClick}
+      className={`w-full text-left rounded-lg border px-3 py-2.5 transition-colors ${active ? 'bg-[#F0F6FC] border-[#005EB8]/40' : 'bg-white border-[#D8DCE3] hover:bg-[#F8FAFC]'}`}>
+      <div className="flex items-center gap-2 mb-0.5">
+        <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: sev.dot }} aria-hidden="true" />
+        <span className="text-[10px] font-bold uppercase" style={{ color: sev.fg }}>{sev.label}</span>
+        <span className="text-[10px] text-[#94A3B8]" style={MONO}>{id}</span>
+        {chip && <span className="ml-auto text-[10px] text-[#64748B]">{chip}</span>}
+      </div>
+      <p className="text-xs font-semibold text-[#1A1F36] leading-snug">{title}</p>
+      <p className="text-[11px] text-[#94A3B8]">{meta}</p>
+    </button>
+  );
+}
+
 export default function IncidentsPage() {
-  const [sevFilter, setSevFilter] = useState('All');
-  const [statusFilter, setStatusFilter] = useState('All');
-  const [dcFilter, setDcFilter] = useState('All');
-  const [dateFilter, setDateFilter] = useState('Last 7d');
+  const [offline, setOffline] = useState(false);
+  const [selected, setSelected] = useState({ alertId: QUEUE[0]?.alert_id });
+  const [facility, setFacility] = useState('All');
+  const [impact, setImpact] = useState('All');
+  // Acknowledgements persist per user and are shared with the command centre.
+  const [statuses, setStatuses] = usePersistentState('alerts:statuses', {});
 
-  const activeCount = mockIncidents.filter(i => i.status !== 'resolved').length;
-  const critCount = mockIncidents.filter(i => i.severity === 'critical' && i.status !== 'resolved').length;
-  const resolvedCount = mockIncidents.filter(i => i.status === 'resolved').length;
+  useEffect(() => {
+    const p = new URLSearchParams(window.location.search);
+    setOffline(p.get('demo') === '1');
+    if (index.alertById.has(p.get('alert'))) setSelected({ alertId: p.get('alert') });
+    else if (index.incidentById.has(p.get('incident'))) setSelected({ incidentId: p.get('incident') });
+  }, []);
 
-  const filtered = mockIncidents.filter(inc => {
-    if (sevFilter !== 'All' && inc.severity !== sevFilter.toLowerCase()) return false;
-    if (statusFilter !== 'All' && inc.status !== statusFilter.toLowerCase()) return false;
-    if (dcFilter !== 'All' && inc.site !== dcFilter) return false;
-    return true;
-  });
+  const alerts = useMemo(() => QUEUE.filter((a) => (facility === 'All' || a.facility_id === facility) && (impact === 'All' || a.impact === impact)), [facility, impact]);
+  const incidents = useMemo(() => RECENT_INCIDENTS.filter((i) => facility === 'All' || i.facility_id === facility), [facility]);
 
-  const dcs = Array.from(new Set(mockIncidents.map(i => i.site)));
+  const outageCount = QUEUE.filter((a) => a.impact === 'outage').length;
+  const urgent = QUEUE.filter((a) => a.severity === 'critical' || a.severity === 'high').length;
+  const mttr = RECENT_INCIDENTS.length ? Math.round(RECENT_INCIDENTS.reduce((s, i) => s + i.duration_min, 0) / RECENT_INCIDENTS.length) : null;
 
   return (
     <CCLayout title="Incidents">
       {({ showToast }) => (
         <div className="p-6 space-y-4">
-          {/* Summary */}
-          <div className="grid grid-cols-4 gap-3">
-            {[
-              { label: 'Active Incidents', value: activeCount, color: '#DC2626' },
-              { label: 'Critical', value: critCount, color: '#DC2626' },
-              { label: 'Resolved (30d)', value: resolvedCount, color: '#00A36C' },
-              { label: 'Avg Resolution', value: '4.2h', color: '#0077C8' },
-            ].map(s => (
-              <div key={s.label} className="bg-white rounded-xl border border-[#E2E8F0] p-3 text-center">
-                <p className="text-2xl font-bold" style={{ color: s.color, fontFamily: "'JetBrains Mono', monospace" }}>{s.value}</p>
-                <p className="text-xs text-[#9CA3AF] font-medium">{s.label}</p>
-              </div>
-            ))}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+            <Tile label="Open alerts" value={QUEUE.length} sub={`As of ${timeLabel(AS_OF)}`} />
+            <Tile label="Critical or high" value={urgent} sub="Need action today" />
+            <Tile label="Outage risks" value={outageCount} sub="Tenant SLAs at stake" />
+            <Tile label="Mean time to repair" value={mttr !== null ? fmtDurationShort(mttr) : '—'} sub={`${RECENT_INCIDENTS.length} incidents, last 12 months`} />
           </div>
 
-          {/* Filters */}
-          <div className="bg-white rounded-xl border border-[#E2E8F0] p-3 flex flex-wrap gap-2 items-center">
-            <span className="text-xs text-[#9CA3AF] font-medium">Severity:</span>
-            {['All', 'Critical', 'High', 'Medium', 'Low'].map(s => (
-              <button key={s} onClick={() => setSevFilter(s)}
-                className={`px-2.5 py-1 text-xs font-semibold rounded-lg transition-colors ${sevFilter === s ? 'bg-[#00338D] text-white' : 'bg-[#F4F6F9] text-[#6B7280] hover:bg-[#E2E8F0]'}`}>{s}</button>
+          <div className="bg-white rounded-xl border border-[#D8DCE3] p-3 flex flex-wrap gap-2 items-center">
+            <span className="text-xs text-[#94A3B8] font-medium">Impact:</span>
+            {['All', ...IMPACTS].map((k) => (
+              <button key={k} onClick={() => setImpact(k)}
+                className={`px-2.5 py-1 text-xs font-semibold rounded-lg transition-colors ${impact === k ? 'bg-[#00338D] text-white' : 'bg-[#F0F2F5] text-[#6B7280] hover:bg-[#D8DCE3]'}`}>
+                {k === 'All' ? 'All' : IMPACT_LABEL[k]}
+              </button>
             ))}
-            <div className="w-px h-4 bg-[#E2E8F0]" />
-            <span className="text-xs text-[#9CA3AF] font-medium">Status:</span>
-            {['All', 'Investigating', 'Identified', 'Monitoring', 'Resolved'].map(s => (
-              <button key={s} onClick={() => setStatusFilter(s === 'All' ? 'All' : s.toLowerCase())}
-                className={`px-2.5 py-1 text-xs font-semibold rounded-lg transition-colors ${statusFilter === (s === 'All' ? 'All' : s.toLowerCase()) ? 'bg-[#00338D] text-white' : 'bg-[#F4F6F9] text-[#6B7280] hover:bg-[#E2E8F0]'}`}>{s}</button>
-            ))}
-            <div className="w-px h-4 bg-[#E2E8F0]" />
-            <select value={dcFilter} onChange={e => setDcFilter(e.target.value)}
-              className="text-xs text-[#6B7280] bg-[#F4F6F9] border border-[#E2E8F0] rounded-lg px-3 py-1.5 focus:outline-none">
-              <option value="All">All Facilities</option>
-              {dcs.map(d => <option key={d} value={d}>{d}</option>)}
+            <div className="w-px h-4 bg-[#D8DCE3]" />
+            <select value={facility} onChange={(e) => setFacility(e.target.value)} aria-label="Facility"
+              className="text-xs text-[#6B7280] bg-[#F0F2F5] border border-[#D8DCE3] rounded-lg px-3 py-1.5 focus:outline-none">
+              <option value="All">All facilities</option>
+              {nexus.facilities.map((f) => <option key={f.facility_id} value={f.facility_id}>{f.name}</option>)}
             </select>
           </div>
 
-          {/* Timeline */}
-          <div className="space-y-0">
-            {filtered.map(inc => (
-              <IncidentCard key={inc.id} incident={inc} showToast={showToast} />
-            ))}
+          <div className="grid lg:grid-cols-[minmax(280px,360px)_1fr] gap-4 items-start">
+            <div className="space-y-4 lg:sticky lg:top-4">
+              <div>
+                <p className="text-[11px] font-bold uppercase tracking-wider text-[#64748B] mb-2">Alert queue · {alerts.length}</p>
+                <div className="space-y-1.5">
+                  {alerts.map((a) => (
+                    <QueueItem key={a.alert_id} active={selected.alertId === a.alert_id} onClick={() => setSelected({ alertId: a.alert_id })}
+                      severity={a.severity} id={a.alert_id} title={a.message}
+                      meta={`${index.facilityById.get(a.facility_id).name} · ${a.component_id} · ${statuses[a.alert_id] ?? a.status}`}
+                      chip={IMPACT_LABEL[a.impact]} />
+                  ))}
+                  {!alerts.length && <p className="text-xs text-[#94A3B8] px-1">No alerts match these filters.</p>}
+                </div>
+              </div>
+              <div>
+                <p className="text-[11px] font-bold uppercase tracking-wider text-[#64748B] mb-2">Recorded incidents · last 12 months</p>
+                <div className="space-y-1.5">
+                  {incidents.map((i) => (
+                    <QueueItem key={i.incident_id} active={selected.incidentId === i.incident_id} onClick={() => setSelected({ incidentId: i.incident_id })}
+                      severity={i.severity} id={i.incident_id} title={i.description}
+                      meta={`${index.facilityById.get(i.facility_id).name} · ${i.component_id} · ${fmtDuration(i.duration_min)}`} />
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <IncidentBrief key={selected.alertId ?? selected.incidentId} {...selected} offline={offline}
+              status={selected.alertId ? statuses[selected.alertId] : undefined}
+              onAcknowledge={() => {
+                setStatuses((s) => ({ ...s, [selected.alertId]: 'acknowledged' }));
+                logEvent('action', 'acknowledge alert', { facilityId: index.alertById.get(selected.alertId)?.facility_id, subject: selected.alertId });
+                showToast(`${selected.alertId} acknowledged`);
+              }} />
           </div>
         </div>
       )}

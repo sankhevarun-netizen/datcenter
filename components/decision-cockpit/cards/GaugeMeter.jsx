@@ -4,9 +4,9 @@
 // always "better" in this app's scoring convention (matches the verdict
 // thresholds already used in lib/decisionEngine.js: >=75 good, >=55 moderate).
 const ZONES = [
-  { from: 0, to: 55, color: '#DC2626' },
-  { from: 55, to: 75, color: '#D4A017' },
-  { from: 75, to: 100, color: '#00A36C' },
+  { from: 0, to: 55, color: '#C8102E' },
+  { from: 55, to: 75, color: '#E87722' },
+  { from: 75, to: 100, color: '#00B0A0' },
 ];
 
 function point(cx, cy, r, scoreAt0to100) {
@@ -25,7 +25,7 @@ export default function GaugeMeter({ score, size = 110 }) {
   const cy = size / 2 + 4;
   const r = size / 2 - 12;
   const needle = point(cx, cy, r - 6, score);
-  const color = score >= 75 ? '#00A36C' : score >= 55 ? '#D4A017' : '#DC2626';
+  const color = score >= 75 ? '#00B0A0' : score >= 55 ? '#E87722' : '#C8102E';
 
   return (
     <svg width={size} height={size * 0.7} viewBox={`0 0 ${size} ${size * 0.7}`}>

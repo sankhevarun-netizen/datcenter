@@ -26,7 +26,7 @@ export default function FacilityCardGrid({ facilities = [], loading = true, onSe
             value={sortId}
             onChange={(e) => setSortId(e.target.value)}
             aria-label="Sort facility cards"
-            className="text-xs bg-white border border-[#E2E8F0] rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-[#0077C8]/50"
+            className="text-xs bg-white border border-[#D8DCE3] rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-[#005EB8]/50"
           >
             {SORT_OPTIONS.map(o => <option key={o.id} value={o.id}>Sort: {o.label}</option>)}
           </select>

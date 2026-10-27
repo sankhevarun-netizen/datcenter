@@ -3,9 +3,9 @@ import { X, AlertTriangle, Wifi, Zap, Shield, Package } from 'lucide-react';
 import { GOOGLE_DC_MASTER } from '@/data/googleDCMasterData';
 
 const SEVERITY_CONFIG = {
-  Critical: { color: '#DC2626', bg: 'rgba(220,38,38,0.12)', border: 'rgba(220,38,38,0.30)', label: 'CRITICAL' },
+  Critical: { color: '#C8102E', bg: 'rgba(220,38,38,0.12)', border: 'rgba(220,38,38,0.30)', label: 'CRITICAL' },
   High:     { color: '#F97316', bg: 'rgba(249,115,22,0.12)', border: 'rgba(249,115,22,0.30)', label: 'HIGH' },
-  Medium:   { color: '#D4A017', bg: 'rgba(212,160,23,0.12)', border: 'rgba(212,160,23,0.30)', label: 'MEDIUM' },
+  Medium:   { color: '#E87722', bg: 'rgba(212,160,23,0.12)', border: 'rgba(212,160,23,0.30)', label: 'MEDIUM' },
 };
 
 const RISK_ICONS = { 'Power Grid': Zap, 'Fiber Cables': Wifi, 'Cable Attacks': Wifi, 'Latency Spike': Wifi,
@@ -49,7 +49,7 @@ export default function WarZoneModal({ region, alerts, onDismiss }) {
               <AlertTriangle size={18} color={cfg.color} />
             </div>
             <div>
-              <p style={{ fontSize: 14, fontWeight: 700, color: '#fff', fontFamily: "'Plus Jakarta Sans', sans-serif", margin: 0 }}>
+              <p style={{ fontSize: 14, fontWeight: 700, color: '#fff', fontFamily: "'Inter', 'Segoe UI', sans-serif", margin: 0 }}>
                 War Zone Alert — {region} Region
               </p>
               <p style={{ fontSize: 10, color: 'rgba(255,255,255,0.45)', margin: '2px 0 0' }}>
@@ -95,7 +95,7 @@ export default function WarZoneModal({ region, alerts, onDismiss }) {
                         fontSize: 9, fontWeight: 700, padding: '2px 8px', borderRadius: 4,
                         background: scfg.bg, border: `1px solid ${scfg.border}`, color: scfg.color, letterSpacing: '0.08em',
                       }}>{wz.severity.toUpperCase()}</span>
-                      <p style={{ fontSize: 13, fontWeight: 700, color: '#fff', margin: 0, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+                      <p style={{ fontSize: 13, fontWeight: 700, color: '#fff', margin: 0, fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
                         {wz.name}
                       </p>
                     </div>
@@ -106,7 +106,7 @@ export default function WarZoneModal({ region, alerts, onDismiss }) {
                   {affectedDCs.length > 0 && (
                     <div style={{
                       fontSize: 11, fontWeight: 700, padding: '4px 10px', borderRadius: 6,
-                      background: 'rgba(220,38,38,0.12)', border: '1px solid rgba(220,38,38,0.25)', color: '#DC2626',
+                      background: 'rgba(220,38,38,0.12)', border: '1px solid rgba(220,38,38,0.25)', color: '#C8102E',
                     }}>
                       {affectedDCs.length} DC{affectedDCs.length !== 1 ? 's' : ''} at risk
                     </div>
@@ -196,7 +196,7 @@ export default function WarZoneModal({ region, alerts, onDismiss }) {
             style={{
               padding: '8px 20px', borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: 'pointer',
               background: cfg.color, border: 'none', color: '#fff',
-              fontFamily: "'Plus Jakarta Sans', sans-serif",
+              fontFamily: "'Inter', 'Segoe UI', sans-serif",
             }}
           >
             Acknowledge & Continue

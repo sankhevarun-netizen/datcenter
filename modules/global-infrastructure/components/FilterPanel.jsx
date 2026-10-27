@@ -20,10 +20,10 @@ export default function FilterPanel({ filters, onFilterChange, onReset, countrie
   const defs = hideRegionFilter ? FILTER_DEFS.filter(d => d.key !== 'region') : FILTER_DEFS;
 
   return (
-    <div className="bg-white border border-[#E2E8F0] rounded-xl shadow-xl p-4 w-72" role="group" aria-label="Map filters">
+    <div className="bg-white border border-[#D8DCE3] rounded-xl shadow-xl p-4 w-72" role="group" aria-label="Map filters">
       <div className="flex items-center justify-between mb-3">
-        <p className="text-xs font-bold text-[#1A1F36]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Filters</p>
-        <button onClick={onReset} className="text-[10px] font-semibold text-[#0077C8] hover:underline">Reset</button>
+        <p className="text-xs font-bold text-[#1A1F36]" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>Filters</p>
+        <button onClick={onReset} className="text-[10px] font-semibold text-[#005EB8] hover:underline">Reset</button>
       </div>
 
       <div className="space-y-3">
@@ -36,7 +36,7 @@ export default function FilterPanel({ filters, onFilterChange, onReset, countrie
               id={`gii-filter-${key}`}
               value={filters[key]}
               onChange={(e) => onFilterChange(key, e.target.value)}
-              className="w-full text-xs bg-[#F4F6F9] border border-[#E2E8F0] rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-[#0077C8]/50"
+              className="w-full text-xs bg-[#F0F2F5] border border-[#D8DCE3] rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-[#005EB8]/50"
             >
               <option value="All">All</option>
               {options.map(opt => {
@@ -55,7 +55,7 @@ export default function FilterPanel({ filters, onFilterChange, onReset, countrie
             id="gii-filter-country"
             value={filters.country}
             onChange={(e) => onFilterChange('country', e.target.value)}
-            className="w-full text-xs bg-[#F4F6F9] border border-[#E2E8F0] rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-[#0077C8]/50"
+            className="w-full text-xs bg-[#F0F2F5] border border-[#D8DCE3] rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-[#005EB8]/50"
           >
             <option value="All">All</option>
             {countries.map(c => <option key={c} value={c}>{c}</option>)}
@@ -70,7 +70,7 @@ export default function FilterPanel({ filters, onFilterChange, onReset, countrie
             id="gii-filter-maintenance"
             value={filters.underMaintenance}
             onChange={(e) => onFilterChange('underMaintenance', e.target.value)}
-            className="w-full text-xs bg-[#F4F6F9] border border-[#E2E8F0] rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-[#0077C8]/50"
+            className="w-full text-xs bg-[#F0F2F5] border border-[#D8DCE3] rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-[#005EB8]/50"
           >
             <option value="All">All</option>
             <option value="Yes">Under maintenance</option>
@@ -85,7 +85,7 @@ export default function FilterPanel({ filters, onFilterChange, onReset, countrie
             id="gii-filter-type"
             value={filters.facilityType}
             onChange={(e) => onFilterChange('facilityType', e.target.value)}
-            className="w-full text-xs bg-[#F4F6F9] border border-[#E2E8F0] rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-[#0077C8]/50"
+            className="w-full text-xs bg-[#F0F2F5] border border-[#D8DCE3] rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-[#005EB8]/50"
           >
             <option value="All">All</option>
             <option value="Hyperscale Campus">Hyperscale Campus</option>

@@ -40,10 +40,10 @@ function renderMarkdown(text) {
 
 // ── Constants ─────────────────────────────────────────────────────────────────
 const KPMG_BLUE = '#00338D';
-const KPMG_MID  = '#0077C8';
+const KPMG_MID  = '#005EB8';
 
 const PROFILE_CONFIG = {
-  new:       { label: 'New Market Entrant',  color: '#0077C8', bg: '#EBF5FF', border: '#BFDBFE', icon: Building2,  desc: 'Greenfield · Market Entry · Partnerships' },
+  new:       { label: 'New Market Entrant',  color: '#005EB8', bg: '#EBF5FF', border: '#BFDBFE', icon: Building2,  desc: 'Greenfield · Market Entry · Partnerships' },
   expansion: { label: 'Expansion Play',      color: '#059669', bg: '#ECFDF5', border: '#A7F3D0', icon: TrendingUp, desc: 'Capacity Scale · New Sites · Supply Chain' },
   ops:       { label: 'Ops / PMO',           color: '#7C3AED', bg: '#F5F3FF', border: '#DDD6FE', icon: Wrench,     desc: 'Operations · Compliance · Efficiency' },
   investor:  { label: 'Financial Investor',  color: '#B45309', bg: '#FFFBEB', border: '#FDE68A', icon: DollarSign, desc: 'Capital Deployment · IRR · Deal Structures · Exit' },
@@ -374,7 +374,7 @@ const PERSONA_SYSTEM_MAP = {
 const TOOLTIP_STYLE = {
   fontSize: 9,
   borderRadius: 8,
-  border: '1px solid #E2E8F0',
+  border: '1px solid #D8DCE3',
   padding: '4px 8px',
   boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
   lineHeight: 1.4,
@@ -383,19 +383,19 @@ const TOOLTIP_ITEM_STYLE = { fontSize: 9, padding: '1px 0' };
 
 // ── Helper Badge Components ───────────────────────────────────────────────────
 function PotentialBadge({ potential }) {
-  const map = { High: { bg: '#DCFCE7', color: '#16A34A' }, Medium: { bg: '#FEF3C7', color: '#D97706' }, Low: { bg: '#F4F6F9', color: '#6B7280' } };
+  const map = { High: { bg: '#DCFCE7', color: '#16A34A' }, Medium: { bg: '#FEF3C7', color: '#D97706' }, Low: { bg: '#F0F2F5', color: '#6B7280' } };
   const s = map[potential] || map.Low;
   return <span className="text-[9px] font-bold px-1.5 py-0.5 rounded" style={{ background: s.bg, color: s.color }}>{potential}</span>;
 }
 
 function UrgencyBadge({ urgency }) {
-  const map = { Critical: { bg: '#FEE2E2', color: '#DC2626' }, High: { bg: '#FEF3C7', color: '#D97706' }, Medium: { bg: '#EBF5FF', color: KPMG_BLUE } };
+  const map = { Critical: { bg: '#FEE2E2', color: '#C8102E' }, High: { bg: '#FEF3C7', color: '#D97706' }, Medium: { bg: '#EBF5FF', color: KPMG_BLUE } };
   const s = map[urgency] || map.Medium;
   return <span className="text-[9px] font-bold px-1.5 py-0.5 rounded" style={{ background: s.bg, color: s.color }}>{urgency}</span>;
 }
 
 function TimingBadge({ timing }) {
-  const map = { 'Quick Win': { bg: '#DCFCE7', color: '#16A34A' }, 'Medium-Term': { bg: '#EBF5FF', color: KPMG_MID }, 'Long-Term': { bg: '#F4F6F9', color: '#6B7280' } };
+  const map = { 'Quick Win': { bg: '#DCFCE7', color: '#16A34A' }, 'Medium-Term': { bg: '#EBF5FF', color: KPMG_MID }, 'Long-Term': { bg: '#F0F2F5', color: '#6B7280' } };
   const s = map[timing] || map['Long-Term'];
   return <span className="text-[9px] font-bold px-1.5 py-0.5 rounded whitespace-nowrap flex-shrink-0" style={{ background: s.bg, color: s.color }}>{timing}</span>;
 }
@@ -407,7 +407,7 @@ function CategoryBadge({ category }) {
 }
 
 function RiskBadge({ risk }) {
-  const map = { High: { bg: '#FEE2E2', color: '#DC2626' }, Medium: { bg: '#FEF3C7', color: '#D97706' }, Low: { bg: '#DCFCE7', color: '#16A34A' } };
+  const map = { High: { bg: '#FEE2E2', color: '#C8102E' }, Medium: { bg: '#FEF3C7', color: '#D97706' }, Low: { bg: '#DCFCE7', color: '#16A34A' } };
   const s = map[risk] || map.Low;
   return <span className="text-[9px] font-bold px-1 py-0.5 rounded flex-shrink-0" style={{ background: s.bg, color: s.color }}>{risk}</span>;
 }
@@ -432,7 +432,7 @@ function RowLabel({ label }) {
   return (
     <div className="flex items-center gap-2 flex-shrink-0 py-0.5">
       <span className="text-[9px] font-bold uppercase tracking-widest text-[#9CA3AF] whitespace-nowrap">{label}</span>
-      <div className="flex-1 h-px bg-[#E2E8F0]" />
+      <div className="flex-1 h-px bg-[#D8DCE3]" />
     </div>
   );
 }
@@ -445,7 +445,7 @@ function CockpitCard({ children, accentColor = KPMG_BLUE, onClick, delay = 0 }) 
       transition={{ delay, duration: 0.35 }}
       onClick={onClick}
       className="bg-white rounded-2xl shadow-sm h-full flex flex-col cursor-pointer hover:shadow-md transition-shadow overflow-hidden"
-      style={{ border: '1px solid #E2E8F0', borderLeft: `4px solid ${accentColor}` }}
+      style={{ border: '1px solid #D8DCE3', borderLeft: `4px solid ${accentColor}` }}
     >
       {children}
     </motion.div>
@@ -467,7 +467,7 @@ function OpportunityFunnelCard({ data, onModal }) {
   // Gradient colour pairs: [light, dark]
   const gradients = [
     ['#1E5FAD', '#00338D'],
-    ['#0077C8', '#005B99'],
+    ['#005EB8', '#005B99'],
     ['#3A86D4', '#003080'],
   ];
 
@@ -597,7 +597,7 @@ function OpportunityAreasCard({ data, onModal }) {
 
         <div className="flex-1 flex flex-col justify-center space-y-1.5">
           {top3.map((a, i) => (
-            <div key={i} className="flex items-start gap-2 pb-1.5 border-b border-[#F4F6F9] last:border-0">
+            <div key={i} className="flex items-start gap-2 pb-1.5 border-b border-[#F0F2F5] last:border-0">
               <CheckCircle2 size={11} className="mt-0.5 flex-shrink-0" style={{ color: '#059669' }} />
               <div className="flex-1 min-w-0">
                 <p className="text-[10px] font-bold text-[#1A1F36] truncate">{a.title}</p>
@@ -612,7 +612,7 @@ function OpportunityAreasCard({ data, onModal }) {
               ) : (
                 <div className="flex-shrink-0 w-14">
                   <p className="text-[8px] text-[#9CA3AF] mb-0.5">Fit score</p>
-                  <div className="h-1 bg-[#E2E8F0] rounded-full overflow-hidden">
+                  <div className="h-1 bg-[#D8DCE3] rounded-full overflow-hidden">
                     <div className="h-full rounded-full" style={{ width: `${a.score}%`, background: a.potential === 'High' ? '#059669' : a.potential === 'Medium' ? KPMG_MID : '#9CA3AF' }} />
                   </div>
                 </div>
@@ -689,7 +689,7 @@ function ClientFocusCard({ data, onModal }) {
             {initials}
           </div>
           <div>
-            <p className="font-black text-[13px] text-[#1A1F36] leading-tight" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{data.clientName}</p>
+            <p className="font-black text-[13px] text-[#1A1F36] leading-tight" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>{data.clientName}</p>
             {pc && (
               <span className="text-[8px] font-bold px-1.5 py-0.5 rounded-full" style={{ background: pc.bg, color: pc.color }}>{pc.label}</span>
             )}
@@ -737,7 +737,7 @@ function Top5PrioritiesCard({ data, onModal }) {
 
         <div className="flex-1 flex flex-col justify-center space-y-1">
           {priorities.map((p, i) => (
-            <div key={i} className="flex items-center gap-2 pb-1 border-b border-[#F4F6F9] last:border-0">
+            <div key={i} className="flex items-center gap-2 pb-1 border-b border-[#F0F2F5] last:border-0">
               <div
                 className="w-5 h-5 rounded-full flex items-center justify-center text-white font-black flex-shrink-0"
                 style={{ background: KPMG_BLUE, opacity: 1 - i * 0.15, fontSize: 9 }}
@@ -767,7 +767,7 @@ function StrategicRoadmapCard({ data, onModal }) {
   const phaseColors = [
     { bg: '#E8EEF8', border: '#B3C6E0', label: '#00338D', dot: '#00338D' },
     { bg: '#d3eeff', border: '#9ed8ff', label: '#0b9bfc', dot: '#0c91ea'},
-    { bg: '#D6E8F4', border: '#7DAECF', label: '#0077C8', dot: '#0077C8' },
+    { bg: '#D6E8F4', border: '#7DAECF', label: '#005EB8', dot: '#005EB8' },
     { bg: '#F5F3FF', border: '#DDD6FE', label: '#6D28D9', dot: '#7C3AED' },
   ];
 
@@ -910,7 +910,7 @@ function FunnelModalContent({ payload: f, clientName }) {
                       fill="white" fontWeight="900" fontSize={16}
                       stroke={pi === 0 ? KPMG_BLUE : KPMG_MID}
                       strokeWidth="10" strokeLinejoin="round"
-                      style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", paintOrder: 'stroke' }}>
+                      style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif", paintOrder: 'stroke' }}>
                       {ph.value}
                     </text>
                   );
@@ -942,9 +942,9 @@ function FunnelModalContent({ payload: f, clientName }) {
           </div>
 
           {/* Sub-segment table — phase headers restored, data rows at ROW_H */}
-          <div className="flex-1 min-w-0 overflow-hidden rounded-xl border border-[#E2E8F0]">
+          <div className="flex-1 min-w-0 overflow-hidden rounded-xl border border-[#D8DCE3]">
             {/* Column header */}
-            <div className="grid text-[9px] font-bold text-[#9CA3AF] uppercase tracking-wide bg-[#F8FAFD] border-b border-[#E2E8F0] items-center"
+            <div className="grid text-[9px] font-bold text-[#9CA3AF] uppercase tracking-wide bg-[#F8FAFD] border-b border-[#D8DCE3] items-center"
               style={{ gridTemplateColumns: '1fr auto auto', height: COL_H }}>
               <span className="px-3">Sub-segment (TAM, 2026)</span>
               <span className="px-2 text-right">Revenue</span>
@@ -1023,7 +1023,7 @@ function FunnelModalContent({ payload: f, clientName }) {
             <div key={i} className="flex items-center justify-between rounded-lg px-3 py-2"
               style={{ background: `${KPMG_BLUE}06`, border: `1px solid ${KPMG_BLUE}15` }}>
               <span className="text-[10px] text-[#6B7280]">{m.label}</span>
-              <span className="text-[12px] font-extrabold flex items-center gap-0.5" style={{ color: KPMG_BLUE, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+              <span className="text-[12px] font-extrabold flex items-center gap-0.5" style={{ color: KPMG_BLUE, fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
                 {m.value}
                 {m.up && <span className="text-green-500 text-[11px]">↑</span>}
               </span>
@@ -1117,7 +1117,7 @@ function OpportunityAreasModalContent({ payload: oa, clientName }) {
         {areas.slice(0, 3).map((a, i) => {
           const radarData = (a.radarDimensions || []).map(d => ({ subject: d.label, score: d.score, fullMark: 100 }));
           return (
-            <div key={i} className="border border-[#E2E8F0] rounded-xl overflow-hidden">
+            <div key={i} className="border border-[#D8DCE3] rounded-xl overflow-hidden">
               {/* Area header */}
               <div className="px-3 py-2 flex items-start gap-2" style={{ background: `${KPMG_BLUE}06` }}>
                 <div className="w-2 h-2 rounded-full mt-1 flex-shrink-0" style={{ background: a.potential === 'High' ? '#059669' : a.potential === 'Medium' ? '#D97706' : '#9CA3AF' }} />
@@ -1131,7 +1131,7 @@ function OpportunityAreasModalContent({ payload: oa, clientName }) {
               <div style={{ height: 170 }}>
                 <ResponsiveContainer width="100%" height="100%">
                   <RadarChart data={radarData} margin={{ top: 8, right: 16, bottom: 8, left: 16 }}>
-                    <PolarGrid stroke="#E2E8F0" />
+                    <PolarGrid stroke="#D8DCE3" />
                     <PolarAngleAxis dataKey="subject" tick={{ fontSize: 9, fill: '#6B7280' }} />
                     <Radar dataKey="score" stroke={KPMG_MID} fill={KPMG_MID} fillOpacity={0.2} />
                     <Tooltip formatter={(v) => [`${v}/100`]} contentStyle={TOOLTIP_STYLE} itemStyle={TOOLTIP_ITEM_STYLE} />
@@ -1154,7 +1154,7 @@ function OpportunityAreasModalContent({ payload: oa, clientName }) {
                 <p className="text-[8px] font-bold text-[#9CA3AF] uppercase tracking-widest mb-1">Top sub-opportunities</p>
                 {(a.subOpportunities || []).map((sub, j) => (
                   <div key={j} className="flex items-center gap-1.5 mb-1">
-                    <div className="flex-1 h-1 bg-[#E2E8F0] rounded-full overflow-hidden">
+                    <div className="flex-1 h-1 bg-[#D8DCE3] rounded-full overflow-hidden">
                       <div className="h-full rounded-full" style={{ width: `${j === 0 ? 80 : j === 1 ? 60 : j === 2 ? 45 : 35}%`, background: KPMG_MID }} />
                     </div>
                     <RiskBadge risk={sub.risk} />
@@ -1190,7 +1190,7 @@ function OpportunityAreasModalContent({ payload: oa, clientName }) {
 
         {/* Recommended Approach */}
         {ra && (
-          <div className="flex-[2] rounded-xl p-4" style={{ background: '#F8FAFD', border: '1px solid #E2E8F0' }}>
+          <div className="flex-[2] rounded-xl p-4" style={{ background: '#F8FAFD', border: '1px solid #D8DCE3' }}>
             <p className="text-[11px] font-bold text-[#1A1F36] mb-3">Recommended Approach</p>
             {/* Donut */}
             <div style={{ height: 130 }}>
@@ -1218,7 +1218,7 @@ function OpportunityAreasModalContent({ payload: oa, clientName }) {
                 <span className="text-[9px] text-[#9CA3AF]">Confidence Level</span>
                 <span className="text-[10px] font-bold" style={{ color: KPMG_BLUE }}>{ra.confidenceLevel}%</span>
               </div>
-              <div className="h-1.5 bg-[#E2E8F0] rounded-full overflow-hidden">
+              <div className="h-1.5 bg-[#D8DCE3] rounded-full overflow-hidden">
                 <div className="h-full rounded-full" style={{ width: `${ra.confidenceLevel}%`, background: KPMG_BLUE }} />
               </div>
             </div>
@@ -1334,7 +1334,7 @@ function EmergingQuadrantPanel({ players, profile }) {
       {/* Grid */}
       <line x1={PAD.left} y1={midY} x2={PAD.left + innerW} y2={midY} stroke="#D1D5DB" strokeWidth={1} strokeDasharray="3 3" />
       <line x1={midX} y1={PAD.top} x2={midX} y2={PAD.top + innerH} stroke="#D1D5DB" strokeWidth={1} strokeDasharray="3 3" />
-      <rect x={PAD.left} y={PAD.top} width={innerW} height={innerH} fill="none" stroke="#E2E8F0" strokeWidth={1} rx={2} />
+      <rect x={PAD.left} y={PAD.top} width={innerW} height={innerH} fill="none" stroke="#D8DCE3" strokeWidth={1} rx={2} />
 
       {/* Quadrant labels */}
       <text x={PAD.left + 5} y={PAD.top + 9} fontSize={6} fontWeight="700" fill="#374151">{qLabels[0]}</text>
@@ -1383,7 +1383,7 @@ function CompetitiveLandscapeModalContent({ payload: cl, profile, clientName }) 
 
   const leaderDots = [
     ...leaders.map(p => ({ x: p.marketPresence || 0, y: p.capability || 0, name: p.name, fill: tierColors[p.tier] || '#9CA3AF', mw: p.capacityMW, isClient: false })),
-    ...(client ? [{ x: client.marketPresence || 50, y: client.capability || 50, name: client.label || clientName || 'Client', fill: '#DC2626', mw: 0, isClient: true }] : []),
+    ...(client ? [{ x: client.marketPresence || 50, y: client.capability || 50, name: client.label || clientName || 'Client', fill: '#C8102E', mw: 0, isClient: true }] : []),
   ];
 
   const LeaderDot = (props) => {
@@ -1397,7 +1397,7 @@ function CompetitiveLandscapeModalContent({ payload: cl, profile, clientName }) 
     return (
       <g>
         <circle cx={cx} cy={cy} r={r} fill={payload.fill} opacity={0.9} />
-        {payload.isClient && <circle cx={cx} cy={cy} r={r + 4} fill="none" stroke="#DC2626" strokeWidth={1.5} strokeDasharray="3 2" />}
+        {payload.isClient && <circle cx={cx} cy={cy} r={r + 4} fill="none" stroke="#C8102E" strokeWidth={1.5} strokeDasharray="3 2" />}
         <text x={cx} y={cy + 3.5} textAnchor="middle" fontSize={6.5} fill="white" fontWeight="900">{initials}</text>
       </g>
     );
@@ -1425,11 +1425,11 @@ function CompetitiveLandscapeModalContent({ payload: cl, profile, clientName }) 
 
   return (
     <div>
-      {cl.summary && <p className="text-[11px] text-[#374151] leading-relaxed mb-3 pb-3 border-b border-[#E2E8F0]">{cl.summary}</p>}
+      {cl.summary && <p className="text-[11px] text-[#374151] leading-relaxed mb-3 pb-3 border-b border-[#D8DCE3]">{cl.summary}</p>}
       <div className="grid grid-cols-3 gap-3">
 
         {/* Panel 1 – Leaders Scatter Map */}
-        <div className="bg-[#F8FAFD] rounded-xl p-3 border border-[#E2E8F0]">
+        <div className="bg-[#F8FAFD] rounded-xl p-3 border border-[#D8DCE3]">
           <PanelHeader
             title={titles.leadersMap}
             subtitle={`${clientName || 'Client'} from ${leaders.length} Group`}
@@ -1440,13 +1440,13 @@ function CompetitiveLandscapeModalContent({ payload: cl, profile, clientName }) 
                 <CartesianGrid strokeDasharray="3 3" stroke="#F0F0F0" />
                 <XAxis type="number" dataKey="x" domain={[0, 100]} label={{ value: 'Digital Capabilities →', position: 'insideBottom', offset: -12, fontSize: 7.5, fill: '#9CA3AF' }} tick={{ fontSize: 7 }} />
                 <YAxis type="number" dataKey="y" domain={[0, 100]} label={{ value: 'Market Presence', angle: -90, position: 'insideLeft', offset: 10, fontSize: 7.5, fill: '#9CA3AF' }} tick={{ fontSize: 7 }} />
-                <ReferenceLine x={50} stroke="#E2E8F0" strokeDasharray="4 4" />
-                <ReferenceLine y={50} stroke="#E2E8F0" strokeDasharray="4 4" />
+                <ReferenceLine x={50} stroke="#D8DCE3" strokeDasharray="4 4" />
+                <ReferenceLine y={50} stroke="#D8DCE3" strokeDasharray="4 4" />
                 <Tooltip content={({ active, payload }) => {
                   if (!active || !payload?.length) return null;
                   const d = payload[0]?.payload;
                   return (
-                    <div className="bg-white border border-[#E2E8F0] rounded-lg p-1.5 shadow-lg">
+                    <div className="bg-white border border-[#D8DCE3] rounded-lg p-1.5 shadow-lg">
                       <p className="text-[10px] font-bold text-[#1A1F36]">{d?.name}</p>
                       {d?.mw > 0 && <p className="text-[9px] text-[#6B7280]">{d.mw} MW</p>}
                     </div>
@@ -1457,7 +1457,7 @@ function CompetitiveLandscapeModalContent({ payload: cl, profile, clientName }) 
             </ResponsiveContainer>
           </div>
           {leaderStats.group1 && leaderStats.group2 && (
-            <div className="flex gap-3 mt-1.5 pt-1.5 border-t border-[#E2E8F0]">
+            <div className="flex gap-3 mt-1.5 pt-1.5 border-t border-[#D8DCE3]">
               <div className="text-[8px]">
                 <span className="font-black" style={{ color: '#16A34A' }}>↑ Key {leaderStats.group1.key}</span>
                 <span className="text-[#9CA3AF] ml-1">H. - {leaderStats.group1.h}</span>
@@ -1471,7 +1471,7 @@ function CompetitiveLandscapeModalContent({ payload: cl, profile, clientName }) 
         </div>
 
         {/* Panel 2 – Emerging Quadrant Matrix */}
-        <div className="bg-[#F8FAFD] rounded-xl p-3 border border-[#E2E8F0]">
+        <div className="bg-[#F8FAFD] rounded-xl p-3 border border-[#D8DCE3]">
           <PanelHeader
             title={titles.emergingMatrix}
             subtitle={`${players.length} Players across ${4} Quadrants`}
@@ -1480,7 +1480,7 @@ function CompetitiveLandscapeModalContent({ payload: cl, profile, clientName }) 
         </div>
 
         {/* Panel 3 – Radar */}
-        <div className="bg-[#F8FAFD] rounded-xl p-3 border border-[#E2E8F0]">
+        <div className="bg-[#F8FAFD] rounded-xl p-3 border border-[#D8DCE3]">
           <PanelHeader
             title={titles.radar}
             subtitle={`${clientName || 'Client'} vs. Market-Wide Capabilities`}
@@ -1489,7 +1489,7 @@ function CompetitiveLandscapeModalContent({ payload: cl, profile, clientName }) 
             <div style={{ height: 200 }}>
               <ResponsiveContainer width="100%" height="100%">
                 <RadarChart data={radarData} margin={{ top: 4, right: 20, bottom: 4, left: 20 }}>
-                  <PolarGrid stroke="#E2E8F0" />
+                  <PolarGrid stroke="#D8DCE3" />
                   <PolarAngleAxis dataKey="subject" tick={{ fontSize: 7.5, fill: '#6B7280' }} />
                   <Radar name={clientName || 'Client'} dataKey="client" stroke="#0E9F8A" fill="#0E9F8A" fillOpacity={0.25} strokeWidth={1.5} dot={{ r: 2, fill: '#0E9F8A' }} />
                   <Radar name="Leader Average" dataKey="leader" stroke={KPMG_BLUE} fill={KPMG_BLUE} fillOpacity={0.1} strokeWidth={1.5} strokeDasharray="4 2" dot={{ r: 2, fill: KPMG_BLUE }} />
@@ -1503,7 +1503,7 @@ function CompetitiveLandscapeModalContent({ payload: cl, profile, clientName }) 
         </div>
 
         {/* Panel 4 – Market Share Trend */}
-        <div className="bg-[#F8FAFD] rounded-xl p-3 border border-[#E2E8F0]">
+        <div className="bg-[#F8FAFD] rounded-xl p-3 border border-[#D8DCE3]">
           <PanelHeader title={titles.trend} />
           {trendData.length > 0 ? (
             <div style={{ height: 180 }}>
@@ -1515,7 +1515,7 @@ function CompetitiveLandscapeModalContent({ payload: cl, profile, clientName }) 
                   <Tooltip content={({ active, payload, label }) => {
                     if (!active || !payload?.length) return null;
                     return (
-                      <div style={{ background: 'white', border: '1px solid #E2E8F0', borderRadius: 8, padding: '5px 8px', boxShadow: '0 2px 8px rgba(0,0,0,0.1)', maxWidth: 160 }}>
+                      <div style={{ background: 'white', border: '1px solid #D8DCE3', borderRadius: 8, padding: '5px 8px', boxShadow: '0 2px 8px rgba(0,0,0,0.1)', maxWidth: 160 }}>
                         <p style={{ fontSize: 9, fontWeight: 700, color: '#1A1F36', marginBottom: 3 }}>{label}</p>
                         {payload.map((entry, i) => {
                           const short = (entry.name || '').replace(/\(.*?\)/g, '').trim().split(/[\s+]/)[0].slice(0, 14);
@@ -1546,7 +1546,7 @@ function CompetitiveLandscapeModalContent({ payload: cl, profile, clientName }) 
         </div>
 
         {/* Panel 5 – Key Advantages + Potential Threats */}
-        <div className="bg-[#F8FAFD] rounded-xl p-3 border border-[#E2E8F0] flex flex-col gap-2.5">
+        <div className="bg-[#F8FAFD] rounded-xl p-3 border border-[#D8DCE3] flex flex-col gap-2.5">
           <div>
             <p className="text-[8.5px] font-black uppercase tracking-widest mb-1.5" style={{ color: '#16A34A' }}>Key Advantages</p>
             <ul className="space-y-1.5">
@@ -1558,12 +1558,12 @@ function CompetitiveLandscapeModalContent({ payload: cl, profile, clientName }) 
               ))}
             </ul>
           </div>
-          <div className="border-t border-[#E2E8F0] pt-2.5">
-            <p className="text-[8.5px] font-black uppercase tracking-widest mb-1.5" style={{ color: '#DC2626' }}>Potential Threats</p>
+          <div className="border-t border-[#D8DCE3] pt-2.5">
+            <p className="text-[8.5px] font-black uppercase tracking-widest mb-1.5" style={{ color: '#C8102E' }}>Potential Threats</p>
             <ul className="space-y-1.5">
               {(cl.potentialThreats || []).map((thr, i) => (
                 <li key={i} className="flex items-start gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full mt-1 flex-shrink-0" style={{ background: '#DC2626' }} />
+                  <span className="w-1.5 h-1.5 rounded-full mt-1 flex-shrink-0" style={{ background: '#C8102E' }} />
                   <span className="text-[9px] text-[#374151] leading-snug">{thr}</span>
                 </li>
               ))}
@@ -1572,7 +1572,7 @@ function CompetitiveLandscapeModalContent({ payload: cl, profile, clientName }) 
         </div>
 
         {/* Panel 6 – Market Gaps + JV Partners */}
-        <div className="bg-[#F8FAFD] rounded-xl p-3 border border-[#E2E8F0] flex flex-col gap-2.5">
+        <div className="bg-[#F8FAFD] rounded-xl p-3 border border-[#D8DCE3] flex flex-col gap-2.5">
           <div>
             <p className="text-[8.5px] font-black uppercase tracking-widest mb-1.5" style={{ color: KPMG_BLUE }}>{titles.gaps}</p>
             <ul className="space-y-1.5">
@@ -1584,14 +1584,14 @@ function CompetitiveLandscapeModalContent({ payload: cl, profile, clientName }) 
               ))}
             </ul>
           </div>
-          <div className="border-t border-[#E2E8F0] pt-2.5">
+          <div className="border-t border-[#D8DCE3] pt-2.5">
             <p className="text-[8.5px] font-black uppercase tracking-widest mb-1.5" style={{ color: KPMG_BLUE }}>{titles.jv}</p>
             <div className="flex flex-wrap gap-1.5">
               {(cl.jvPartners || []).map((p, i) => {
                 const initials = (p.name || '?').split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
                 const colors = [KPMG_BLUE, '#059669', '#D97706', '#7C3AED', '#0E9F8A'];
                 return (
-                  <div key={i} className="flex items-center gap-1 px-1.5 py-1 rounded-lg border border-[#E2E8F0] bg-white">
+                  <div key={i} className="flex items-center gap-1 px-1.5 py-1 rounded-lg border border-[#D8DCE3] bg-white">
                     <div className="w-5 h-5 rounded flex items-center justify-center text-white flex-shrink-0"
                       style={{ background: colors[i % colors.length], fontSize: 7, fontWeight: 900 }}>{initials}</div>
                     <div>
@@ -1620,13 +1620,13 @@ function ClientFocusModalContent({ payload: cf, clientName, profile }) {
   return (
     <div className="space-y-5">
       {/* Client profile section */}
-      <div className="p-4 rounded-xl border border-[#E2E8F0] bg-[#F8FAFD]">
+      <div className="p-4 rounded-xl border border-[#D8DCE3] bg-[#F8FAFD]">
         <div className="flex items-start gap-3 mb-3">
           <div className="w-12 h-12 rounded-xl flex items-center justify-center text-white font-black text-lg flex-shrink-0" style={{ background: KPMG_BLUE }}>
             {initials}
           </div>
           <div>
-            <p className="font-black text-base text-[#1A1F36]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{clientName}</p>
+            <p className="font-black text-base text-[#1A1F36]" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>{clientName}</p>
             {pc && <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full" style={{ background: pc.bg, color: pc.color }}>{pc.label}</span>}
           </div>
         </div>
@@ -1651,7 +1651,7 @@ function ClientFocusModalContent({ payload: cf, clientName, profile }) {
       {areas.map((area, i) => {
         const radarData = (area.dimensions || []).map(d => ({ subject: d.label, score: d.score || 0, fullMark: 100 }));
         return (
-          <div key={i} className="border border-[#E2E8F0] rounded-2xl overflow-hidden">
+          <div key={i} className="border border-[#D8DCE3] rounded-2xl overflow-hidden">
             <div className="px-4 py-3 flex items-center justify-between" style={{ background: `${KPMG_BLUE}06` }}>
               <div className="flex-1 mr-4">
                 <p className="text-[12px] font-bold text-[#1A1F36]">{area.area}</p>
@@ -1662,7 +1662,7 @@ function ClientFocusModalContent({ payload: cf, clientName, profile }) {
             <div className="p-4" style={{ height: 200 }}>
               <ResponsiveContainer width="100%" height="100%">
                 <RadarChart data={radarData}>
-                  <PolarGrid stroke="#E2E8F0" />
+                  <PolarGrid stroke="#D8DCE3" />
                   <PolarAngleAxis dataKey="subject" tick={{ fontSize: 10, fill: '#6B7280' }} />
                   <PolarRadiusAxis domain={[0, 100]} tick={{ fontSize: 8 }} />
                   <Radar dataKey="score" stroke={KPMG_MID} fill={KPMG_MID} fillOpacity={0.25} />
@@ -1704,13 +1704,13 @@ function PrioritiesModalContent({ payload: tp }) {
               <CartesianGrid strokeDasharray="3 3" stroke="#F0F0F0" />
               <XAxis type="number" dataKey="x" domain={[0, 100]} label={{ value: 'Effort →', position: 'insideBottom', offset: -14, fontSize: 10, fill: '#9CA3AF' }} tick={{ fontSize: 10 }} />
               <YAxis type="number" dataKey="y" domain={[0, 100]} label={{ value: '← Impact', angle: -90, position: 'insideLeft', fontSize: 10, fill: '#9CA3AF' }} tick={{ fontSize: 10 }} />
-              <ReferenceLine x={50} stroke="#E2E8F0" strokeDasharray="4 4" />
-              <ReferenceLine y={50} stroke="#E2E8F0" strokeDasharray="4 4" />
+              <ReferenceLine x={50} stroke="#D8DCE3" strokeDasharray="4 4" />
+              <ReferenceLine y={50} stroke="#D8DCE3" strokeDasharray="4 4" />
               <Tooltip content={({ active, payload }) => {
                 if (!active || !payload?.length) return null;
                 const d = payload[0]?.payload;
                 return (
-                  <div style={{ background: 'white', border: '1px solid #E2E8F0', borderRadius: 8, padding: '5px 8px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}>
+                  <div style={{ background: 'white', border: '1px solid #D8DCE3', borderRadius: 8, padding: '5px 8px', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}>
                     <p style={{ fontSize: 9, fontWeight: 700, color: '#1A1F36', marginBottom: 2 }}>#{d?.rank} {d?.name}</p>
                     <p style={{ fontSize: 8, color: '#6B7280' }}>Impact {d?.y} · Effort {d?.x}</p>
                   </div>
@@ -1723,7 +1723,7 @@ function PrioritiesModalContent({ payload: tp }) {
       </div>
       <div className="space-y-3">
         {priorities.map((p, i) => (
-          <div key={i} className="p-4 rounded-2xl border border-[#E2E8F0]">
+          <div key={i} className="p-4 rounded-2xl border border-[#D8DCE3]">
             <div className="flex items-start gap-3">
               <div className="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 font-black text-sm text-white"
                 style={{ background: i === 0 ? KPMG_BLUE : KPMG_MID, opacity: 1 - i * 0.1 }}>
@@ -1738,13 +1738,13 @@ function PrioritiesModalContent({ payload: tp }) {
                 <div className="flex gap-3 mb-1">
                   <div className="flex-1">
                     <p className="text-[9px] text-[#9CA3AF] mb-1">Impact</p>
-                    <div className="h-1.5 bg-[#E2E8F0] rounded-full overflow-hidden">
+                    <div className="h-1.5 bg-[#D8DCE3] rounded-full overflow-hidden">
                       <div className="h-full rounded-full bg-[#059669]" style={{ width: `${p.impact}%` }} />
                     </div>
                   </div>
                   <div className="flex-1">
                     <p className="text-[9px] text-[#9CA3AF] mb-1">Effort</p>
-                    <div className="h-1.5 bg-[#E2E8F0] rounded-full overflow-hidden">
+                    <div className="h-1.5 bg-[#D8DCE3] rounded-full overflow-hidden">
                       <div className="h-full rounded-full bg-[#D97706]" style={{ width: `${p.effort}%` }} />
                     </div>
                   </div>
@@ -1833,7 +1833,7 @@ function RoadmapModalContent({ payload: sr }) {
                   </div>
                 )}
                 {/* Gantt bar — outcome text only */}
-                <div className="relative h-7 bg-[#F4F6F9] rounded-lg overflow-hidden">
+                <div className="relative h-7 bg-[#F0F2F5] rounded-lg overflow-hidden">
                   <div className="absolute top-0 bottom-0 rounded-lg flex items-center px-2"
                     style={{ left: `${leftPct}%`, width: `${widthPct}%`, background: color, minWidth: 40 }}>
                     <span className="text-white font-bold truncate" style={{ fontSize: 9 }}>{(ph.outcome || '').slice(0, 35)}</span>
@@ -1855,7 +1855,7 @@ function RoadmapModalContent({ payload: sr }) {
       <div className="space-y-4">
         <p className="text-[11px] font-bold text-[#9CA3AF] uppercase tracking-widest">Phase Details</p>
         {phases.map((ph, i) => (
-          <div key={i} className="border border-[#E2E8F0] rounded-2xl overflow-hidden">
+          <div key={i} className="border border-[#D8DCE3] rounded-2xl overflow-hidden">
             <div className="px-4 py-3" style={{ background: phaseColors[i] || KPMG_BLUE }}>
               <p className="text-white font-bold text-[12px]">{ph.phase}: {ph.title}</p>
               <p className="text-white/70 text-[10px]">{ph.duration}</p>
@@ -1909,15 +1909,15 @@ function CockpitModal({ modal, onClose, data, onRegenerate }) {
           transition={{ duration: 0.2 }}
           onClick={e => e.stopPropagation()}
         >
-          <div className="flex items-center justify-between px-6 py-4 border-b border-[#E2E8F0] flex-shrink-0">
+          <div className="flex items-center justify-between px-6 py-4 border-b border-[#D8DCE3] flex-shrink-0">
             <div className="flex items-center gap-3">
               <div className="w-1.5 h-6 rounded-full" style={{ background: meta.color }} />
-              <p className="text-[14px] font-extrabold text-[#1A1F36] uppercase tracking-wide" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+              <p className="text-[14px] font-extrabold text-[#1A1F36] uppercase tracking-wide" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
                 {meta.label}
               </p>
             </div>
             <button onClick={onClose}
-              className="w-8 h-8 rounded-lg bg-[#F4F6F9] hover:bg-[#E2E8F0] flex items-center justify-center transition-colors">
+              className="w-8 h-8 rounded-lg bg-[#F0F2F5] hover:bg-[#D8DCE3] flex items-center justify-center transition-colors">
               <X size={14} className="text-[#6B7280]" />
             </button>
           </div>
@@ -1979,8 +1979,9 @@ ${cockpitSummary}`;
 
       const reply = await callClaude({ prompt: userMsg, systemOverride: systemPrompt, maxTokens: 400 });
       setMessages(prev => [...prev, { role: 'assistant', content: reply }]);
-    } catch {
-      setMessages(prev => [...prev, { role: 'assistant', content: 'Sorry, I hit an error. Please try again.' }]);
+    } catch (err) {
+      console.error('[ClientCockpit] chat request failed:', err);
+      setMessages(prev => [...prev, { role: 'assistant', content: `Sorry, I hit an error: ${err.message}` }]);
     } finally {
       setThinking(false);
     }
@@ -1993,7 +1994,7 @@ ${cockpitSummary}`;
           <motion.div
             initial={{ opacity: 0, scale: 0.95, y: 16 }} animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 16 }} transition={{ duration: 0.18 }}
-            className="fixed bottom-20 right-6 z-[60] w-80 bg-white rounded-2xl shadow-2xl border border-[#E2E8F0] overflow-hidden flex flex-col"
+            className="fixed bottom-20 right-6 z-[60] w-80 bg-white rounded-2xl shadow-2xl border border-[#D8DCE3] overflow-hidden flex flex-col"
             style={{ height: '440px' }}
           >
             <div className="flex items-center gap-2.5 px-4 py-3 flex-shrink-0" style={{ background: KPMG_BLUE }}>
@@ -2009,7 +2010,7 @@ ${cockpitSummary}`;
             <div className="flex-1 overflow-y-auto p-3 space-y-2">
               {messages.map((msg, i) => (
                 <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                  <div className={`max-w-[82%] px-3 py-2 rounded-xl text-[11px] leading-relaxed ${msg.role === 'user' ? 'rounded-br-sm' : 'bg-[#F4F6F9] text-[#374151] rounded-bl-sm'}`}
+                  <div className={`max-w-[82%] px-3 py-2 rounded-xl text-[11px] leading-relaxed ${msg.role === 'user' ? 'rounded-br-sm' : 'bg-[#F0F2F5] text-[#374151] rounded-bl-sm'}`}
                     style={msg.role === 'user' ? { background: '#EBF5FF', color: '#1A1F36' } : {}}>
                     {msg.role === 'assistant' ? renderMarkdown(msg.content) : msg.content}
                   </div>
@@ -2017,7 +2018,7 @@ ${cockpitSummary}`;
               ))}
               {thinking && (
                 <div className="flex justify-start">
-                  <div className="px-3 py-2.5 bg-[#F4F6F9] rounded-xl rounded-bl-sm flex gap-1 items-center">
+                  <div className="px-3 py-2.5 bg-[#F0F2F5] rounded-xl rounded-bl-sm flex gap-1 items-center">
                     {[0, 1, 2].map(i => (
                       <motion.div key={i} className="w-1.5 h-1.5 rounded-full" style={{ background: KPMG_BLUE }}
                         animate={{ opacity: [0.3, 1, 0.3], y: [0, -3, 0] }}
@@ -2028,11 +2029,11 @@ ${cockpitSummary}`;
               )}
               <div ref={bottomRef} />
             </div>
-            <div className="flex-shrink-0 border-t border-[#E2E8F0] p-3 flex gap-2">
+            <div className="flex-shrink-0 border-t border-[#D8DCE3] p-3 flex gap-2">
               <input type="text" value={input} onChange={e => setInput(e.target.value)}
                 onKeyDown={e => e.key === 'Enter' && !e.shiftKey && sendMessage()}
                 placeholder="Ask about this cockpit…"
-                className="flex-1 text-[11px] bg-[#F4F6F9] rounded-xl px-3 py-2 outline-none focus:ring-1 focus:ring-[#00338D] text-[#374151] placeholder:text-[#9CA3AF]" />
+                className="flex-1 text-[11px] bg-[#F0F2F5] rounded-xl px-3 py-2 outline-none focus:ring-1 focus:ring-[#00338D] text-[#374151] placeholder:text-[#9CA3AF]" />
               <button onClick={sendMessage} disabled={!input.trim() || thinking}
                 className="w-8 h-8 rounded-xl flex items-center justify-center transition-all disabled:opacity-40 hover:brightness-90"
                 style={{ background: KPMG_BLUE }}>
@@ -2102,10 +2103,10 @@ function LoadingState({ clientName, progressStep = 0, progressPct = 0 }) {
         <div className="w-20 h-20 rounded-2xl flex items-center justify-center" style={{ background: `${KPMG_BLUE}12` }}>
           <Sparkles size={32} style={{ color: KPMG_BLUE }} />
         </div>
-        <div className="absolute -top-1 -right-1 w-5 h-5 border-2 border-t-[#0077C8] border-[#E2E8F0] rounded-full animate-spin" />
+        <div className="absolute -top-1 -right-1 w-5 h-5 border-2 border-t-[#005EB8] border-[#D8DCE3] rounded-full animate-spin" />
       </div>
       <div className="text-center">
-        <p className="text-lg font-extrabold text-[#1A1F36] mb-1" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+        <p className="text-lg font-extrabold text-[#1A1F36] mb-1" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
           Building Client Cockpit
         </p>
         <p className="text-sm text-[#6B7280]">{clientName || 'Analysing client brief'}…</p>
@@ -2122,7 +2123,7 @@ function LoadingState({ clientName, progressStep = 0, progressPct = 0 }) {
           </AnimatePresence>
           <span className="text-[13px] font-black flex-shrink-0" style={{ color: KPMG_BLUE }}>{displayPct}%</span>
         </div>
-        <div className="h-2 bg-[#E2E8F0] rounded-full overflow-hidden">
+        <div className="h-2 bg-[#D8DCE3] rounded-full overflow-hidden">
           <div className="h-full rounded-full" style={{ width: `${progressPct}%`, background: KPMG_BLUE, transition: 'width 0.8s ease-out' }} />
         </div>
         {progressStep === 4 && (
@@ -2133,7 +2134,7 @@ function LoadingState({ clientName, progressStep = 0, progressPct = 0 }) {
         {steps.map((s, i) => (
           <motion.div key={i} className="flex items-center gap-2.5"
             initial={{ opacity: 0.2 }} animate={{ opacity: i <= progressStep ? 1 : 0.2 }}>
-            <div className={`w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 ${i < progressStep ? 'bg-green-100' : i === progressStep ? 'bg-[#EBF5FF]' : 'bg-[#F4F6F9]'}`}>
+            <div className={`w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 ${i < progressStep ? 'bg-green-100' : i === progressStep ? 'bg-[#EBF5FF]' : 'bg-[#F0F2F5]'}`}>
               {i < progressStep
                 ? <CheckCircle2 size={10} className="text-green-600" />
                 : i === progressStep
@@ -2292,7 +2293,7 @@ export default function ClientCockpit() {
   return (
     <div className="fixed inset-0 z-50 bg-white flex flex-col overflow-hidden">
       {/* Header */}
-      <div className="flex-shrink-0 border-b border-[#E2E8F0] px-6 py-3 flex items-center justify-between" style={{ background: KPMG_BLUE }}>
+      <div className="flex-shrink-0 border-b border-[#D8DCE3] px-6 py-3 flex items-center justify-between" style={{ background: KPMG_BLUE }}>
         <div className="flex items-center gap-4">
           <button onClick={() => router.back()}
             className="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 transition-colors flex items-center justify-center">
@@ -2302,7 +2303,7 @@ export default function ClientCockpit() {
             <div className="flex items-center gap-2">
               <img src="/kpmg-logo.png" alt="KPMG" className="h-5 object-contain brightness-0 invert opacity-80"
                 onError={e => { e.target.style.display = 'none'; }} />
-              <span className="text-white font-extrabold text-base" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+              <span className="text-white font-extrabold text-base" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
                 {data?.clientName || clientNameParam || 'Client'} — Cockpit View
               </span>
               {pc && (
@@ -2330,18 +2331,18 @@ export default function ClientCockpit() {
 
       {/* Sub-header */}
       {data && (
-        <div className="flex-shrink-0 px-6 py-2 border-b border-[#E2E8F0] bg-[#F8FAFD] flex items-center gap-4">
+        <div className="flex-shrink-0 px-6 py-2 border-b border-[#D8DCE3] bg-[#F8FAFD] flex items-center gap-4">
           <div className="flex items-center gap-1.5">
             <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
             <span className="text-[10px] text-[#6B7280]">Live AI Intelligence</span>
           </div>
-          <span className="text-[#E2E8F0]">·</span>
+          <span className="text-[#D8DCE3]">·</span>
           <span className="text-[10px] text-[#9CA3AF]">
             Powered by K-Nexus · {new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}
           </span>
           {data.opportunityFunnel?.totalMarketSize && (
             <>
-              <span className="text-[#E2E8F0]">·</span>
+              <span className="text-[#D8DCE3]">·</span>
               <span className="text-[10px] font-semibold text-[#059669]">Market Opportunity: {data.opportunityFunnel.totalMarketSize}</span>
             </>
           )}
@@ -2362,7 +2363,7 @@ export default function ClientCockpit() {
               <Target size={28} style={{ color: KPMG_BLUE }} />
             </div>
             <div className="text-center max-w-md">
-              <p className="text-lg font-extrabold text-[#1A1F36] mb-2" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>One quick question</p>
+              <p className="text-lg font-extrabold text-[#1A1F36] mb-2" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>One quick question</p>
               <p className="text-sm text-[#6B7280] leading-relaxed">{clarification.question || 'What is the primary goal for this engagement?'}</p>
             </div>
             <div className="flex gap-3 flex-wrap justify-center">
@@ -2384,7 +2385,7 @@ export default function ClientCockpit() {
 
         {error && !loading && !clarification && (
           <div className="h-full flex flex-col items-center justify-center gap-4">
-            <AlertTriangle size={40} className="text-[#DC2626]" />
+            <AlertTriangle size={40} className="text-[#C8102E]" />
             <div className="text-center">
               <p className="font-bold text-[#1A1F36] mb-1">Could not generate cockpit</p>
               <p className="text-sm text-[#6B7280] max-w-md">{error}</p>

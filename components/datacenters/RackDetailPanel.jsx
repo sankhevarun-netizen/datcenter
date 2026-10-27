@@ -6,10 +6,10 @@ import { useRouter } from 'next/navigation';
 
 function ProgressBar({ value, max, color }) {
   const pct = Math.min(100, Math.round((value / max) * 100));
-  const barColor = pct > 90 ? '#DC2626' : pct > 75 ? '#D4A017' : color || '#0077C8';
+  const barColor = pct > 90 ? '#C8102E' : pct > 75 ? '#E87722' : color || '#005EB8';
   return (
     <div className="flex items-center gap-2">
-      <div className="flex-1 h-1.5 rounded-full bg-[#E2E8F0] overflow-hidden">
+      <div className="flex-1 h-1.5 rounded-full bg-[#D8DCE3] overflow-hidden">
         <div className="h-full rounded-full transition-all" style={{ width: `${pct}%`, backgroundColor: barColor }} />
       </div>
       <span className="text-[10px] font-mono w-8 text-right" style={{ color: barColor }}>{pct}%</span>
@@ -35,9 +35,9 @@ function MetricRow({ icon: Icon, label, used, max, unit, color }) {
 }
 
 const STATUS_STYLES = {
-  operational: { color: '#00A36C', bg: '#F0FDF4', label: 'Operational' },
-  warning:     { color: '#D4A017', bg: '#FFFBEB', label: 'Warning' },
-  critical:    { color: '#DC2626', bg: '#FEF2F2', label: 'Critical' },
+  operational: { color: '#00B0A0', bg: '#F0FDF4', label: 'Operational' },
+  warning:     { color: '#E87722', bg: '#FFFBEB', label: 'Warning' },
+  critical:    { color: '#C8102E', bg: '#FEF2F2', label: 'Critical' },
 };
 
 export default function RackDetailPanel({ rackId, dcId, onClose }) {
@@ -48,7 +48,7 @@ export default function RackDetailPanel({ rackId, dcId, onClose }) {
   if (!rack) return null;
 
   const s = STATUS_STYLES[rack.status] || STATUS_STYLES.operational;
-  const tempColor = rack.inletTempC > 35 ? '#DC2626' : rack.inletTempC > 28 ? '#D4A017' : '#00A36C';
+  const tempColor = rack.inletTempC > 35 ? '#C8102E' : rack.inletTempC > 28 ? '#E87722' : '#00B0A0';
 
   return (
     <AnimatePresence>
@@ -58,26 +58,26 @@ export default function RackDetailPanel({ rackId, dcId, onClose }) {
         exit={{ x: '100%', opacity: 0 }}
         transition={{ type: 'spring', damping: 28, stiffness: 300 }}
         className="absolute right-0 top-0 bottom-0 w-72 z-30 flex flex-col shadow-2xl"
-        style={{ background: 'white', borderLeft: '1px solid #E2E8F0' }}
+        style={{ background: 'white', borderLeft: '1px solid #D8DCE3' }}
       >
         {/* Header */}
-        <div className="flex-shrink-0 flex items-center justify-between px-4 py-3 border-b border-[#E2E8F0]">
+        <div className="flex-shrink-0 flex items-center justify-between px-4 py-3 border-b border-[#D8DCE3]">
           <div>
             <div className="text-[10px] text-[#9CA3AF] font-mono uppercase tracking-widest">Rack Asset Twin</div>
-            <div className="text-sm font-bold text-[#1A1F36]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+            <div className="text-sm font-bold text-[#1A1F36]" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
               Rack {rack.label}
             </div>
           </div>
           <button
             onClick={onClose}
-            className="w-7 h-7 flex items-center justify-center rounded-lg hover:bg-[#F4F6F9] text-[#9CA3AF] hover:text-[#1A1F36] transition-colors"
+            className="w-7 h-7 flex items-center justify-center rounded-lg hover:bg-[#F0F2F5] text-[#9CA3AF] hover:text-[#1A1F36] transition-colors"
           >
             <X size={14} />
           </button>
         </div>
 
         {/* Status badge + tenant */}
-        <div className="flex-shrink-0 px-4 py-2 border-b border-[#F4F6F9] flex items-center gap-2">
+        <div className="flex-shrink-0 px-4 py-2 border-b border-[#F0F2F5] flex items-center gap-2">
           <span className="px-2 py-0.5 rounded-full text-[10px] font-bold" style={{ backgroundColor: s.bg, color: s.color }}>
             {s.label}
           </span>
@@ -92,14 +92,14 @@ export default function RackDetailPanel({ rackId, dcId, onClose }) {
         <div className="flex-1 overflow-y-auto px-4 py-3 space-y-4">
           {/* Capacity metrics */}
           <div className="space-y-3">
-            <MetricRow icon={Zap}       label="Power"   used={rack.powerKw}    max={rack.maxPowerKw}    unit="kW"  color="#0077C8" />
+            <MetricRow icon={Zap}       label="Power"   used={rack.powerKw}    max={rack.maxPowerKw}    unit="kW"  color="#005EB8" />
             <MetricRow icon={Server}    label="Space"   used={rack.spaceUsedU}  max={rack.spaceTotalU}   unit="U"   color="#8b5cf6" />
             <MetricRow icon={Weight}    label="Weight"  used={rack.weightKg}    max={rack.maxWeightKg}   unit="kg"  color="#f59e0b" />
             <MetricRow icon={Network}   label="Ports"   used={rack.portsUsed}   max={rack.totalPorts}    unit="ports" color="#10b981" />
           </div>
 
           {/* Temperature */}
-          <div className="bg-[#F8FAFC] rounded-xl p-3 border border-[#E2E8F0]">
+          <div className="bg-[#F8FAFC] rounded-xl p-3 border border-[#D8DCE3]">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-1.5">
                 <Thermometer size={12} style={{ color: tempColor }} />
@@ -115,11 +115,11 @@ export default function RackDetailPanel({ rackId, dcId, onClose }) {
           {/* AI Recommendation */}
           <div className="rounded-xl p-3 border" style={{
             backgroundColor: rack.status === 'critical' ? '#FEF2F2' : rack.status === 'warning' ? '#FFFBEB' : '#F0FDF4',
-            borderColor: rack.status === 'critical' ? '#DC262630' : rack.status === 'warning' ? '#D4A01730' : '#00A36C30',
+            borderColor: rack.status === 'critical' ? '#C8102E30' : rack.status === 'warning' ? '#E8772230' : '#00B0A030',
           }}>
             <div className="flex items-center gap-1.5 mb-1.5">
               {rack.status === 'operational'
-                ? <CheckCircle size={11} style={{ color: '#00A36C' }} />
+                ? <CheckCircle size={11} style={{ color: '#00B0A0' }} />
                 : <AlertTriangle size={11} style={{ color: s.color }} />}
               <span className="text-[10px] font-bold" style={{ color: s.color }}>AI Recommendation</span>
             </div>
@@ -127,11 +127,11 @@ export default function RackDetailPanel({ rackId, dcId, onClose }) {
           </div>
 
           {/* Utilization summary */}
-          <div className="rounded-xl border border-[#E2E8F0] overflow-hidden">
-            <div className="px-3 py-2 bg-[#F8FAFC] border-b border-[#E2E8F0]">
+          <div className="rounded-xl border border-[#D8DCE3] overflow-hidden">
+            <div className="px-3 py-2 bg-[#F8FAFC] border-b border-[#D8DCE3]">
               <p className="text-[10px] font-bold text-[#1A1F36] uppercase tracking-wide">Capacity Summary</p>
             </div>
-            <div className="divide-y divide-[#F4F6F9]">
+            <div className="divide-y divide-[#F0F2F5]">
               {[
                 { label: 'Power headroom', value: `${(rack.maxPowerKw - rack.powerKw).toFixed(1)} kW free` },
                 { label: 'Space headroom', value: `${rack.spaceTotalU - rack.spaceUsedU}U free` },
@@ -148,18 +148,18 @@ export default function RackDetailPanel({ rackId, dcId, onClose }) {
         </div>
 
         {/* Footer actions */}
-        <div className="flex-shrink-0 px-4 py-3 border-t border-[#E2E8F0] space-y-2">
+        <div className="flex-shrink-0 px-4 py-3 border-t border-[#D8DCE3] space-y-2">
           <button
             onClick={() => router.push('/deployments')}
             className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold text-white transition-colors"
-            style={{ backgroundColor: '#0077C8' }}
+            style={{ backgroundColor: '#005EB8' }}
           >
             <ChevronRight size={12} />
             Flag for Deployment
           </button>
           <button
             onClick={() => router.push('/scenarios')}
-            className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold border border-[#E2E8F0] text-[#6B7280] hover:bg-[#F8FAFC] transition-colors"
+            className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold border border-[#D8DCE3] text-[#6B7280] hover:bg-[#F8FAFC] transition-colors"
           >
             Run Failure Simulation
           </button>

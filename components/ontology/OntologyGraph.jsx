@@ -32,7 +32,7 @@ function drawNode(node, ctx, globalScale, highlighted) {
     ctx.lineTo(x + h * 0.6, y + h * 0.4);
     ctx.lineTo(x - h * 0.6, y + h * 0.4);
     ctx.closePath();
-    ctx.fillStyle = highlighted ? '#ef4444' : '#dc2626';
+    ctx.fillStyle = highlighted ? '#ef4444' : '#C8102E';
     ctx.fill();
     if (highlighted) {
       ctx.strokeStyle = '#fca5a5';

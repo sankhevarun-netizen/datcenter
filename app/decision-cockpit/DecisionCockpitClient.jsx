@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { X, Cpu, Lightbulb } from 'lucide-react';
+import { X, Cpu, Lightbulb, Info } from 'lucide-react';
 import { DECISION_QUICK_STARTS, CARD_TYPE_MAPPING, ACCENT_BY_MODULE, MODULE_LABELS, shapeForCardType } from '@/data/decisionModules';
 import { CHIP_PROFILES, COOLING_PROFILES } from '@/data/gpuChipProfiles';
 
@@ -178,11 +178,11 @@ export default function DecisionCockpitClient() {
               <Cpu size={14} className="text-accent" />
             </div>
             <div className="min-w-0">
-              <p className="font-extrabold text-text-primary text-sm leading-tight truncate" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+              <p className="font-extrabold text-text-primary text-sm leading-tight truncate" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
                 {quickStart?.title || 'Decision Cockpit'}
               </p>
               <p className="text-[9px] text-text-muted leading-tight">
-                {mode === 'client_specific' ? `Client: ${clientName || '—'} · ${location || '—'}` : `Exploratory · ${location || 'Metro Region'}`}
+                {mode === 'client_specific' ? `Client: ${clientName || '—'} · ${location || '—'}` : `Exploratory · ${location || '—'}`}
                 {capacity ? ` · ${capacity}MW` : ''}
               </p>
             </div>
@@ -197,6 +197,15 @@ export default function DecisionCockpitClient() {
 
       {decisionType === 'ai_gpu_campus' && (
         <GpuCampusControlBar searchParams={searchParams} mode={mode} />
+      )}
+
+      {decisionType === 'ai_gpu_campus' && result && (!chipGeneration || !coolingApproach) && (
+        <div className="flex-shrink-0 bg-amber/10 border-b border-amber/20 px-5 py-1.5 flex items-center gap-1.5">
+          <Info size={11} className="text-amber flex-shrink-0" />
+          <p className="text-[10px] text-text-secondary">
+            Showing the default chip + cooling combination (NVIDIA H100 SXM + Air containment) — nothing was selected above. Choose a chip and cooling approach to model this client's actual scenario.
+          </p>
+        </div>
       )}
 
       <div className="flex-1 min-h-0 overflow-y-auto px-5 py-4 flex flex-col gap-3">

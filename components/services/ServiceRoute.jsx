@@ -75,7 +75,7 @@ export default function ServiceRoute() {
         {/* ── the route line, drawn left → right on mount ── */}
         <motion.path
           d={pathD}
-          stroke="#0077C8"
+          stroke="#005EB8"
           strokeWidth={3}
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -97,7 +97,7 @@ export default function ServiceRoute() {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.4, delay }}
             >
-              <line x1={start} y1={PHASE_BAR_Y} x2={end} y2={PHASE_BAR_Y} stroke="#E2E8F0" strokeWidth={1.5} />
+              <line x1={start} y1={PHASE_BAR_Y} x2={end} y2={PHASE_BAR_Y} stroke="#D8DCE3" strokeWidth={1.5} />
               <polygon
                 points={`${start},${PHASE_BAR_Y - 5} ${start + 5},${PHASE_BAR_Y} ${start},${PHASE_BAR_Y + 5} ${start - 5},${PHASE_BAR_Y}`}
                 fill={phase.color}
@@ -116,7 +116,7 @@ export default function ServiceRoute() {
                 fontWeight="700"
                 letterSpacing="1.5"
                 fill={phase.color}
-                style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+                style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}
               >
                 {phase.label}
               </text>
@@ -156,7 +156,7 @@ export default function ServiceRoute() {
                   cx={s.x}
                   cy={s.y}
                   r={9}
-                  fill="#00A36C"
+                  fill="#00B0A0"
                   opacity={0.35}
                   filter="url(#glow-green)"
                   animate={{ r: [9, 16, 9], opacity: [0.35, 0.05, 0.35] }}
@@ -171,7 +171,7 @@ export default function ServiceRoute() {
                 cx={s.x}
                 cy={s.y}
                 r={isHovered ? 9.5 : s.active ? 8 : 7}
-                fill={s.active ? '#00A36C' : '#0077C8'}
+                fill={s.active ? '#00B0A0' : '#005EB8'}
                 stroke={s.active ? '#6EE7B7' : '#90CDF4'}
                 strokeWidth={isHovered ? 3 : 2}
                 filter={s.active ? 'url(#glow-green)' : undefined}
@@ -212,11 +212,11 @@ export default function ServiceRoute() {
                 xmlns="http://www.w3.org/1999/xhtml"
                 style={{
                   background: '#ffffff',
-                  border: '1px solid #E2E8F0',
+                  border: '1px solid #D8DCE3',
                   borderRadius: 10,
                   boxShadow: '0 8px 24px rgba(26,31,54,0.14)',
                   padding: '10px 12px',
-                  fontFamily: "'DM Sans', sans-serif",
+                  fontFamily: "'Inter', 'Segoe UI', sans-serif",
                   boxSizing: 'border-box',
                 }}
               >
@@ -224,7 +224,7 @@ export default function ServiceRoute() {
                   <span
                     style={{
                       width: 7, height: 7, borderRadius: 99,
-                      background: hoveredStage.active ? '#00A36C' : '#0077C8',
+                      background: hoveredStage.active ? '#00B0A0' : '#005EB8',
                       flexShrink: 0,
                     }}
                   />
@@ -245,7 +245,7 @@ export default function ServiceRoute() {
                   {hoveredStage.description}
                 </p>
                 {hoveredStage.active && (
-                  <p style={{ fontSize: 9, color: '#00A36C', fontWeight: 700, margin: '4px 0 0' }}>
+                  <p style={{ fontSize: 9, color: '#00B0A0', fontWeight: 700, margin: '4px 0 0' }}>
                     ● Live agent running
                   </p>
                 )}

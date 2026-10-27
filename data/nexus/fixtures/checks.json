@@ -1,0 +1,104 @@
+[
+  {
+    "check": "Scene 1 structural stranded (kW)",
+    "computed": 640,
+    "expected": 640,
+    "status": "PASS"
+  },
+  {
+    "check": "Scene 1 planned headroom, Hall 4 (kW)",
+    "computed": 480,
+    "expected": 480,
+    "status": "PASS"
+  },
+  {
+    "check": "Scene 1 MUM-1 used IT load (kW)",
+    "computed": 6800,
+    "expected": 6800,
+    "status": "PASS"
+  },
+  {
+    "check": "Scene 2 Hall 4 free rack positions",
+    "computed": 34,
+    "expected": 34,
+    "status": "PASS"
+  },
+  {
+    "check": "Scene 2 Hall 4 power headroom (kW)",
+    "computed": 1320,
+    "expected": 1320,
+    "status": "PASS"
+  },
+  {
+    "check": "Scene 2 Hall 4 cooling headroom (kW)",
+    "computed": 840,
+    "expected": 840,
+    "status": "PASS"
+  },
+  {
+    "check": "Scene 3 components exceeded",
+    "computed": 5,
+    "expected": 5,
+    "status": "PASS"
+  },
+  {
+    "check": "Scene 3 components losing redundancy",
+    "computed": 2,
+    "expected": 2,
+    "status": "PASS"
+  },
+  {
+    "check": "Scene 3 upgrade cost (Rs lakh)",
+    "computed": 250,
+    "expected": 250,
+    "status": "PASS"
+  },
+  {
+    "check": "Scene 3 critical path (weeks)",
+    "computed": 16,
+    "expected": 16,
+    "status": "PASS"
+  },
+  {
+    "check": "Portfolio design IT load (kW)",
+    "computed": 67000,
+    "expected": 67000,
+    "status": "PASS"
+  },
+  {
+    "check": "Rack records written",
+    "computed": 480,
+    "expected": 480,
+    "status": "PASS"
+  },
+  {
+    "check": "Rack load total matches row total (kW)",
+    "computed": 6800,
+    "expected": 6800,
+    "status": "PASS"
+  },
+  {
+    "check": "Occupied racks match row occupancy",
+    "computed": 366,
+    "expected": 366,
+    "status": "PASS"
+  },
+  {
+    "check": "Free rack positions in Hall 4",
+    "computed": 34,
+    "expected": 34,
+    "status": "PASS"
+  },
+  {
+    "check": "Blocked positions (Row C fragmentation)",
+    "computed": 1,
+    "expected": 1,
+    "status": "PASS"
+  },
+  {
+    "check": "Component positions written",
+    "computed": 148,
+    "expected": 148,
+    "status": "PASS"
+  }
+]

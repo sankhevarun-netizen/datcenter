@@ -20,7 +20,7 @@ function tempToGradient(tempC) {
   if (tempC <= 24) return '#16a34a';
   if (tempC <= 28) return '#ca8a04';
   if (tempC <= 33) return '#ea580c';
-  if (tempC <= 37) return '#dc2626';
+  if (tempC <= 37) return '#C8102E';
   return '#7f1d1d';
 }
 
@@ -74,19 +74,19 @@ export default function ThermalHeatmapView({ dc }) {
   return (
     <div className="w-full h-full flex flex-col bg-white overflow-auto">
       {/* Header */}
-      <div className="flex-shrink-0 px-4 py-3 border-b border-[#E2E8F0] flex items-center justify-between">
+      <div className="flex-shrink-0 px-4 py-3 border-b border-[#D8DCE3] flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Thermometer size={16} className="text-[#ef4444]" />
-          <span className="text-sm font-bold text-[#1A1F36]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+          <span className="text-sm font-bold text-[#1A1F36]" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
             Thermal Heatmap — Floor Plan
           </span>
           {thermalData.isGenerated && (
-            <span className="px-2 py-0.5 rounded-full text-[9px] font-bold bg-[#EFF6FF] text-[#0077C8] border border-[#0077C8]/25">
+            <span className="px-2 py-0.5 rounded-full text-[9px] font-bold bg-[#EFF6FF] text-[#005EB8] border border-[#005EB8]/25">
               ✦ AI-Synthesised
             </span>
           )}
           {whatIfMode && (
-            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#FFFBEB] text-[#D4A017] border border-[#D4A017]/30">
+            <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#FFFBEB] text-[#E87722] border border-[#E87722]/30">
               WHAT-IF MODE
             </span>
           )}
@@ -96,8 +96,8 @@ export default function ThermalHeatmapView({ dc }) {
             onClick={() => { setWhatIfMode(!whatIfMode); setRemovedCrah(null); }}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all ${
               whatIfMode
-                ? 'bg-[#FFFBEB] text-[#D4A017] border-[#D4A017]/40'
-                : 'text-[#6B7280] border-[#E2E8F0] hover:bg-[#F8FAFC]'
+                ? 'bg-[#FFFBEB] text-[#E87722] border-[#E87722]/40'
+                : 'text-[#6B7280] border-[#D8DCE3] hover:bg-[#F8FAFC]'
             }`}
           >
             <RefreshCw size={11} />
@@ -107,12 +107,12 @@ export default function ThermalHeatmapView({ dc }) {
       </div>
 
       {/* Stats bar */}
-      <div className="flex-shrink-0 flex items-center gap-4 px-4 py-2 bg-[#F8FAFC] border-b border-[#E2E8F0]">
+      <div className="flex-shrink-0 flex items-center gap-4 px-4 py-2 bg-[#F8FAFC] border-b border-[#D8DCE3]">
         {[
           { label: 'Avg Temp', value: `${avgTemp}°C`, color: tempToGradient(avgTemp) },
           { label: 'Max Temp', value: `${maxTemp}°C`, color: tempToGradient(maxTemp) },
-          { label: 'Hot Tiles', value: hotCount, color: hotCount > 0 ? '#DC2626' : '#00A36C' },
-          { label: 'CRAH Online', value: `${thermalData.crahOnline}/${thermalData.crahUnits}`, color: thermalData.crahOnline < thermalData.crahUnits ? '#DC2626' : '#00A36C' },
+          { label: 'Hot Tiles', value: hotCount, color: hotCount > 0 ? '#C8102E' : '#00B0A0' },
+          { label: 'CRAH Online', value: `${thermalData.crahOnline}/${thermalData.crahUnits}`, color: thermalData.crahOnline < thermalData.crahUnits ? '#C8102E' : '#00B0A0' },
           { label: 'Target', value: `${thermalData.targetTempC}°C`, color: '#6B7280' },
         ].map(s => (
           <div key={s.label} className="text-center">
@@ -131,8 +131,8 @@ export default function ThermalHeatmapView({ dc }) {
 
         {/* What-if controls */}
         {whatIfMode && (
-          <div className="w-full max-w-xl bg-[#FFFBEB] border border-[#D4A017]/30 rounded-xl p-3">
-            <p className="text-xs font-bold text-[#D4A017] mb-2">Simulate: Remove a CRAH unit</p>
+          <div className="w-full max-w-xl bg-[#FFFBEB] border border-[#E87722]/30 rounded-xl p-3">
+            <p className="text-xs font-bold text-[#E87722] mb-2">Simulate: Remove a CRAH unit</p>
             <div className="flex flex-wrap gap-2">
               {COLS.slice(0, thermalData.crahUnits).map(col => (
                 <button
@@ -140,15 +140,15 @@ export default function ThermalHeatmapView({ dc }) {
                   onClick={() => setRemovedCrah(removedCrah === col ? null : col)}
                   className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all ${
                     removedCrah === col
-                      ? 'bg-[#DC2626] text-white border-[#DC2626]'
-                      : 'bg-white text-[#374151] border-[#E2E8F0] hover:border-[#D4A017]'
+                      ? 'bg-[#C8102E] text-white border-[#C8102E]'
+                      : 'bg-white text-[#374151] border-[#D8DCE3] hover:border-[#E87722]'
                   }`}
                 >
                   CRAH-{col}
                 </button>
               ))}
               {removedCrah && (
-                <span className="text-[10px] text-[#DC2626] font-medium self-center ml-2">
+                <span className="text-[10px] text-[#C8102E] font-medium self-center ml-2">
                   ↑ Showing thermal impact of losing CRAH-{removedCrah}
                 </span>
               )}
@@ -251,17 +251,17 @@ export default function ThermalHeatmapView({ dc }) {
         {thermalData.hotspotAlerts.length > 0 && (
           <div className="w-full max-w-2xl space-y-2">
             {thermalData.hotspotAlerts.map((alert, i) => (
-              <div key={i} className="flex items-start gap-2 bg-[#FEF2F2] border border-[#DC262630] rounded-xl px-3 py-2">
-                <AlertTriangle size={12} className="text-[#DC2626] flex-shrink-0 mt-0.5" />
-                <p className="text-[10px] text-[#DC2626] font-medium">{alert.message}</p>
+              <div key={i} className="flex items-start gap-2 bg-[#FEF2F2] border border-[#C8102E30] rounded-xl px-3 py-2">
+                <AlertTriangle size={12} className="text-[#C8102E] flex-shrink-0 mt-0.5" />
+                <p className="text-[10px] text-[#C8102E] font-medium">{alert.message}</p>
               </div>
             ))}
           </div>
         )}
         {thermalData.hotspotAlerts.length === 0 && !whatIfMode && (
-          <div className="flex items-center gap-2 bg-[#F0FDF4] border border-[#00A36C]/20 rounded-xl px-3 py-2">
-            <CheckCircle size={12} className="text-[#00A36C]" />
-            <p className="text-[10px] text-[#00A36C] font-medium">No thermal hotspots detected — cooling operating normally.</p>
+          <div className="flex items-center gap-2 bg-[#F0FDF4] border border-[#00B0A0]/20 rounded-xl px-3 py-2">
+            <CheckCircle size={12} className="text-[#00B0A0]" />
+            <p className="text-[10px] text-[#00B0A0] font-medium">No thermal hotspots detected — cooling operating normally.</p>
           </div>
         )}
       </div>

@@ -26,7 +26,7 @@ export default function Breadcrumb({ items }) {
             {isLast || !item.href ? (
               <span className="text-[#1A1F36] font-semibold" aria-current={isLast ? 'page' : undefined}>{item.label}</span>
             ) : (
-              <Link href={item.href} className="text-[#6B7280] hover:text-[#0077C8] font-medium transition-colors">
+              <Link href={item.href} className="text-[#6B7280] hover:text-[#005EB8] font-medium transition-colors">
                 {item.label}
               </Link>
             )}

@@ -1,0 +1,62 @@
+[
+  {
+    "facility_id": "MUM-1",
+    "seismic_zone": "III",
+    "flood_exposure": 4,
+    "cyclone_exposure": 3,
+    "heat_exposure": 2,
+    "grid_trips_12m": 3,
+    "avg_trip_min": 18,
+    "reference_event": "July 2005 Mumbai floods; Cyclone Tauktae, May 2021"
+  },
+  {
+    "facility_id": "MUM-2",
+    "seismic_zone": "III",
+    "flood_exposure": 4,
+    "cyclone_exposure": 3,
+    "heat_exposure": 2,
+    "grid_trips_12m": 5,
+    "avg_trip_min": 23,
+    "reference_event": "Low-lying plot; same 2005 and 2021 events as MUM-1"
+  },
+  {
+    "facility_id": "CHN-1",
+    "seismic_zone": "III",
+    "flood_exposure": 4,
+    "cyclone_exposure": 4,
+    "heat_exposure": 4,
+    "grid_trips_12m": 4,
+    "avg_trip_min": 27,
+    "reference_event": "December 2015 Chennai floods; Cyclone Michaung, December 2023"
+  },
+  {
+    "facility_id": "HYD-1",
+    "seismic_zone": "II",
+    "flood_exposure": 3,
+    "cyclone_exposure": 1,
+    "heat_exposure": 4,
+    "grid_trips_12m": 2,
+    "avg_trip_min": 11,
+    "reference_event": "October 2020 Hyderabad floods"
+  },
+  {
+    "facility_id": "NCR-1",
+    "seismic_zone": "IV",
+    "flood_exposure": 3,
+    "cyclone_exposure": 1,
+    "heat_exposure": 5,
+    "grid_trips_12m": 7,
+    "avg_trip_min": 34,
+    "reference_event": "May 2024 north India heatwave and peak-demand curtailment; July 2023 Yamuna and Hindon floods in Noida"
+  },
+  {
+    "facility_id": "BLR-1",
+    "seismic_zone": "II",
+    "flood_exposure": 3,
+    "cyclone_exposure": 1,
+    "heat_exposure": 2,
+    "grid_trips_12m": null,
+    "avg_trip_min": null,
+    "reference_event": "September 2022 Bengaluru flooding; site not yet energised"
+  }
+]

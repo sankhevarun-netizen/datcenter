@@ -9,14 +9,14 @@ export default function LoadingBayBoard({ deployments, columns, onStatusChange }
         return (
           <div
             key={col.id}
-            className="flex-1 min-w-64 flex flex-col border-r border-[#E2E8F0] last:border-r-0"
+            className="flex-1 min-w-64 flex flex-col border-r border-[#D8DCE3] last:border-r-0"
             style={{ minWidth: 260 }}
           >
             {/* Column header */}
-            <div className="flex-shrink-0 flex items-center justify-between px-4 py-3 border-b border-[#E2E8F0] bg-white sticky top-0 z-10">
+            <div className="flex-shrink-0 flex items-center justify-between px-4 py-3 border-b border-[#D8DCE3] bg-white sticky top-0 z-10">
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full" style={{ backgroundColor: col.color }} />
-                <span className="text-xs font-bold text-[#1A1F36]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+                <span className="text-xs font-bold text-[#1A1F36]" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
                   {col.label}
                 </span>
               </div>

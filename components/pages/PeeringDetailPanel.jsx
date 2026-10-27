@@ -5,8 +5,8 @@ import { LoadingDots } from '@/components/shared/LoadingDots';
 
 function LiveBadge() {
   return (
-    <span className="inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-full bg-[#00A36C]/15 text-[#00A36C] border border-[#00A36C]/25 font-semibold">
-      <span className="w-1.5 h-1.5 rounded-full bg-[#00A36C] animate-pulse inline-block" />LIVE
+    <span className="inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-full bg-[#00B0A0]/15 text-[#00B0A0] border border-[#00B0A0]/25 font-semibold">
+      <span className="w-1.5 h-1.5 rounded-full bg-[#00B0A0] animate-pulse inline-block" />LIVE
     </span>
   );
 }
@@ -63,7 +63,7 @@ export default function PeeringDetailPanel({ facility, detail, loading, onClose 
             <X size={18} />
           </button>
         </div>
-        <h2 className="text-white font-bold text-base leading-tight mb-1" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+        <h2 className="text-white font-bold text-base leading-tight mb-1" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
           {facility.name}
         </h2>
         <p className="text-white/55 text-sm">
@@ -75,16 +75,16 @@ export default function PeeringDetailPanel({ facility, detail, loading, onClose 
 
         {/* Hero IX / Network numbers */}
         <div className="grid grid-cols-2 gap-3">
-          <div className="text-center bg-[#0077C8]/10 rounded-xl p-3.5 border border-[#0077C8]/20">
-            <div className="text-[#0077C8] font-mono font-bold text-3xl leading-none mb-1">
-              {loading ? <LoadingDots color="#0077C8" size={6} /> : (liveData?.ix_count ?? '—')}
+          <div className="text-center bg-[#005EB8]/10 rounded-xl p-3.5 border border-[#005EB8]/20">
+            <div className="text-[#005EB8] font-mono font-bold text-3xl leading-none mb-1">
+              {loading ? <LoadingDots color="#005EB8" size={6} /> : (liveData?.ix_count ?? '—')}
             </div>
             <div className="text-white/45 text-xs">Internet Exchanges</div>
             <div className="text-white/20 text-[9px] mt-0.5">at this facility</div>
           </div>
-          <div className="text-center bg-[#00A36C]/10 rounded-xl p-3.5 border border-[#00A36C]/20">
-            <div className="text-[#00A36C] font-mono font-bold text-3xl leading-none mb-1">
-              {loading ? <LoadingDots color="#00A36C" size={6} /> : (liveData?.net_count ?? '—')}
+          <div className="text-center bg-[#00B0A0]/10 rounded-xl p-3.5 border border-[#00B0A0]/20">
+            <div className="text-[#00B0A0] font-mono font-bold text-3xl leading-none mb-1">
+              {loading ? <LoadingDots color="#00B0A0" size={6} /> : (liveData?.net_count ?? '—')}
             </div>
             <div className="text-white/45 text-xs">Networks Present</div>
             <div className="text-white/20 text-[9px] mt-0.5">registered carriers</div>
@@ -100,7 +100,7 @@ export default function PeeringDetailPanel({ facility, detail, loading, onClose 
                 label="Internet Exchange Density"
                 value={liveData.ix_count}
                 benchmark={IX_BENCHMARK}
-                color="#0077C8"
+                color="#005EB8"
               />
             )}
             {liveData.net_count != null && (
@@ -108,7 +108,7 @@ export default function PeeringDetailPanel({ facility, detail, loading, onClose 
                 label="Network Density"
                 value={liveData.net_count}
                 benchmark={NET_BENCHMARK}
-                color="#00A36C"
+                color="#00B0A0"
               />
             )}
           </div>
@@ -118,7 +118,7 @@ export default function PeeringDetailPanel({ facility, detail, loading, onClose 
         <div className="bg-white/[0.04] rounded-xl border border-white/[0.08] overflow-hidden">
           <div className="flex items-center justify-between px-3 py-2 border-b border-white/[0.08]">
             <div className="flex items-center gap-2">
-              <Radio size={13} className="text-[#0077C8]" />
+              <Radio size={13} className="text-[#005EB8]" />
               <span className="text-white/60 text-[10px] font-bold uppercase tracking-wider">Intelligence Briefing</span>
             </div>
             {!loading && liveData && <LiveBadge />}
@@ -126,7 +126,7 @@ export default function PeeringDetailPanel({ facility, detail, loading, onClose 
           <div className="p-3">
             {loading && (
               <div className="flex items-center gap-2 py-4">
-                <LoadingDots color="#0077C8" size={6} />
+                <LoadingDots color="#005EB8" size={6} />
                 <span className="text-white/40 text-xs">Fetching live intelligence...</span>
               </div>
             )}
@@ -174,7 +174,7 @@ export default function PeeringDetailPanel({ facility, detail, loading, onClose 
             {liveData.status && (
               <div className="flex justify-between gap-3">
                 <span className="text-white/35 text-xs flex-shrink-0">Status</span>
-                <span className={`text-xs font-semibold capitalize ${liveData.status === 'ok' ? 'text-[#00A36C]' : 'text-[#D4A017]'}`}>
+                <span className={`text-xs font-semibold capitalize ${liveData.status === 'ok' ? 'text-[#00B0A0]' : 'text-[#E87722]'}`}>
                   {liveData.status === 'ok' ? 'Active' : liveData.status}
                 </span>
               </div>
@@ -186,7 +186,7 @@ export default function PeeringDetailPanel({ facility, detail, loading, onClose 
                   href={liveData.website}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[#0077C8] text-xs hover:underline flex items-center gap-1 truncate max-w-[180px]"
+                  className="text-[#005EB8] text-xs hover:underline flex items-center gap-1 truncate max-w-[180px]"
                 >
                   {websiteHost}
                   <ExternalLink size={10} className="flex-shrink-0" />

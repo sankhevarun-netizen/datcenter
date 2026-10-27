@@ -16,11 +16,11 @@ export default function SearchBar({ query, onQueryChange, results, onSelectResul
         onBlur={() => setTimeout(() => setFocused(false), 120)}
         placeholder="Search country, city, or facility..."
         aria-label="Search data centers by country, city, or facility name"
-        className="w-full bg-white border border-[#E2E8F0] rounded-lg pl-8 pr-3 py-1.5 text-xs text-[#1A1F36] placeholder:text-[#9CA3AF] focus:outline-none focus:border-[#0077C8]/50 transition-colors"
+        className="w-full bg-white border border-[#D8DCE3] rounded-lg pl-8 pr-3 py-1.5 text-xs text-[#1A1F36] placeholder:text-[#9CA3AF] focus:outline-none focus:border-[#005EB8]/50 transition-colors"
       />
 
       {focused && query.trim() && (
-        <div className="absolute top-full left-0 mt-1.5 w-full bg-white border border-[#E2E8F0] rounded-xl shadow-2xl overflow-hidden z-[500]" role="listbox">
+        <div className="absolute top-full left-0 mt-1.5 w-full bg-white border border-[#D8DCE3] rounded-xl shadow-2xl overflow-hidden z-[500]" role="listbox">
           {results.length === 0 ? (
             <p className="px-3 py-2.5 text-xs text-[#9CA3AF]">No matches</p>
           ) : (
@@ -29,9 +29,9 @@ export default function SearchBar({ query, onQueryChange, results, onSelectResul
                 key={facility.id}
                 role="option"
                 onClick={() => onSelectResult(facility)}
-                className="w-full flex items-center gap-2 px-3 py-2 text-left hover:bg-[#F4F6F9] transition-colors border-b border-[#F4F6F9] last:border-0"
+                className="w-full flex items-center gap-2 px-3 py-2 text-left hover:bg-[#F0F2F5] transition-colors border-b border-[#F0F2F5] last:border-0"
               >
-                <MapPin size={11} className="text-[#0077C8] flex-shrink-0" />
+                <MapPin size={11} className="text-[#005EB8] flex-shrink-0" />
                 <span className="text-xs text-[#1A1F36] font-medium truncate">{facility.name}</span>
                 <span className="text-[10px] text-[#9CA3AF] ml-auto flex-shrink-0">{facility.city}, {facility.country}</span>
               </button>

@@ -1,117 +1,88 @@
 'use client';
-import { PieChart, Pie, Cell, LineChart, Line, XAxis, YAxis, ReferenceLine, ResponsiveContainer, Tooltip, BarChart, Bar } from 'recharts';
-import { mockCapacityData } from '@/data/command-center-mock';
+import { PieChart, Pie, Cell } from 'recharts';
+import { fmtUpTo, fmtNumber } from '@/lib/nexus/format';
 
-const CustomTooltip = ({ active, payload }) => {
-  if (active && payload?.length) {
-    return (
-      <div className="bg-[#1A1F36] border border-white/10 rounded-lg px-3 py-2 text-xs text-white shadow-xl">
-        {payload[0].name}: <span className="font-bold">{payload[0].value}%</span>
-      </div>
-    );
-  }
-  return null;
-};
+const MONO = { fontFamily: "'JetBrains Mono', monospace" };
+const statusColor = (pct, warn, crit) => (pct >= crit ? '#C8102E' : pct >= warn ? '#E87722' : '#00B0A0');
 
-export default function CapacityUtilization() {
-  const { rackUtilization, powerMW, coolingLoad, whiteSpace, forecastGrowth } = mockCapacityData;
-
+export default function CapacityUtilization({ capacity }) {
+  const { usedKw, designKw, pipelineKw, byFacility, cooling, grid } = capacity;
   const powerDonut = [
-    { name: 'Consumed', value: powerMW.consumed, color: '#00338D' },
-    { name: 'Available', value: powerMW.available, color: '#E2E8F0' },
+    { name: 'Used', value: usedKw, color: '#00338D' },
+    { name: 'Available', value: designKw - usedKw, color: '#D8DCE3' },
   ];
-
-  const coolingColor = coolingLoad >= 90 ? '#DC2626' : coolingLoad >= 80 ? '#D4A017' : '#00A36C';
+  const coolingColor = statusColor(cooling.loadPct, 80, 90);
 
   return (
-    <div className="bg-white rounded-2xl border border-[#E2E8F0] shadow-sm p-5 h-full">
+    <div className="bg-white rounded-2xl border border-[#D8DCE3] shadow-sm p-5 h-full">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="font-bold text-[#1A1F36] text-sm" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Capacity & Utilization</h2>
-        <span className="text-[10px] text-[#9CA3AF] font-semibold uppercase tracking-wider">Live</span>
+        <h2 className="font-bold text-[#1A1F36] text-sm" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>Capacity & Utilisation</h2>
+        <span className="text-[10px] text-[#9CA3AF] font-semibold uppercase tracking-wider">Operating sites</span>
       </div>
 
       <div className="space-y-5">
-        {/* Rack Utilization */}
         <div>
-          <div className="flex items-center justify-between mb-1.5">
-            <p className="text-xs font-semibold text-[#6B7280]">Rack Utilization</p>
-            <span className="text-xs text-[#9CA3AF]">{rackUtilization.total.toLocaleString()} total racks</span>
-          </div>
-          <div className="h-4 rounded-full overflow-hidden flex bg-[#E2E8F0]">
-            <div className="h-full bg-[#00338D] transition-all" style={{ width: `${rackUtilization.used}%` }} title={`Used ${rackUtilization.used}%`} />
-            <div className="h-full bg-[#0077C8]/40 transition-all" style={{ width: `${rackUtilization.reserved}%` }} title={`Reserved ${rackUtilization.reserved}%`} />
-          </div>
-          <div className="flex gap-3 mt-1.5 text-[10px]">
-            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#00338D]" />Used {rackUtilization.used}%</span>
-            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#0077C8]/40" />Reserved {rackUtilization.reserved}%</span>
-            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#E2E8F0]" />Available {rackUtilization.available}%</span>
+          <p className="text-xs font-semibold text-[#6B7280] mb-2">IT load against design, by facility</p>
+          <div className="space-y-1.5">
+            {byFacility.map((f) => (
+              <div key={f.id} className="grid grid-cols-[84px_1fr_88px] items-center gap-2" title={`${f.name}: ${fmtNumber(f.usedKw)} of ${fmtNumber(f.designKw)} kW`}>
+                <span className="text-[11px] text-[#334155] truncate">{f.name}</span>
+                <div className="h-2.5 bg-[#D8DCE3] rounded-full overflow-hidden">
+                  <div className="h-full rounded-full bg-[#00338D]" style={{ width: `${f.utilisationPct}%` }} />
+                </div>
+                <span className="text-[10px] text-[#6B7280] text-right" style={MONO}>{f.utilisationPct}% · {fmtUpTo(f.designKw / 1000, 1)} MW</span>
+              </div>
+            ))}
           </div>
         </div>
 
-        {/* Power + Cooling row */}
         <div className="grid grid-cols-2 gap-4">
-          {/* Power donut */}
           <div className="flex flex-col items-center">
-            <p className="text-xs font-semibold text-[#6B7280] mb-2">Power Consumption</p>
+            <p className="text-xs font-semibold text-[#6B7280] mb-2">IT power in use</p>
             <div className="relative">
               <PieChart width={100} height={100}>
-                <Pie data={powerDonut} innerRadius={30} outerRadius={45} dataKey="value" startAngle={90} endAngle={-270} strokeWidth={0}>
+                <Pie data={powerDonut} innerRadius={30} outerRadius={45} dataKey="value" startAngle={90} endAngle={-270} strokeWidth={0} isAnimationActive={false}>
                   {powerDonut.map((entry, i) => <Cell key={i} fill={entry.color} />)}
                 </Pie>
               </PieChart>
               <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <span className="text-xs font-bold text-[#1A1F36]" style={{ fontFamily: "'JetBrains Mono', monospace" }}>{powerMW.consumed}</span>
+                <span className="text-xs font-bold text-[#1A1F36]" style={MONO}>{fmtUpTo(usedKw / 1000, 1)}</span>
                 <span className="text-[9px] text-[#9CA3AF]">MW</span>
               </div>
             </div>
-            <p className="text-[10px] text-[#9CA3AF] text-center">{powerMW.available} MW available</p>
+            <p className="text-[10px] text-[#9CA3AF] text-center">{fmtUpTo((designKw - usedKw) / 1000, 1)} MW available · {fmtUpTo(pipelineKw / 1000, 1)} MW under construction</p>
           </div>
 
-          {/* Cooling headroom */}
           <div className="flex flex-col">
-            <p className="text-xs font-semibold text-[#6B7280] mb-2">Cooling Headroom</p>
+            <p className="text-xs font-semibold text-[#6B7280] mb-2">Cooling load · Mumbai-1</p>
             <div className="flex-1 flex flex-col justify-center">
               <div className="flex items-center justify-between mb-1">
-                <span className="text-[10px] text-[#9CA3AF]">Thermal Load</span>
-                <span className="text-xs font-bold" style={{ color: coolingColor, fontFamily: "'JetBrains Mono', monospace" }}>{coolingLoad}%</span>
+                <span className="text-[10px] text-[#9CA3AF]">{fmtNumber(cooling.usedKw)} of {fmtNumber(cooling.capacityKw)} kW</span>
+                <span className="text-xs font-bold" style={{ color: coolingColor, ...MONO }}>{cooling.loadPct}%</span>
               </div>
-              <div className="h-3 bg-[#E2E8F0] rounded-full overflow-hidden">
-                <div className="h-full rounded-full transition-all" style={{ width: `${coolingLoad}%`, backgroundColor: coolingColor }} />
+              <div className="h-3 bg-[#D8DCE3] rounded-full overflow-hidden">
+                <div className="h-full rounded-full transition-all" style={{ width: `${cooling.loadPct}%`, backgroundColor: coolingColor }} />
               </div>
-              <p className="text-[10px] mt-1" style={{ color: coolingColor }}>
-                {coolingLoad >= 80 ? '⚠ Above 80% threshold' : 'Within safe range'}
-              </p>
+              <p className="text-[10px] mt-1" style={{ color: coolingColor }}>{cooling.loadPct >= 80 ? '⚠ Above 80% of hall cooling' : 'Within hall cooling capacity'}</p>
             </div>
           </div>
         </div>
 
-        {/* White Space */}
         <div>
-          <div className="flex items-center justify-between mb-2">
-            <p className="text-xs font-semibold text-[#6B7280]">White Space Available</p>
-            <span className="text-xs font-bold text-[#1A1F36]" style={{ fontFamily: "'JetBrains Mono', monospace" }}>{whiteSpace.totalSqm.toLocaleString()} sqm</span>
+          <p className="text-xs font-semibold text-[#6B7280] mb-2">Grid headroom against sanctioned load</p>
+          <div className="space-y-1">
+            {grid.map((g) => {
+              const c = statusColor(g.utilisedPct, 90, 95);
+              return (
+                <div key={g.id} className="flex items-center gap-2 text-[11px]" title={g.note}>
+                  <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: c }} aria-hidden="true" />
+                  <span className="text-[#334155] w-[84px] truncate">{g.name}</span>
+                  <span className="text-[#1A1F36] font-semibold" style={MONO}>{fmtNumber(g.headroomKw)} kW</span>
+                  <span className="text-[#9CA3AF] ml-auto" style={MONO}>{g.utilisedPct}% drawn</span>
+                </div>
+              );
+            })}
           </div>
-          <ResponsiveContainer width="100%" height={45}>
-            <BarChart data={whiteSpace.breakdown} margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
-              <Bar dataKey="sqm" fill="#0077C8" radius={[3, 3, 0, 0]} />
-              <XAxis dataKey="name" tick={{ fontSize: 9, fill: '#9CA3AF' }} axisLine={false} tickLine={false} />
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
-
-        {/* Forecast growth */}
-        <div>
-          <p className="text-xs font-semibold text-[#6B7280] mb-2">6-Month Utilization Forecast</p>
-          <ResponsiveContainer width="100%" height={70}>
-            <LineChart data={forecastGrowth} margin={{ top: 4, right: 4, bottom: 0, left: -20 }}>
-              <XAxis dataKey="month" tick={{ fontSize: 9, fill: '#9CA3AF' }} axisLine={false} tickLine={false} />
-              <YAxis domain={[70, 90]} tick={{ fontSize: 9, fill: '#9CA3AF' }} axisLine={false} tickLine={false} />
-              <ReferenceLine y={85} stroke="#DC2626" strokeDasharray="4 2" strokeWidth={1} />
-              <Line type="monotone" dataKey="utilization" stroke="#0077C8" strokeWidth={2} dot={{ r: 2, fill: '#0077C8' }} isAnimationActive={false} />
-              <Tooltip content={<CustomTooltip />} />
-            </LineChart>
-          </ResponsiveContainer>
-          <p className="text-[10px] text-[#9CA3AF] text-right">— 85% critical threshold</p>
         </div>
       </div>
     </div>

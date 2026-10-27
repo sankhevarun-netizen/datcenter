@@ -12,12 +12,15 @@ const ZONE_CONFIG = {
 };
 
 const STATUS_CONFIG = {
-  operational: { label: 'Operational', Icon: CheckCircle, color: '#00A36C' },
-  warning:     { label: 'Warning',     Icon: AlertTriangle, color: '#D4A017' },
-  critical:    { label: 'Critical',    Icon: XCircle,    color: '#DC2626' },
+  operational: { label: 'Operational', Icon: CheckCircle, color: '#00B0A0' },
+  warning:     { label: 'Warning',     Icon: AlertTriangle, color: '#E87722' },
+  critical:    { label: 'Critical',    Icon: XCircle,    color: '#C8102E' },
+  unmonitored: { label: 'Not monitored', Icon: CheckCircle, color: '#94A3B8' },
 };
 
 function getMetrics(zoneId, data) {
+  // Record-based zones carry their own labelled metrics.
+  if (data.metrics) return data.metrics.length ? data.metrics.map((m) => `${m.label}: ${m.value}`) : [data.note ?? 'Not monitored'];
   switch (zoneId) {
     case 'power':
       return [
@@ -95,7 +98,7 @@ export default function HotspotCard({ zoneId, zoneData, position, onClose, isGen
             <zone.Icon size={14} style={{ color: zone.color }} className="flex-shrink-0" />
             <span className="text-xs font-semibold text-white tracking-wide truncate">{zone.label}</span>
             {isGenerated && (
-              <span className="px-1.5 py-0.5 rounded-full text-[8px] font-bold bg-[#0077C8]/20 text-[#60a5fa] border border-[#0077C8]/40 flex-shrink-0">
+              <span className="px-1.5 py-0.5 rounded-full text-[8px] font-bold bg-[#005EB8]/20 text-[#60a5fa] border border-[#005EB8]/40 flex-shrink-0">
                 ✦ AI
               </span>
             )}
@@ -131,8 +134,8 @@ export default function HotspotCard({ zoneId, zoneData, position, onClose, isGen
           <div className="border-t border-[#1e3050] px-4 py-2 space-y-1">
             {alerts.slice(0, 2).map((alert, i) => (
               <div key={i} className="flex items-start gap-1.5">
-                <AlertTriangle size={10} className="text-[#D4A017] flex-shrink-0 mt-0.5" />
-                <span className="text-[10px] text-[#D4A017] leading-tight">{alert}</span>
+                <AlertTriangle size={10} className="text-[#E87722] flex-shrink-0 mt-0.5" />
+                <span className="text-[10px] text-[#E87722] leading-tight">{alert}</span>
               </div>
             ))}
           </div>

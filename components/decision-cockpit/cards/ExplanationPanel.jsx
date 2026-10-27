@@ -56,7 +56,7 @@ export default function ExplanationPanel({ moduleKey, reasoning, onClose }) {
             className="bg-white rounded-2xl shadow-2xl max-w-md w-full mx-4 p-5 max-h-[80vh] overflow-y-auto"
           >
             <div className="flex items-center justify-between mb-4">
-              <p className="font-extrabold text-text-primary text-sm" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+              <p className="font-extrabold text-text-primary text-sm" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
                 {MODULE_LABELS[moduleKey] || moduleKey}
               </p>
               <button onClick={onClose} className="w-7 h-7 rounded-lg hover:bg-grey-bg flex items-center justify-center text-text-secondary">

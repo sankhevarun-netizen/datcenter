@@ -1,0 +1,62 @@
+[
+  {
+    "facility_id": "MUM-1",
+    "source": "condensate",
+    "description": "Recover condensate from CRAH and AHU cooling coils into the cooling-tower make-up tank",
+    "volume_litres_per_year": 6200000,
+    "treatment_required": "Low: filtration and UV",
+    "capex_inr_lakh": 22,
+    "opex_inr_lakh_per_year": 1.5,
+    "water_cost_inr_per_kl": 85
+  },
+  {
+    "facility_id": "MUM-1",
+    "source": "greywater",
+    "description": "Treat greywater from the facility’s own washrooms and canteen for cooling-tower make-up",
+    "volume_litres_per_year": 1400000,
+    "treatment_required": "Medium: membrane bioreactor",
+    "capex_inr_lakh": 35,
+    "opex_inr_lakh_per_year": 4,
+    "water_cost_inr_per_kl": 85
+  },
+  {
+    "facility_id": "MUM-1",
+    "source": "rainwater",
+    "description": "Harvest rainwater from 9,600 m² of roof into storage for make-up",
+    "volume_litres_per_year": 18432000,
+    "treatment_required": "Low: first-flush, filtration, storage",
+    "capex_inr_lakh": 68,
+    "opex_inr_lakh_per_year": 2.5,
+    "water_cost_inr_per_kl": 85
+  },
+  {
+    "facility_id": "CHN-1",
+    "source": "condensate",
+    "description": "Recover condensate from CRAH and AHU cooling coils into the cooling-tower make-up tank",
+    "volume_litres_per_year": 5100000,
+    "treatment_required": "Low: filtration and UV",
+    "capex_inr_lakh": 20,
+    "opex_inr_lakh_per_year": 1.5,
+    "water_cost_inr_per_kl": 140
+  },
+  {
+    "facility_id": "CHN-1",
+    "source": "greywater",
+    "description": "Treat greywater from the facility’s own washrooms and canteen for cooling-tower make-up",
+    "volume_litres_per_year": 1100000,
+    "treatment_required": "Medium: membrane bioreactor",
+    "capex_inr_lakh": 32,
+    "opex_inr_lakh_per_year": 4,
+    "water_cost_inr_per_kl": 140
+  },
+  {
+    "facility_id": "CHN-1",
+    "source": "rainwater",
+    "description": "Harvest rainwater from 7,800 m² of roof into storage for make-up",
+    "volume_litres_per_year": 8736000,
+    "treatment_required": "Low: first-flush, filtration, storage",
+    "capex_inr_lakh": 58,
+    "opex_inr_lakh_per_year": 2.5,
+    "water_cost_inr_per_kl": 140
+  }
+]

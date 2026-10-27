@@ -16,17 +16,17 @@ const GlobeViewer = dynamic(() => import('@/components/globe/GlobeViewer'), { ss
 const REGIONS = ['All', 'North America', 'Europe', 'Asia', 'South America'];
 const POLL_INTERVAL_MS = 15 * 60 * 1000;
 
-const REGION_COLORS = { All: '#0077C8', 'North America': '#0077C8', Europe: '#00A36C', Asia: '#D4A017', 'South America': '#7C3AED' };
+const REGION_COLORS = { All: '#005EB8', 'North America': '#005EB8', Europe: '#00B0A0', Asia: '#E87722', 'South America': '#7C3AED' };
 
 const STATUS_COLORS = {
-  Active: '#00A36C',
-  'Under Construction': '#D4A017',
+  Active: '#00B0A0',
+  'Under Construction': '#E87722',
 };
 
 const RISK_COLORS = {
-  High: '#DC2626',
-  Medium: '#D4A017',
-  Low: '#00A36C',
+  High: '#C8102E',
+  Medium: '#E87722',
+  Low: '#00B0A0',
 };
 
 export default function GlobalCockpitPage() {
@@ -120,11 +120,11 @@ export default function GlobalCockpitPage() {
 
   const getMarkerColor = useCallback((dc) => {
     const src = filteredDCs.find(d => d.id === dc.id);
-    if (!src) return '#0077C8';
-    if (src.risk_flag === 'High') return '#DC2626';
-    if (src.risk_flag === 'Medium') return '#D4A017';
+    if (!src) return '#005EB8';
+    if (src.risk_flag === 'High') return '#C8102E';
+    if (src.risk_flag === 'Medium') return '#E87722';
     if (src.status === 'Under Construction') return '#7C3AED';
-    return '#00A36C';
+    return '#00B0A0';
   }, [filteredDCs]);
 
   const handleMarkerClick = useCallback((dc) => {
@@ -208,9 +208,9 @@ export default function GlobalCockpitPage() {
             <div style={{ width: 3, height: 14, borderRadius: 2, background: '#FBBC05' }} />
             <div style={{ width: 3, height: 14, borderRadius: 2, background: '#34A853' }} />
           </div>
-          <Globe size={14} color="#0077C8" />
+          <Globe size={14} color="#005EB8" />
           <div>
-            <span style={{ fontSize: 12, fontWeight: 700, color: 'rgba(255,255,255,0.9)', fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+            <span style={{ fontSize: 12, fontWeight: 700, color: 'rgba(255,255,255,0.9)', fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
               {dataSourceName} &nbsp;·&nbsp; Global Cockpit
             </span>
           </div>
@@ -363,10 +363,10 @@ export default function GlobalCockpitPage() {
           display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap',
         }}>
           {[
-            { color: '#00A36C', label: 'Active' },
+            { color: '#00B0A0', label: 'Active' },
             { color: '#7C3AED', label: 'Under Construction' },
-            { color: '#D4A017', label: 'Medium Risk' },
-            { color: '#DC2626', label: 'High Risk' },
+            { color: '#E87722', label: 'Medium Risk' },
+            { color: '#C8102E', label: 'High Risk' },
           ].map(l => (
             <div key={l.label} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
               <div style={{ width: 8, height: 8, borderRadius: '50%', background: l.color }} />
@@ -420,10 +420,10 @@ export default function GlobalCockpitPage() {
             {/* Pin legend — always visible in this bar */}
             <div style={{ display: 'flex', gap: 12, alignItems: 'center', marginLeft: 8 }}>
               {[
-                { color: '#00A36C', label: 'Active' },
+                { color: '#00B0A0', label: 'Active' },
                 { color: '#7C3AED', label: 'Under Construction' },
-                { color: '#D4A017', label: 'Medium Risk' },
-                { color: '#DC2626', label: 'High Risk' },
+                { color: '#E87722', label: 'Medium Risk' },
+                { color: '#C8102E', label: 'High Risk' },
               ].map(l => (
                 <div key={l.label} style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
                   <div style={{ width: 7, height: 7, borderRadius: '50%', background: l.color, flexShrink: 0 }} />
@@ -607,7 +607,7 @@ function ChipDetailModal({ type, filteredDCs, regionStats, onClose }) {
         {/* Header */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <h2 style={{ fontSize: 15, fontWeight: 700, color: '#fff', fontFamily: "'Plus Jakarta Sans', sans-serif", margin: 0 }}>
+            <h2 style={{ fontSize: 15, fontWeight: 700, color: '#fff', fontFamily: "'Inter', 'Segoe UI', sans-serif", margin: 0 }}>
               {TITLES[type]}
             </h2>
           </div>
@@ -621,9 +621,9 @@ function ChipDetailModal({ type, filteredDCs, regionStats, onClose }) {
           <>
             <StatRow items={[
               { label: 'Total DCs', value: regionStats.total, color: '#60A5FA' },
-              { label: 'Active', value: regionStats.active, color: '#00A36C' },
-              { label: 'Under Construction', value: regionStats.uc, color: '#D4A017' },
-              { label: 'At Risk', value: regionStats.atRisk, color: regionStats.highRisk > 0 ? '#DC2626' : '#D4A017' },
+              { label: 'Active', value: regionStats.active, color: '#00B0A0' },
+              { label: 'Under Construction', value: regionStats.uc, color: '#E87722' },
+              { label: 'At Risk', value: regionStats.atRisk, color: regionStats.highRisk > 0 ? '#C8102E' : '#E87722' },
             ]} />
             <ModalTable
               headers={['Region', 'Total', 'Active', 'UC', 'MW', 'Countries']}
@@ -646,9 +646,9 @@ function ChipDetailModal({ type, filteredDCs, regionStats, onClose }) {
         {type === 'active' && (
           <>
             <StatRow items={[
-              { label: 'Active DCs', value: regionStats.active, color: '#00A36C' },
+              { label: 'Active DCs', value: regionStats.active, color: '#00B0A0' },
               { label: 'Active MW', value: `${regionStats.activeMW.toLocaleString()} MW`, color: '#06B6D4' },
-              { label: 'Avg Utilization', value: `${regionStats.avgUtil}%`, color: regionStats.avgUtil > 85 ? '#DC2626' : regionStats.avgUtil > 70 ? '#D4A017' : '#00A36C' },
+              { label: 'Avg Utilization', value: `${regionStats.avgUtil}%`, color: regionStats.avgUtil > 85 ? '#C8102E' : regionStats.avgUtil > 70 ? '#E87722' : '#00B0A0' },
               { label: 'Avg PUE', value: regionStats.avgPUE, color: '#60A5FA' },
             ]} />
             <p style={{ fontSize: 10, color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>Top 5 by Utilisation</p>
@@ -666,7 +666,7 @@ function ChipDetailModal({ type, filteredDCs, regionStats, onClose }) {
         {type === 'build' && (
           <>
             <StatRow items={[
-              { label: 'UC Sites', value: regionStats.uc, color: '#D4A017' },
+              { label: 'UC Sites', value: regionStats.uc, color: '#E87722' },
               { label: 'Pipeline MW', value: `${regionStats.ucMW.toLocaleString()} MW`, color: '#06B6D4' },
               { label: 'Avg Completion', value: `${Math.round(uc.reduce((s, d) => s + getConstructionPct(d), 0) / (uc.length || 1))}%`, color: '#60A5FA' },
               { label: 'Avg Months Left', value: `${Math.round(uc.reduce((s, d) => s + getMonthsLeft(d), 0) / (uc.length || 1))} mo`, color: '#9CA3AF' },
@@ -685,14 +685,14 @@ function ChipDetailModal({ type, filteredDCs, regionStats, onClose }) {
         {type === 'risk' && (
           <>
             <StatRow items={[
-              { label: 'High Risk', value: regionStats.highRisk, color: '#DC2626' },
-              { label: 'Medium Risk', value: regionStats.medRisk, color: '#D4A017' },
+              { label: 'High Risk', value: regionStats.highRisk, color: '#C8102E' },
+              { label: 'Medium Risk', value: regionStats.medRisk, color: '#E87722' },
               { label: 'Total At Risk', value: regionStats.atRisk, color: '#F59E0B' },
-              { label: 'Low Risk', value: regionStats.total - regionStats.atRisk, color: '#00A36C' },
+              { label: 'Low Risk', value: regionStats.total - regionStats.atRisk, color: '#00B0A0' },
             ]} />
             {high.length > 0 && (
               <>
-                <p style={{ fontSize: 10, color: '#DC2626', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>High Risk Sites</p>
+                <p style={{ fontSize: 10, color: '#C8102E', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>High Risk Sites</p>
                 <ModalTable
                   headers={['Site', 'Market', 'Crit', 'High', 'Med']}
                   rows={high.map(d => [d.name, d.market, d.alarm_critical, d.alarm_high, d.alarm_medium])}
@@ -701,7 +701,7 @@ function ChipDetailModal({ type, filteredDCs, regionStats, onClose }) {
             )}
             {medium.length > 0 && (
               <>
-                <p style={{ fontSize: 10, color: '#D4A017', textTransform: 'uppercase', letterSpacing: '0.06em', margin: '14px 0 8px' }}>Medium Risk Sites</p>
+                <p style={{ fontSize: 10, color: '#E87722', textTransform: 'uppercase', letterSpacing: '0.06em', margin: '14px 0 8px' }}>Medium Risk Sites</p>
                 <ModalTable
                   headers={['Site', 'Market', 'High Alarms', 'Med Alarms']}
                   rows={medium.map(d => [d.name, d.market, d.alarm_high, d.alarm_medium])}
@@ -709,7 +709,7 @@ function ChipDetailModal({ type, filteredDCs, regionStats, onClose }) {
               </>
             )}
             {atRisk.length === 0 && (
-              <p style={{ color: '#00A36C', fontSize: 12, textAlign: 'center', padding: '20px 0' }}>No at-risk sites in the current view</p>
+              <p style={{ color: '#00B0A0', fontSize: 12, textAlign: 'center', padding: '20px 0' }}>No at-risk sites in the current view</p>
             )}
           </>
         )}
@@ -719,8 +719,8 @@ function ChipDetailModal({ type, filteredDCs, regionStats, onClose }) {
           <>
             <StatRow items={[
               { label: 'Total MW', value: `${regionStats.totalMW.toLocaleString()} MW`, color: '#06B6D4' },
-              { label: 'Active MW', value: `${regionStats.activeMW.toLocaleString()} MW`, color: '#00A36C' },
-              { label: 'Pipeline MW', value: `${regionStats.ucMW.toLocaleString()} MW`, color: '#D4A017' },
+              { label: 'Active MW', value: `${regionStats.activeMW.toLocaleString()} MW`, color: '#00B0A0' },
+              { label: 'Pipeline MW', value: `${regionStats.ucMW.toLocaleString()} MW`, color: '#E87722' },
               { label: 'Avg Utilization', value: `${regionStats.avgUtil}%`, color: '#60A5FA' },
             ]} />
             <p style={{ fontSize: 10, color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>Capacity by Region</p>
@@ -908,7 +908,7 @@ function IngestDataModal({ onClose, onImport, hasUploadedData, onRemovePrevious 
               <FileSpreadsheet size={16} color="#7C3AED" />
             </div>
             <div>
-              <h2 style={{ fontSize: 14, fontWeight: 700, color: '#fff', fontFamily: "'Plus Jakarta Sans', sans-serif", margin: 0 }}>Ingest Data</h2>
+              <h2 style={{ fontSize: 14, fontWeight: 700, color: '#fff', fontFamily: "'Inter', 'Segoe UI', sans-serif", margin: 0 }}>Ingest Data</h2>
               <p style={{ fontSize: 10, color: 'rgba(255,255,255,0.4)', margin: '2px 0 0' }}>Upload Excel or CSV dataset to the Global Cockpit</p>
             </div>
           </div>
@@ -1006,16 +1006,16 @@ function IngestDataModal({ onClose, onImport, hasUploadedData, onRemovePrevious 
 
         {status === 'error' && (
           <div style={{ padding: '12px 16px', background: 'rgba(220,38,38,0.1)', border: '1px solid rgba(220,38,38,0.25)', borderRadius: 10, marginBottom: 14 }}>
-            <p style={{ fontSize: 12, color: '#DC2626', margin: 0 }}>Unsupported file type. Please upload a .xlsx, .xls, or .csv file.</p>
+            <p style={{ fontSize: 12, color: '#C8102E', margin: 0 }}>Unsupported file type. Please upload a .xlsx, .xls, or .csv file.</p>
           </div>
         )}
 
         {status === 'done' && preview && (
           <>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14, padding: '10px 14px', background: 'rgba(0,163,108,0.08)', border: '1px solid rgba(0,163,108,0.2)', borderRadius: 10 }}>
-              <CheckCircle size={16} color="#00A36C" />
+              <CheckCircle size={16} color="#00B0A0" />
               <div>
-                <p style={{ fontSize: 12, fontWeight: 600, color: '#00A36C', margin: 0 }}>{file.name}</p>
+                <p style={{ fontSize: 12, fontWeight: 600, color: '#00B0A0', margin: 0 }}>{file.name}</p>
                 <p style={{ fontSize: 10, color: 'rgba(255,255,255,0.4)', margin: '2px 0 0' }}>{preview.totalRows.toLocaleString()} rows · {preview.headers.length} columns detected</p>
               </div>
               <button onClick={reset} style={{ marginLeft: 'auto', color: 'rgba(255,255,255,0.3)', background: 'none', border: 'none', cursor: 'pointer', fontSize: 10 }}>Change file</button>

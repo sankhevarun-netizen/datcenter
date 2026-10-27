@@ -13,6 +13,7 @@ import { distinctValues } from '../utils/facilityFilters';
 import { buildRegionRollups } from '../utils/portfolioAnalytics';
 import { buildRegionMarkers } from '../utils/regions';
 import GIIHeader from '../components/GIIHeader';
+import SourceSwitch from '../components/SourceSwitch';
 import PortfolioKPIs from '../components/PortfolioKPIs';
 import AnalyticsPanel from '../components/AnalyticsPanel';
 import SustainabilityDashboard from '../components/SustainabilityDashboard';
@@ -118,7 +119,7 @@ export default function GlobalInfrastructurePage({ showToast }) {
 
   return (
     <div className="p-4">
-      <GIIHeader />
+      <GIIHeader actions={<SourceSwitch active="global" />} />
 
       <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }} className="mt-4">
         <SectionLabel>Executive KPI Summary</SectionLabel>

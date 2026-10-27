@@ -5,7 +5,7 @@ import { ArrowLeft, Building2, ChevronUp, ChevronDown } from 'lucide-react';
 import { mockAssets, mockTransfers } from '@/data/mock/index';
 import { GOOGLE_DC_MASTER } from '@/data/googleDCMasterData';
 
-const C = { bg: '#0B1929', card: '#0d1f3c', card2: 'rgba(255,255,255,0.05)', border: 'rgba(255,255,255,0.09)', green: '#00A36C', amber: '#D4A017', red: '#DC2626', blue: '#0077C8', cyan: '#06B6D4' };
+const C = { bg: '#0B1929', card: '#0d1f3c', card2: 'rgba(255,255,255,0.05)', border: 'rgba(255,255,255,0.09)', green: '#00B0A0', amber: '#E87722', red: '#C8102E', blue: '#005EB8', cyan: '#06B6D4' };
 
 const STATUS_COLORS = { Initiated: C.amber, 'In Transit': C.blue, Received: C.green };
 const STATUS_FLOW = { Initiated: 'In Transit', 'In Transit': 'Received' };
@@ -108,7 +108,7 @@ export default function DCTransferPage() {
           <ArrowLeft size={18} />
         </Link>
         <Building2 size={18} color={C.blue} />
-        <h1 style={{ fontSize: 18, fontWeight: 700, color: '#fff', fontFamily: "'Plus Jakarta Sans', sans-serif" }}>DC-to-DC Transfer</h1>
+        <h1 style={{ fontSize: 18, fontWeight: 700, color: '#fff', fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>DC-to-DC Transfer</h1>
       </div>
 
       <div className="grid grid-cols-3 gap-4" style={{ marginBottom: 20 }}>
@@ -118,7 +118,7 @@ export default function DCTransferPage() {
       </div>
 
       <Card style={{ marginBottom: 20 }}>
-        <h2 style={{ fontSize: 13, fontWeight: 700, color: '#fff', marginBottom: 12, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>New Transfer</h2>
+        <h2 style={{ fontSize: 13, fontWeight: 700, color: '#fff', marginBottom: 12, fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>New Transfer</h2>
         <form onSubmit={handleSubmit} className="grid grid-cols-4 gap-3">
           <Field label="Asset">
             <select className={inputClass} style={inputStyle} value={form.assetId} onChange={e => setForm(f => ({ ...f, assetId: e.target.value }))}>

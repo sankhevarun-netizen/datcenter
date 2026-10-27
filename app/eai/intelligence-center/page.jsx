@@ -9,6 +9,8 @@ import ForecastChart       from '@/components/eai/widgets/ForecastChart';
 import AnomalyStatCard     from '@/components/eai/widgets/AnomalyStatCard';
 import QuickActionsMenu from '@/components/eai/widgets/QuickActionsMenu';
 import AIChatPanel         from '@/components/ai-chat/AIChatPanel';
+import { useToast }        from '@/components/eai/widgets/Toast';
+import { FileSpreadsheet, FileDown } from 'lucide-react';
 
 import {
   IC_KPIS, INSIGHTS, INSIGHT_CATEGORIES, RISK_HEATMAP, PREDICTIVE_FAILURES,
@@ -23,6 +25,28 @@ const KGPreview = dynamic(() => import('@/components/wiki/DCKnowledgeGraph'), {
     </div>
   ),
 });
+
+// ── export helpers (same pattern as Risk Signals / Global Portfolio) ────────
+async function exportWorkbook(sheets, filename) {
+  const XLSX = await import('xlsx');
+  const wb = XLSX.utils.book_new();
+  sheets.forEach(({ name, rows }) => {
+    const ws = XLSX.utils.json_to_sheet(rows);
+    XLSX.utils.book_append_sheet(wb, ws, name.slice(0, 31));
+  });
+  XLSX.writeFile(wb, filename);
+}
+async function exportCsv(rows, filename) {
+  const XLSX = await import('xlsx');
+  const ws = XLSX.utils.json_to_sheet(rows);
+  const csv = XLSX.utils.sheet_to_csv(ws);
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
 
 // ─── shared styles ──────────────────────────────────────────────────────────────
 const CARD = {
@@ -83,6 +107,26 @@ export default function IntelligenceCenterPage() {
   const [activeSection, setActiveSection] = useState('overview');
   const [insightTab,    setInsightTab]    = useState('All Insights');
   const [forecastMetric] = useState('IT Power (MW)');
+  const [exportOpen, setExportOpen] = useState(false);
+  const { showToast, ToastHost } = useToast();
+
+  async function handleExport(kind) {
+    setExportOpen(false);
+    const dateStr = new Date().toISOString().slice(0, 10);
+    try {
+      if (kind === 'insights') {
+        const rows = INSIGHTS.map(i => ({ Severity: i.severity, Category: i.category, Title: i.title, Impact: i.impact, 'Affected Assets': i.affectedAssets ?? '', Date: i.date }));
+        await exportWorkbook([{ name: 'AI Insights', rows }], `intelligence-center-insights-${dateStr}.xlsx`);
+        showToast(`Exported ${rows.length} insights`, 'success');
+      } else if (kind === 'cost') {
+        const rows = COST_OPTIMIZATIONS.map(c => ({ Opportunity: c.opportunity, 'Potential Savings ($M)': c.potentialM }));
+        await exportCsv(rows, `intelligence-center-cost-optimizations-${dateStr}.csv`);
+        showToast(`Exported ${rows.length} cost-optimization opportunities`, 'success');
+      }
+    } catch {
+      showToast('Export failed — please try again', 'error');
+    }
+  }
 
   const filteredInsights = insightTab === 'All Insights'
     ? INSIGHTS
@@ -110,14 +154,30 @@ export default function IntelligenceCenterPage() {
               <button style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '5px 12px', borderRadius: 8, background: '#F8FAFC', border: '1px solid #E2E8F0', cursor: 'pointer', color: '#6B7280', fontSize: 10 }}>
                 <Filter size={11} /> Filters
               </button>
-              <button style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '5px 14px', borderRadius: 8, background: '#0077C8', border: 'none', cursor: 'pointer', color: '#fff', fontSize: 10, fontWeight: 600 }}>
-                <Download size={11} /> Export
-              </button>
+              <div style={{ position: 'relative' }}>
+                <button onClick={() => setExportOpen(o => !o)} style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '5px 14px', borderRadius: 8, background: '#0077C8', border: 'none', cursor: 'pointer', color: '#fff', fontSize: 10, fontWeight: 600 }}>
+                  <Download size={11} /> Export
+                </button>
+                {exportOpen && (
+                  <div style={{ position: 'absolute', top: 'calc(100% + 6px)', right: 0, zIndex: 400, width: 230, background: '#fff', border: '1px solid #E2E8F0', borderRadius: 10, boxShadow: '0 8px 24px rgba(16,24,40,0.12)', overflow: 'hidden' }}>
+                    {[
+                      { key: 'insights', label: 'AI Insights (XLSX)',           Icon: FileSpreadsheet },
+                      { key: 'cost',     label: 'Cost Optimizations (CSV)',     Icon: FileDown },
+                    ].map(({ key, label, Icon }) => (
+                      <button key={key} type="button" onClick={() => handleExport(key)}
+                        style={{ display: 'flex', alignItems: 'center', gap: 8, width: '100%', padding: '9px 12px', border: 'none', background: 'transparent', cursor: 'pointer', color: '#374151', fontSize: 11 }}
+                        onMouseEnter={e => e.currentTarget.style.background = '#F8FAFC'} onMouseLeave={e => e.currentTarget.style.background = 'transparent'}>
+                        <Icon size={12} style={{ color: '#0077C8' }} /> {label}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
               <QuickActionsMenu items={[
                 { iconKey: 'MessageSquare',label: 'Ask AI Assistant'         },
                 { iconKey: 'GitFork',      label: 'Create What-if Scenario'  },
                 { iconKey: 'Eye',          label: 'View Active Alerts'       },
-                { iconKey: 'Download',     label: 'Export Report'            },
+                { iconKey: 'Download',     label: 'Export Report', onClick: () => handleExport('insights') },
                 { iconKey: 'Bell',         label: 'Schedule Alert'           },
               ]} />
             </div>
@@ -136,10 +196,10 @@ export default function IntelligenceCenterPage() {
           </div>
 
           {/* ── AI Insights Summary | AI Assistant ── */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1.9fr 1fr', gap: 14, minHeight: 360 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1.9fr 1fr', gap: 14, height: 480 }}>
 
             {/* AI Insights Summary */}
-            <div style={CARD}>
+            <div style={{ ...CARD, height: '100%', minHeight: 0 }}>
               <div style={{ ...CARD_HDR, flexWrap: 'wrap', gap: 6 }}>
                 <span style={CARD_TITLE}>AI Insights Summary</span>
               </div>
@@ -169,7 +229,7 @@ export default function IntelligenceCenterPage() {
               </div>
 
               {/* Insight rows */}
-              <div style={{ flex: 1, overflowY: 'auto' }}>
+              <div style={{ flex: 1, minHeight: 0, overflowY: 'auto' }}>
                 {filteredInsights.map((insight, i) => {
                   const s = SEV[insight.severity] ?? SEV.Info;
                   return (
@@ -212,7 +272,7 @@ export default function IntelligenceCenterPage() {
             </div>
 
             {/* AI Assistant */}
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', height: '100%', minHeight: 0 }}>
               <AIChatPanel
                 title="AI Assistant"
                 systemContext={AI_SYSTEM_CONTEXT}
@@ -243,24 +303,24 @@ export default function IntelligenceCenterPage() {
               </div>
               <div style={{ padding: '0 14px 12px', flex: 1, overflowY: 'auto' }}>
                 {/* Column headers */}
-                <div style={{ display: 'grid', gridTemplateColumns: '72px 80px 1fr 120px 60px', padding: '5px 0 3px', borderBottom: '1px solid #E2E8F0' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '64px 68px minmax(0,1fr) 100px 52px', gap: 8, padding: '5px 0 3px', borderBottom: '1px solid #E2E8F0' }}>
                   {['Asset', 'Type', 'Location', 'Failure Prob.', 'Impact'].map(h => (
-                    <span key={h} style={{ fontSize: 8, fontWeight: 700, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.07em' }}>{h}</span>
+                    <span key={h} style={{ fontSize: 8, fontWeight: 700, color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.07em', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{h}</span>
                   ))}
                 </div>
                 {PREDICTIVE_FAILURES.map((pf, i) => (
-                  <div key={i} style={{ display: 'grid', gridTemplateColumns: '72px 80px 1fr 120px 60px', padding: '7px 0', borderBottom: i < PREDICTIVE_FAILURES.length - 1 ? '1px solid #E2E8F0' : 'none', alignItems: 'center' }}>
+                  <div key={i} style={{ display: 'grid', gridTemplateColumns: '64px 68px minmax(0,1fr) 100px 52px', gap: 8, padding: '7px 0', borderBottom: i < PREDICTIVE_FAILURES.length - 1 ? '1px solid #E2E8F0' : 'none', alignItems: 'center' }}>
                     <span style={{ fontSize: 10, fontWeight: 700, color: '#1A1F36', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{pf.asset}</span>
                     <span style={{ fontSize: 9, color: '#6B7280', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{pf.type}</span>
-                    <span style={{ fontSize: 9, color: '#6B7280', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', paddingRight: 8 }}>{pf.location}</span>
+                    <span style={{ fontSize: 9, color: '#6B7280', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{pf.location}</span>
                     {/* Probability bar */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 6, minWidth: 0 }}>
                       <div style={{ flex: 1, height: 5, borderRadius: 3, background: '#E2E8F0', overflow: 'hidden' }}>
                         <div style={{ width: `${pf.failurePct}%`, height: '100%', borderRadius: 3, background: pf.failurePct >= 70 ? '#EF4444' : pf.failurePct >= 50 ? '#F59E0B' : '#10B981' }} />
                       </div>
                       <span style={{ fontSize: 9, fontWeight: 700, color: '#1A1F36', width: 28, textAlign: 'right', fontFamily: 'ui-monospace,monospace', flexShrink: 0 }}>{pf.failurePct}%</span>
                     </div>
-                    <span style={{ fontSize: 9, fontWeight: 700, color: IMPACT_COLOR[pf.impact] ?? '#6B7280' }}>{pf.impact}</span>
+                    <span style={{ fontSize: 9, fontWeight: 700, color: IMPACT_COLOR[pf.impact] ?? '#6B7280', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{pf.impact}</span>
                   </div>
                 ))}
               </div>
@@ -361,6 +421,7 @@ export default function IntelligenceCenterPage() {
 
         </div>{/* end scrollable */}
       </div>
+      <ToastHost />
     </div>
   );
 }

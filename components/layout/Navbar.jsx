@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import {
   LogOut, User, BookOpen, LayoutDashboard, ChevronDown,
-  TrendingUp, Package, Wrench, Shield, Activity, DollarSign, Globe, Route, Building2,
+  TrendingUp, Package, Wrench, Shield, Activity, DollarSign, Globe, Route, Layers,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useRef } from 'react';
@@ -22,9 +22,10 @@ function NavLink({ href, children, active }) {
   return (
     <Link
       href={href}
-      className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${
-        active ? 'text-white bg-white/10' : 'text-white/60 hover:text-white hover:bg-white/5'
+      className={`px-3.5 py-2 rounded-xl text-sm transition-colors whitespace-nowrap ${
+        active ? 'text-white font-semibold' : 'text-white/65 font-medium hover:text-white hover:bg-white/5'
       }`}
+      style={active ? { background: '#2B57A8' } : undefined}
     >
       {children}
     </Link>
@@ -43,7 +44,7 @@ export default function Navbar() {
 
   async function handleSignOut() {
     await supabase?.auth.signOut();
-    router.push('/login');
+    router.push('/');
     router.refresh();
   }
 
@@ -65,23 +66,25 @@ export default function Navbar() {
       className="fixed top-0 left-0 right-0 z-50 h-16"
       style={{ backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)' }}
     >
-      <div className="bg-[#1A1F36]/95 border-b border-white/[0.08] h-full">
+      <div className="bg-[#00338D] border-b border-white/10 h-full">
         <div className="max-w-screen-2xl mx-auto px-6 h-full flex items-center gap-4">
 
           {/* ── Logo ── */}
           <Link href="/" className="flex items-center gap-3 flex-shrink-0 group">
             <div
-              className="font-extrabold text-sm tracking-tight flex items-center gap-1.5 whitespace-nowrap"
-              style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+              className="flex items-center gap-3 whitespace-nowrap"
+              style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}
             >
-              <span className="text-white">KNexus</span>
-              <span style={{ color: '#0F82E0' }}>.AI</span>
-              <span className="text-white/30 font-light text-xs">·</span>
-              <span className="text-white/45 font-medium text-xs tracking-wide">Data Centre Intelligence</span>
+              <span className="font-extrabold text-[17px] tracking-tight">
+                <span className="text-white">K-Nexus</span>
+                <span style={{ color: '#8FC0F0' }}>.AI</span>
+              </span>
+              <span className="w-px h-5 bg-white/20" />
+              <span className="text-white/60 font-normal text-[13px] tracking-wide">Data Centre Intelligence</span>
             </div>
           </Link>
 
-          <div className="w-px h-7 bg-white/10 mx-1 flex-shrink-0" />
+          <div className="flex-1" />
 
           {/* ── Nav links ── */}
           <div className="flex items-center gap-0.5">
@@ -102,9 +105,10 @@ export default function Navbar() {
               onMouseLeave={closeStages}
             >
               <button
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
-                  isStageActive ? 'text-white bg-white/10' : 'text-white/60 hover:text-white hover:bg-white/5'
+                className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-sm transition-colors ${
+                  isStageActive ? 'text-white font-semibold' : 'text-white/65 font-medium hover:text-white hover:bg-white/5'
                 }`}
+                style={isStageActive ? { background: '#2B57A8' } : undefined}
               >
                 Lifecycle Stages
                 <ChevronDown
@@ -142,7 +146,7 @@ export default function Navbar() {
                           onClick={() => setStagesOpen(false)}
                           className="flex items-center gap-3 px-4 py-2.5 hover:bg-white/[0.07] transition-colors group"
                         >
-                          <div className="w-6 h-6 rounded-lg bg-[#00338D]/40 flex items-center justify-center flex-shrink-0 group-hover:bg-[#0077C8]/25 transition-colors">
+                          <div className="w-6 h-6 rounded-lg bg-[#00338D]/40 flex items-center justify-center flex-shrink-0 group-hover:bg-[#005EB8]/25 transition-colors">
                             <Icon size={12} className="text-white/55 group-hover:text-white/90" />
                           </div>
                           <div className="min-w-0">
@@ -159,12 +163,7 @@ export default function Navbar() {
               </AnimatePresence>
             </div>
 
-            <NavLink href="/asset-portfolio/global-cockpit" active={pathname?.startsWith('/asset-portfolio')}>
-              <span className="flex items-center gap-1.5">
-                <Building2 size={12} />
-                Asset Portfolio
-              </span>
-            </NavLink>
+            {/* Asset Portfolio is hidden from the navigation; the route still works. */}
 
             <NavLink href="/command-center" active={pathname?.startsWith('/command-center')}>
               Command Centre
@@ -181,19 +180,25 @@ export default function Navbar() {
               </span>
             </NavLink>
 
-            <NavLink href="/eai" active={pathname?.startsWith('/eai')}>
-              EAI Platform
-            </NavLink>
-
           </div>
 
           <div className="flex-1" />
+
+          {/* ── EAI Platform ── */}
+          <Link
+            href="/eai"
+            className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold text-white transition-colors flex-shrink-0 mr-3"
+            style={{ background: pathname?.startsWith('/eai') ? '#4277D4' : '#2B57A8' }}
+          >
+            <Layers size={14} />
+            EAI Platform
+          </Link>
 
           {/* ── Avatar + user menu ── */}
           <div className="relative flex-shrink-0">
             <button
               onClick={() => setUserMenuOpen(!userMenuOpen)}
-              className="w-8 h-8 rounded-full bg-gradient-to-br from-[#0077C8] to-[#00338D] flex items-center justify-center cursor-pointer hover:ring-2 hover:ring-[#0077C8]/40 transition-all"
+              className="w-8 h-8 rounded-full bg-gradient-to-br from-[#005EB8] to-[#00338D] flex items-center justify-center cursor-pointer hover:ring-2 hover:ring-[#005EB8]/40 transition-all"
             >
               <span className="text-white text-xs font-bold">{userInitial}</span>
             </button>
@@ -206,7 +211,7 @@ export default function Navbar() {
                   exit={{ opacity: 0, y: -6 }}
                   transition={{ duration: 0.15 }}
                   className="absolute top-full right-0 mt-2 w-52 rounded-xl shadow-2xl overflow-hidden"
-                  style={{ background: '#1A1F36', border: '1px solid rgba(255,255,255,0.10)' }}
+                  style={{ background: '#00338D', border: '1px solid rgba(255,255,255,0.10)' }}
                   onMouseLeave={() => setUserMenuOpen(false)}
                 >
                   {session?.user?.email && (

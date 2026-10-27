@@ -1,6 +1,7 @@
 import './globals.css';
 import { createClient } from '@/lib/supabase-server';
 import SupabaseProvider from '@/components/SupabaseProvider';
+import WebVitals from '@/components/WebVitals';
 
 export const metadata = {
   title: 'K-Nexus — Datacenter Lifecycle Intelligence',
@@ -23,15 +24,15 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap"
-          rel="stylesheet"
-        />
+        {/* Self-hosted (scripts/vendor-fonts.mjs): a hanging fonts.googleapis.com
+            request on a poor network would otherwise block first paint. */}
+        <link href="/fonts/fonts.css" rel="stylesheet" />
       </head>
       <body>
         <SupabaseProvider initialSession={session}>
           {children}
         </SupabaseProvider>
+        <WebVitals />
       </body>
     </html>
   );

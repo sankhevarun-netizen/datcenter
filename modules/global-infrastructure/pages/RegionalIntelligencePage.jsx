@@ -192,7 +192,7 @@ export default function RegionalIntelligencePage({ region, showToast }) {
           loading={isLoading || incidentLoading}
           lines={briefingLines}
           title={`${regionLabel} AI Summary`}
-          subtitle="Generated live from this region's current dataset — demo narrative, not a live model call"
+          subtitle="Generated from this region's current dataset"
         />
       </motion.div>
 

@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { Search, Calendar, Filter, ChevronDown } from 'lucide-react';
+import { Search, Calendar, Filter, ChevronDown, ArrowRightLeft, Server } from 'lucide-react';
 import {
   LineChart, Line, XAxis, YAxis,
   CartesianGrid, Tooltip, ResponsiveContainer,
@@ -15,6 +15,7 @@ import HorizontalBarList  from '@/components/eai/widgets/HorizontalBarList';
 import IntegrationMapDiagram from '@/components/eai/widgets/IntegrationMapDiagram';
 import IntegrationListRow, { IntegrationListHeader } from '@/components/eai/widgets/IntegrationListRow';
 import QuickActionsMenu from '@/components/eai/widgets/QuickActionsMenu';
+import DetailDrawer, { DrawerStatRow, DrawerPill } from '@/components/eai/widgets/DetailDrawer';
 
 import {
   KPIS,
@@ -126,6 +127,39 @@ function TransactionsTrendChart({ data, height = 165 }) {
 // ─── Page ──────────────────────────────────────────────────────────────────────
 export default function IntegrationHubPage() {
   const [activeSection, setActiveSection] = useState('overview');
+  const [drawer, setDrawer] = useState(null); // { kind: 'flow'|'api', data }
+  const closeDrawer = () => setDrawer(null);
+
+  function renderDrawer() {
+    if (!drawer) return <DetailDrawer open={false} onClose={closeDrawer} />;
+    const { kind, data } = drawer;
+
+    if (kind === 'flow') {
+      const s = FLOW_STATUS_STYLE[data.status] ?? FLOW_STATUS_STYLE.Success;
+      return (
+        <DetailDrawer open title={data.flowName} subtitle={`${data.source} → ${data.destination}`} icon={<ArrowRightLeft size={16} color="#0077C8" />} accentColor="#0077C8" onClose={closeDrawer}>
+          <DrawerStatRow items={[
+            { label: 'Status', value: <DrawerPill label={data.status} color={s.color} /> },
+            { label: 'Last Run', value: data.lastRun },
+          ]} />
+          <p style={{ fontSize: 10, color: '#6B7280' }}>Source <b style={{ color: '#1A1F36' }}>{data.source}</b> → Destination <b style={{ color: '#1A1F36' }}>{data.destination}</b></p>
+        </DetailDrawer>
+      );
+    }
+
+    if (kind === 'api') {
+      return (
+        <DetailDrawer open title={data.apiName} subtitle="API health" icon={<Server size={16} color={data.statusColor} />} accentColor={data.statusColor} onClose={closeDrawer}>
+          <DrawerStatRow items={[
+            { label: 'Availability', value: `${data.availabilityPct}%`, color: data.statusColor },
+            { label: 'Avg Response', value: `${data.avgResponseTimeMs} ms` },
+          ]} />
+        </DetailDrawer>
+      );
+    }
+
+    return <DetailDrawer open={false} onClose={closeDrawer} />;
+  }
 
   const activityItems = INTEGRATION_ACTIVITY.map(a => ({ color: a.color, title: a.title, sub: '', ago: a.time }));
 
@@ -334,6 +368,7 @@ export default function IntegrationHubPage() {
             columns={DATA_FLOW_COLS}
             data={DATA_FLOWS}
             keyField="id"
+            onRowDoubleClick={f => setDrawer({ kind: 'flow', data: f })}
             compact
           />
 
@@ -348,6 +383,7 @@ export default function IntegrationHubPage() {
               columns={API_HEALTH_COLS}
               data={API_HEALTH}
               keyField="id"
+              onRowDoubleClick={a => setDrawer({ kind: 'api', data: a })}
               compact
             />
 
@@ -434,6 +470,8 @@ export default function IntegrationHubPage() {
           </div>
         </div>
       </div>
+
+      {renderDrawer()}
     </div>
   );
 }

@@ -1,6 +1,8 @@
 'use client';
 import Link from 'next/link';
-import { Search, Bell, Mail, HelpCircle, ChevronRight, PanelLeft, Home, Upload } from 'lucide-react';
+import { usePathname, useRouter } from 'next/navigation';
+import { Search, Bell, Mail, HelpCircle, ChevronRight, PanelLeft, Home, Upload, LogOut } from 'lucide-react';
+import { useSession } from '@/components/SupabaseProvider';
 
 const BTN = {
   width: 34, height: 34, borderRadius: 8,
@@ -12,6 +14,16 @@ const BTN = {
 };
 
 export default function EAITopbar({ unreadCount = 12, sidebarHidden = false, onToggleSidebar }) {
+  const pathname = usePathname();
+  const router = useRouter();
+  const { session, supabase } = useSession() ?? {};
+  const email = session?.user?.email;
+
+  async function handleSignOut() {
+    await supabase?.auth.signOut();
+    router.refresh();
+  }
+
   return (
     <header style={{
       height: 56, flexShrink: 0,
@@ -115,28 +127,58 @@ export default function EAITopbar({ unreadCount = 12, sidebarHidden = false, onT
           <HelpCircle size={14} />
         </button>
 
-        {/* User */}
-        <div style={{
-          display: 'flex', alignItems: 'center', gap: 8,
-          padding: '5px 10px 5px 6px', borderRadius: 10, cursor: 'pointer',
-          transition: 'background 0.12s',
-        }}
-          onMouseEnter={e => (e.currentTarget.style.background = '#F4F6F9')}
-          onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
-        >
-          <div style={{
-            width: 28, height: 28, borderRadius: '50%', flexShrink: 0,
-            background: 'linear-gradient(135deg, #00338D, #0077C8)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-          }}>
-            <span style={{ color: '#fff', fontWeight: 700, fontSize: 10 }}>AN</span>
+        {/* User — signed in shows the real Supabase session; signed out links
+            to /login so uploads (which need a real user_id) are reachable. */}
+        {email ? (
+          <div
+            onClick={handleSignOut}
+            title="Sign out"
+            style={{
+              display: 'flex', alignItems: 'center', gap: 8,
+              padding: '5px 10px 5px 6px', borderRadius: 10, cursor: 'pointer',
+              transition: 'background 0.12s',
+            }}
+            onMouseEnter={e => (e.currentTarget.style.background = '#F4F6F9')}
+            onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
+          >
+            <div style={{
+              width: 28, height: 28, borderRadius: '50%', flexShrink: 0,
+              background: 'linear-gradient(135deg, #00338D, #0077C8)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+            }}>
+              <span style={{ color: '#fff', fontWeight: 700, fontSize: 10 }}>{email[0].toUpperCase()}</span>
+            </div>
+            <div style={{ maxWidth: 140 }}>
+              <p style={{ fontSize: 12, fontWeight: 600, color: '#1A1F36', lineHeight: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{email}</p>
+              <p style={{ fontSize: 9, color: '#6B7280', marginTop: 2 }}>Sign out</p>
+            </div>
+            <LogOut size={12} style={{ color: '#9CA3AF', flexShrink: 0 }} />
           </div>
-          <div>
-            <p style={{ fontSize: 12, fontWeight: 600, color: '#1A1F36', lineHeight: 1 }}>Anoushka</p>
-            <p style={{ fontSize: 9, color: '#6B7280', marginTop: 2 }}>Platform Admin</p>
-          </div>
-          <ChevronRight size={11} style={{ color: '#9CA3AF' }} />
-        </div>
+        ) : (
+          <Link
+            href={`/login?next=${encodeURIComponent(pathname || '/eai/administration/data-import')}`}
+            style={{
+              display: 'flex', alignItems: 'center', gap: 8,
+              padding: '5px 12px 5px 6px', borderRadius: 10, cursor: 'pointer', textDecoration: 'none',
+              transition: 'background 0.12s',
+            }}
+            onMouseEnter={e => (e.currentTarget.style.background = '#F4F6F9')}
+            onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
+          >
+            <div style={{
+              width: 28, height: 28, borderRadius: '50%', flexShrink: 0,
+              background: '#F1F5F9', border: '1px solid #E2E8F0',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+            }}>
+              <span style={{ color: '#9CA3AF', fontWeight: 700, fontSize: 10 }}>?</span>
+            </div>
+            <div>
+              <p style={{ fontSize: 12, fontWeight: 600, color: '#1A1F36', lineHeight: 1 }}>Sign In</p>
+              <p style={{ fontSize: 9, color: '#6B7280', marginTop: 2 }}>Not signed in</p>
+            </div>
+            <ChevronRight size={11} style={{ color: '#9CA3AF' }} />
+          </Link>
+        )}
       </div>
     </header>
   );

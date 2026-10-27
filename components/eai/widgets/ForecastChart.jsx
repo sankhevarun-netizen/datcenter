@@ -4,18 +4,23 @@ import {
   CartesianGrid, Tooltip, ResponsiveContainer,
 } from 'recharts';
 
-const LEGEND_ITEMS = [
-  { label: 'Actual',          color: '#0077C8', dashed: false },
-  { label: 'Forecast',        color: '#0077C8', dashed: true  },
-  { label: 'Capacity Limit',  color: '#EF4444', dashed: true  },
-];
-
 export default function ForecastChart({
   data = [],
   capacityLimitMW = 175,
   projectedExceedDate = '',
   height = 220,
+  xKey = 'month',
+  yDomain = [0, 220],
+  thresholdLabel = 'Capacity Limit',
+  annotationLabel = 'Projected to exceed capacity on',
+  valueUnit = ' MW',
 }) {
+  const LEGEND_ITEMS = [
+    { label: 'Actual',      color: '#0077C8', dashed: false },
+    { label: 'Forecast',    color: '#0077C8', dashed: true  },
+    { label: thresholdLabel, color: '#EF4444', dashed: true  },
+  ];
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
       {/* Manual legend */}
@@ -39,17 +44,17 @@ export default function ForecastChart({
           <ResponsiveContainer width="100%" height={height}>
             <ComposedChart data={data} margin={{ top: 8, right: 8, bottom: 4, left: 0 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" vertical={false} />
-              <XAxis dataKey="month" tick={{ fontSize: 8, fill: '#9CA3AF' }} axisLine={false} tickLine={false} />
+              <XAxis dataKey={xKey} tick={{ fontSize: 8, fill: '#9CA3AF' }} axisLine={false} tickLine={false} />
               <YAxis
                 tick={{ fontSize: 8, fill: '#9CA3AF' }}
                 axisLine={false} tickLine={false}
                 width={30}
-                domain={[0, 220]}
+                domain={yDomain}
                 tickCount={5}
               />
               <Tooltip
                 contentStyle={{ background: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: 8, boxShadow: '0 2px 8px rgba(16,24,40,0.08)', fontSize: 10, color: '#1A1F36' }}
-                formatter={(v, n) => v != null ? [`${v} MW`, n] : [null]}
+                formatter={(v, n) => v != null ? [`${v}${valueUnit}`, n] : [null]}
                 labelStyle={{ color: '#6B7280' }}
               />
 
@@ -96,7 +101,7 @@ export default function ForecastChart({
             fontSize: 8, color: '#EF4444', textAlign: 'right',
             maxWidth: 130, lineHeight: 1.5, pointerEvents: 'none',
           }}>
-            Projected to exceed capacity on<br /><strong>{projectedExceedDate}</strong>
+            {annotationLabel}<br /><strong>{projectedExceedDate}</strong>
           </div>
         )}
       </div>

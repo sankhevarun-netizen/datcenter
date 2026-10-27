@@ -10,15 +10,16 @@ html { scroll-behavior: smooth; }
 body {
   margin: 0;
   padding: 0;
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
   color: #1A1F36;
-  background-color: #F4F6F9;
+  background-color: #F0F2F5;
+  font-variant-numeric: tabular-nums;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 #__next, body > div { width: 100%; min-height: 100vh; }
-h1, h2, h3, h4, h5, h6 { font-family: 'Plus Jakarta Sans', sans-serif; }
+h1, h2, h3, h4, h5, h6 { font-family: 'Inter', 'Segoe UI', sans-serif; }
 
 /* Glassmorphism */
 .glass {
@@ -48,12 +49,12 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Plus Jakarta Sans', sans-serif; }
 
 /* Scrollbar */
 ::-webkit-scrollbar { width: 5px; height: 5px; }
-::-webkit-scrollbar-track { background: #F4F6F9; }
+::-webkit-scrollbar-track { background: #F0F2F5; }
 ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
 
 /* Leaflet overrides */
-.leaflet-container { font-family: 'DM Sans', sans-serif !important; background: #0D1428 !important; }
+.leaflet-container { font-family: 'Inter', 'Segoe UI', sans-serif !important; background: #0D1428 !important; }
 .leaflet-popup-content-wrapper {
   background: #1A1F36 !important;
   border: 1px solid rgba(255,255,255,0.1) !important;
@@ -70,14 +71,14 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Plus Jakarta Sans', sans-serif; }
 
 /* AI output markdown */
 .ai-output h2 {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
   font-size: 1.05rem; font-weight: 700; color: #00338D;
   margin-top: 1.25rem; margin-bottom: 0.5rem;
-  border-bottom: 2px solid #E2E8F0; padding-bottom: 0.25rem;
+  border-bottom: 2px solid #D8DCE3; padding-bottom: 0.25rem;
 }
 .ai-output h3 {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.95rem; font-weight: 600; color: #0077C8;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  font-size: 0.95rem; font-weight: 600; color: #005EB8;
   margin-top: 1rem; margin-bottom: 0.35rem;
 }
 .ai-output p { margin-bottom: 0.65rem; line-height: 1.7; font-size: 0.9rem; }
@@ -108,7 +109,7 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Plus Jakarta Sans', sans-serif; }
   100% { background-position: 200% 0; }
 }
 .shimmer {
-  background: linear-gradient(90deg, #f0f4f8 25%, #e2e8f0 50%, #f0f4f8 75%);
+  background: linear-gradient(90deg, #f0f4f8 25%, #D8DCE3 50%, #f0f4f8 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
 }
@@ -155,6 +156,17 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Plus Jakarta Sans', sans-serif; }
 .route-line-flow { animation: route-dash-flow 1s linear infinite; }
 @keyframes route-dash-flow { to { stroke-dashoffset: -20; } }
 
+/* Scroll-to-section highlight (KPI card / flow stage click targets) */
+@keyframes sc-highlight-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(0,119,200,0.45); }
+  70%  { box-shadow: 0 0 0 8px rgba(0,119,200,0); }
+  100% { box-shadow: 0 0 0 0 rgba(0,119,200,0); }
+}
+.sc-highlight {
+  animation: sc-highlight-pulse 0.9s ease-out 2;
+  border-radius: 14px;
+}
+
 .gii-cluster-wrapper { background: transparent !important; border: none !important; }
 .gii-cluster {
   display: flex;
@@ -191,7 +203,7 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Plus Jakarta Sans', sans-serif; }
 }
 .gii-region-marker-label {
   color: #fff;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
   font-weight: 800;
   font-size: 10px;
   letter-spacing: 0.04em;

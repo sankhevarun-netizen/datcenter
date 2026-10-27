@@ -9,10 +9,10 @@ const C = {
   card:   '#0d1f3c',
   card2:  'rgba(255,255,255,0.05)',
   border: 'rgba(255,255,255,0.09)',
-  green:  '#00A36C',
-  amber:  '#D4A017',
-  red:    '#DC2626',
-  blue:   '#0077C8',
+  green:  '#00B0A0',
+  amber:  '#E87722',
+  red:    '#C8102E',
+  blue:   '#005EB8',
   cyan:   '#06B6D4',
 };
 
@@ -163,7 +163,7 @@ export default function FACapitalizationPage() {
       </Link>
       <div className="flex items-center gap-2.5 mb-1">
         <Landmark size={16} color={C.cyan} />
-        <h1 className="text-lg font-extrabold text-white" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+        <h1 className="text-lg font-extrabold text-white" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
           FA Capitalization
         </h1>
       </div>

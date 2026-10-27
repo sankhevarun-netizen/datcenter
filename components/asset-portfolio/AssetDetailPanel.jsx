@@ -40,7 +40,7 @@ export default function AssetDetailPanel({ asset, intelligence = [], onClose }) 
                 {STATUS_LABEL[status]}
               </span>
             </div>
-            <p className="font-extrabold text-text-primary text-sm mt-1 truncate" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+            <p className="font-extrabold text-text-primary text-sm mt-1 truncate" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
               {asset.asset_name}
             </p>
             <p className="text-[11px] text-text-muted flex items-center gap-1 mt-0.5">
@@ -102,7 +102,7 @@ export default function AssetDetailPanel({ asset, intelligence = [], onClose }) 
         <div className="px-4 py-3 border-t border-grey-border flex-shrink-0">
           <button
             onClick={() => router.push(`/asset-portfolio/${asset.asset_id}/twin`)}
-            className="w-full flex items-center justify-center gap-2 bg-navy hover:bg-[#0044b8] text-white text-xs font-semibold py-2.5 rounded-lg transition-colors"
+            className="w-full flex items-center justify-center gap-2 bg-navy hover:bg-[#002A73] text-white text-xs font-semibold py-2.5 rounded-lg transition-colors"
           >
             <Boxes size={14} /> Open Digital Twin <ExternalLink size={12} />
           </button>

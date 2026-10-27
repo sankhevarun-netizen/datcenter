@@ -13,7 +13,7 @@ const RISK_TO_STATUS = { Low: 'healthy', Medium: 'warning', High: 'critical' };
 
 function Stat({ label, value }) {
   return (
-    <div className="bg-[#F4F6F9] rounded-xl p-3">
+    <div className="bg-[#F0F2F5] rounded-xl p-3">
       <p className="text-[10px] text-[#9CA3AF] mb-1">{label}</p>
       <p className="text-sm font-bold text-[#1A1F36]" style={{ fontFamily: "'JetBrains Mono', monospace" }}>{value}</p>
     </div>
@@ -70,9 +70,9 @@ export default function IntelligenceDrawer({ facility, onClose, onOpenFacility }
             aria-label={`${facility.name} facility details`}
             className="fixed top-0 right-0 h-full w-full max-w-sm bg-white z-[1001] shadow-2xl overflow-y-auto"
           >
-            <div className="flex items-center justify-between px-5 py-4 border-b border-[#E2E8F0] sticky top-0 bg-white z-10">
+            <div className="flex items-center justify-between px-5 py-4 border-b border-[#D8DCE3] sticky top-0 bg-white z-10">
               <div>
-                <p className="text-sm font-bold text-[#1A1F36]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{facility.name}</p>
+                <p className="text-sm font-bold text-[#1A1F36]" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>{facility.name}</p>
                 <p className="text-[10px] text-[#9CA3AF]">{facility.city}, {facility.country} · {facility.region}</p>
               </div>
               <button onClick={onClose} aria-label="Close facility details" className="text-[#9CA3AF] hover:text-[#1A1F36] flex-shrink-0">
@@ -100,8 +100,8 @@ export default function IntelligenceDrawer({ facility, onClose, onOpenFacility }
               ) : (
                 <>
                   {detail?.weather && (
-                    <div className="bg-[#F4F6F9] rounded-xl p-3 flex items-center gap-2.5">
-                      <CloudSun size={16} className="text-[#0077C8] flex-shrink-0" />
+                    <div className="bg-[#F0F2F5] rounded-xl p-3 flex items-center gap-2.5">
+                      <CloudSun size={16} className="text-[#005EB8] flex-shrink-0" />
                       <div>
                         <p className="text-[10px] text-[#9CA3AF]">Weather</p>
                         <p className="text-xs font-semibold text-[#1A1F36]">
@@ -144,14 +144,14 @@ export default function IntelligenceDrawer({ facility, onClose, onOpenFacility }
 
               <div>
                 <p className="text-[10px] font-bold uppercase tracking-widest text-[#9CA3AF] mb-1.5">AI Summary</p>
-                <p className="text-xs text-[#6B7280] leading-relaxed bg-[#0077C8]/5 border border-[#0077C8]/15 rounded-xl p-3">
+                <p className="text-xs text-[#6B7280] leading-relaxed bg-[#005EB8]/5 border border-[#005EB8]/15 rounded-xl p-3">
                   {buildFacilityAiSummary(facility)}
                 </p>
               </div>
 
               <button
                 onClick={() => onOpenFacility?.(facility)}
-                className="w-full flex items-center justify-center gap-2 py-2.5 bg-[#00338D] hover:bg-[#0044b8] text-white text-sm font-bold rounded-xl transition-colors"
+                className="w-full flex items-center justify-center gap-2 py-2.5 bg-[#00338D] hover:bg-[#002A73] text-white text-sm font-bold rounded-xl transition-colors"
               >
                 Open Facility <ArrowRight size={14} />
               </button>

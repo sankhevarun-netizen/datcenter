@@ -23,7 +23,7 @@ export default function MapToolbar({
           className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border transition-colors ${
             activeFilterCount > 0
               ? 'bg-[#00338D] text-white border-[#00338D]'
-              : 'bg-white text-[#6B7280] border-[#E2E8F0] hover:bg-[#F4F6F9]'
+              : 'bg-white text-[#6B7280] border-[#D8DCE3] hover:bg-[#F0F2F5]'
           }`}
         >
           <SlidersHorizontal size={13} />
@@ -48,7 +48,7 @@ export default function MapToolbar({
       <button
         onClick={() => onModeChange(mode === 'dark' ? 'light' : 'dark')}
         aria-label={`Switch to ${mode === 'dark' ? 'light' : 'dark'} map mode`}
-        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-[#6B7280] border border-[#E2E8F0] hover:bg-[#F4F6F9] transition-colors ml-auto"
+        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-[#6B7280] border border-[#D8DCE3] hover:bg-[#F0F2F5] transition-colors ml-auto"
       >
         {mode === 'dark' ? <Sun size={13} /> : <Moon size={13} />}
         {mode === 'dark' ? 'Light map' : 'Dark map'}

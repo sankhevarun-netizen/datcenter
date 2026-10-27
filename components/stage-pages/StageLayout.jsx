@@ -33,11 +33,11 @@ function StageProgress({ current }) {
             <Link href={s.path}
               className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                 isCurrent ? 'bg-[#00338D] text-white'
-                : isPast ? 'bg-[#00A36C]/10 text-[#00A36C] hover:bg-[#00A36C]/15'
-                : 'bg-[#F4F6F9] text-[#9CA3AF] hover:bg-[#E2E8F0] hover:text-[#6B7280]'
+                : isPast ? 'bg-[#00B0A0]/10 text-[#00B0A0] hover:bg-[#00B0A0]/15'
+                : 'bg-[#F0F2F5] text-[#9CA3AF] hover:bg-[#D8DCE3] hover:text-[#6B7280]'
               }`}>
               <span className={`w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold ${
-                isCurrent ? 'bg-white/20' : isPast ? 'bg-[#00A36C]/20 text-[#00A36C]' : 'bg-[#E2E8F0]'
+                isCurrent ? 'bg-white/20' : isPast ? 'bg-[#00B0A0]/20 text-[#00B0A0]' : 'bg-[#D8DCE3]'
               }`}>{isPast ? '✓' : s.num}</span>
               <span className="hidden sm:block">{s.label}</span>
             </Link>
@@ -71,7 +71,7 @@ function MarkdownOutput({ text }) {
       <ul key={`ul-${key}`} className="space-y-1.5 mb-3 ml-1">
         {bulletBuffer.map((b, i) => (
           <li key={i} className="flex gap-2 items-start">
-            <span className="text-[#0077C8] flex-shrink-0 mt-1.5 text-xs">•</span>
+            <span className="text-[#005EB8] flex-shrink-0 mt-1.5 text-xs">•</span>
             <span className="text-sm text-[#374151] leading-relaxed">{renderInline(b)}</span>
           </li>
         ))}
@@ -86,16 +86,16 @@ function MarkdownOutput({ text }) {
 
     if (t.startsWith('# ')) {
       flushBullets(i);
-      elements.push(<h2 key={i} className="text-base font-extrabold text-[#00338D] mt-5 mb-2 pb-1.5 border-b border-[#E2E8F0]">{t.slice(2)}</h2>);
+      elements.push(<h2 key={i} className="text-base font-extrabold text-[#00338D] mt-5 mb-2 pb-1.5 border-b border-[#D8DCE3]">{t.slice(2)}</h2>);
     } else if (t.startsWith('## ')) {
       flushBullets(i);
-      elements.push(<h3 key={i} className="text-base font-bold text-[#00338D] mt-5 mb-2 pb-1.5 border-b border-[#E2E8F0]">{t.slice(3)}</h3>);
+      elements.push(<h3 key={i} className="text-base font-bold text-[#00338D] mt-5 mb-2 pb-1.5 border-b border-[#D8DCE3]">{t.slice(3)}</h3>);
     } else if (t.startsWith('### ')) {
       flushBullets(i);
       elements.push(<h4 key={i} className="text-sm font-bold text-[#1A1F36] mt-4 mb-1.5">{t.slice(4)}</h4>);
     } else if (t.startsWith('---')) {
       flushBullets(i);
-      elements.push(<hr key={i} className="border-[#E2E8F0] my-3" />);
+      elements.push(<hr key={i} className="border-[#D8DCE3] my-3" />);
     } else if (/^[-*•]\s+/.test(t)) {
       bulletBuffer.push(t.replace(/^[-*•]\s+/, ''));
     } else if (/^\d+\.\s+/.test(t)) {
@@ -241,9 +241,9 @@ export default function StageLayout({
     : `Stage: ${stageName}\n\nUser is working on datacenter ${stageName}.`;
 
   return (
-    <div className="min-h-screen bg-[#F4F6F9] pt-16">
+    <div className="min-h-screen bg-[#F0F2F5] pt-16">
       {/* Header */}
-      <div className="border-b border-[#E2E8F0] bg-white">
+      <div className="border-b border-[#D8DCE3] bg-white">
         <div className="max-w-screen-xl mx-auto px-6 py-4">
           <div className="flex items-center gap-3 mb-3">
             <Link href="/" className="flex items-center gap-1.5 text-sm text-[#6B7280] hover:text-[#1A1F36] transition-colors">
@@ -260,12 +260,12 @@ export default function StageLayout({
                   <span className="text-xs font-bold px-2 py-0.5 rounded-md" style={{ backgroundColor: color + '12', color }}>STAGE {stageNum}</span>
                   {!isFirstStage && sessionContext && (
                     <span className="text-xs px-2 py-0.5 rounded-md bg-[#00338D]/8 text-[#00338D] font-semibold flex items-center gap-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#00A36C] inline-block" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#00B0A0] inline-block" />
                       Context active
                     </span>
                   )}
                 </div>
-                <h1 className="text-2xl font-extrabold text-[#1A1F36]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{stageName}</h1>
+                <h1 className="text-2xl font-extrabold text-[#1A1F36]" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>{stageName}</h1>
               </div>
             </div>
             <StageProgress current={stageNum} />
@@ -284,9 +284,9 @@ export default function StageLayout({
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
           {/* Form */}
           <div className="lg:col-span-2">
-            <div className="bg-white rounded-2xl border border-[#E2E8F0] shadow-sm overflow-hidden">
-              <div className="px-6 py-4 border-b border-[#E2E8F0] flex items-center">
-                <h2 className="text-[#1A1F36] font-bold text-sm" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Analysis Parameters</h2>
+            <div className="bg-white rounded-2xl border border-[#D8DCE3] shadow-sm overflow-hidden">
+              <div className="px-6 py-4 border-b border-[#D8DCE3] flex items-center">
+                <h2 className="text-[#1A1F36] font-bold text-sm" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>Analysis Parameters</h2>
               </div>
               <div className="p-6 space-y-5">
                 {!isFirstStage && (
@@ -306,18 +306,18 @@ export default function StageLayout({
 
           {/* Output */}
           <div className="lg:col-span-3 flex flex-col gap-5">
-            <div className="bg-white rounded-2xl border border-[#E2E8F0] shadow-sm overflow-hidden flex-1">
-              <div className="px-6 py-4 border-b border-[#E2E8F0] flex items-center gap-2">
+            <div className="bg-white rounded-2xl border border-[#D8DCE3] shadow-sm overflow-hidden flex-1">
+              <div className="px-6 py-4 border-b border-[#D8DCE3] flex items-center gap-2">
                 <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ backgroundColor: color + '15' }}>
                   <Sparkles size={14} style={{ color }} />
                 </div>
-                <h2 className="text-[#1A1F36] font-bold text-sm" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>AI-Generated Analysis</h2>
+                <h2 className="text-[#1A1F36] font-bold text-sm" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>AI-Generated Analysis</h2>
                 {output && (
                   <div className="ml-auto flex items-center gap-2">
-                    <span className="text-xs px-2 py-0.5 rounded-full bg-[#00A36C]/10 text-[#00A36C] font-semibold">Ready</span>
+                    <span className="text-xs px-2 py-0.5 rounded-full bg-[#00B0A0]/10 text-[#00B0A0] font-semibold">Ready</span>
                     <button
                       onClick={() => router.push('/stage/analysis')}
-                      className="flex items-center gap-1.5 px-3 py-1 bg-[#00338D] text-white rounded-lg text-xs font-bold hover:bg-[#0044b8] transition-colors shadow-sm"
+                      className="flex items-center gap-1.5 px-3 py-1 bg-[#00338D] text-white rounded-lg text-xs font-bold hover:bg-[#002A73] transition-colors shadow-sm"
                     >
                       <BarChart3 size={12} />Deep Dive
                     </button>
@@ -338,7 +338,7 @@ export default function StageLayout({
                     <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: color + '10' }}>
                       <Sparkles size={28} style={{ color }} />
                     </div>
-                    <h3 className="text-[#1A1F36] font-bold text-sm mb-2" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+                    <h3 className="text-[#1A1F36] font-bold text-sm mb-2" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
                       {!isFirstStage && !sessionContext
                         ? 'Complete Stage 01 first to activate context'
                         : 'Ready to generate insights'}
@@ -349,7 +349,7 @@ export default function StageLayout({
                         : 'Fill in the parameters and click Generate Insights.'}
                     </p>
                     {!isFirstStage && !sessionContext && (
-                      <Link href="/stage/01" className="inline-flex items-center gap-1.5 mt-4 px-4 py-2 bg-[#00338D] text-white text-xs font-bold rounded-lg hover:bg-[#0044b8] transition-colors">
+                      <Link href="/stage/01" className="inline-flex items-center gap-1.5 mt-4 px-4 py-2 bg-[#00338D] text-white text-xs font-bold rounded-lg hover:bg-[#002A73] transition-colors">
                         Go to Stage 01 <ChevronRight size={12} />
                       </Link>
                     )}

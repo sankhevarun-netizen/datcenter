@@ -1,7 +1,7 @@
 'use client';
 import { AreaChart, Area, ResponsiveContainer } from 'recharts';
 
-export default function SparklineChart({ data, color = '#0077C8', height = 32 }) {
+export default function SparklineChart({ data, color = '#005EB8', height = 32 }) {
   const chartData = data.map((v, i) => ({ v, i }));
   return (
     <ResponsiveContainer width="100%" height={height}>

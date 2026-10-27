@@ -9,12 +9,21 @@ import { createFacilityIcon } from './Marker';
 import { createClusterIcon } from './Cluster';
 import { createRegionIcon } from './RegionMarker';
 
+// Esri's free, no-API-key "Canvas" basemaps: a base layer plus a transparent
+// reference layer that carries the place labels, stacked to match the old
+// CARTO light/dark styles (CARTO now requires a paid API key for basemap tiles).
 const TILE_URLS = {
-  dark: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
-  light: 'https://{s}.basemaps.cartocdn.com/voyager/{z}/{x}/{y}{r}.png',
+  dark: {
+    base: 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}',
+    reference: 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}',
+  },
+  light: {
+    base: 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',
+    reference: 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}',
+  },
 };
-const TILE_ATTRIBUTION =
-  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
+const TILE_ATTRIBUTION = 'Tiles &copy; Esri — Esri, HERE, Garmin, FAO, NOAA, USGS';
+const TILE_MAX_ZOOM = 16;
 
 function FlyToController({ flyToTarget }) {
   const map = useMap();
@@ -48,7 +57,7 @@ export default function WorldMap({
   const wrapperClass = mode === 'dark' ? 'gii-map-dark' : 'gii-map-light';
 
   return (
-    <div className={`w-full h-full rounded-2xl overflow-hidden border border-[#E2E8F0] ${wrapperClass}`}>
+    <div className={`w-full h-full rounded-2xl overflow-hidden border border-[#D8DCE3] ${wrapperClass}`}>
       <MapContainer
         center={[20, 10]}
         zoom={2}
@@ -59,7 +68,8 @@ export default function WorldMap({
         style={{ width: '100%', height: '100%' }}
         attributionControl
       >
-        <TileLayer url={TILE_URLS[mode]} attribution={TILE_ATTRIBUTION} />
+        <TileLayer url={TILE_URLS[mode].base} attribution={TILE_ATTRIBUTION} maxZoom={TILE_MAX_ZOOM} />
+        <TileLayer url={TILE_URLS[mode].reference} maxZoom={TILE_MAX_ZOOM} />
 
         <FlyToController flyToTarget={flyToTarget} />
 

@@ -1,19 +1,19 @@
 'use client';
 
 const CONFIG = {
-  healthy:     { bg: 'bg-[#00A36C]/10', text: 'text-[#00A36C]', dot: 'bg-[#00A36C]', label: 'Healthy' },
-  degraded:    { bg: 'bg-[#D4A017]/10', text: 'text-[#D4A017]', dot: 'bg-[#D4A017]', label: 'Degraded' },
-  warning:     { bg: 'bg-[#D4A017]/10', text: 'text-[#D4A017]', dot: 'bg-[#D4A017]', label: 'Warning' },
-  critical:    { bg: 'bg-[#DC2626]/10', text: 'text-[#DC2626]', dot: 'bg-[#DC2626]', label: 'Critical' },
+  healthy:     { bg: 'bg-[#00B0A0]/10', text: 'text-[#00B0A0]', dot: 'bg-[#00B0A0]', label: 'Healthy' },
+  degraded:    { bg: 'bg-[#E87722]/10', text: 'text-[#E87722]', dot: 'bg-[#E87722]', label: 'Degraded' },
+  warning:     { bg: 'bg-[#E87722]/10', text: 'text-[#E87722]', dot: 'bg-[#E87722]', label: 'Warning' },
+  critical:    { bg: 'bg-[#C8102E]/10', text: 'text-[#C8102E]', dot: 'bg-[#C8102E]', label: 'Critical' },
   high:        { bg: 'bg-orange-100',   text: 'text-orange-600', dot: 'bg-orange-500', label: 'High' },
-  medium:      { bg: 'bg-[#D4A017]/10', text: 'text-[#D4A017]', dot: 'bg-[#D4A017]', label: 'Medium' },
-  low:         { bg: 'bg-[#0077C8]/10', text: 'text-[#0077C8]', dot: 'bg-[#0077C8]', label: 'Low' },
-  info:        { bg: 'bg-[#0077C8]/10', text: 'text-[#0077C8]', dot: 'bg-[#0077C8]', label: 'Info' },
-  investigating: { bg: 'bg-[#DC2626]/10', text: 'text-[#DC2626]', dot: 'bg-[#DC2626]', label: 'Investigating' },
+  medium:      { bg: 'bg-[#E87722]/10', text: 'text-[#E87722]', dot: 'bg-[#E87722]', label: 'Medium' },
+  low:         { bg: 'bg-[#005EB8]/10', text: 'text-[#005EB8]', dot: 'bg-[#005EB8]', label: 'Low' },
+  info:        { bg: 'bg-[#005EB8]/10', text: 'text-[#005EB8]', dot: 'bg-[#005EB8]', label: 'Info' },
+  investigating: { bg: 'bg-[#C8102E]/10', text: 'text-[#C8102E]', dot: 'bg-[#C8102E]', label: 'Investigating' },
   identified:  { bg: 'bg-orange-100',   text: 'text-orange-600', dot: 'bg-orange-500', label: 'Identified' },
-  monitoring:  { bg: 'bg-[#0077C8]/10', text: 'text-[#0077C8]', dot: 'bg-[#0077C8]', label: 'Monitoring' },
-  resolved:    { bg: 'bg-[#00A36C]/10', text: 'text-[#00A36C]', dot: 'bg-[#00A36C]', label: 'Resolved' },
-  none:        { bg: 'bg-[#00A36C]/10', text: 'text-[#00A36C]', dot: 'bg-[#00A36C]', label: 'None' },
+  monitoring:  { bg: 'bg-[#005EB8]/10', text: 'text-[#005EB8]', dot: 'bg-[#005EB8]', label: 'Monitoring' },
+  resolved:    { bg: 'bg-[#00B0A0]/10', text: 'text-[#00B0A0]', dot: 'bg-[#00B0A0]', label: 'Resolved' },
+  none:        { bg: 'bg-[#00B0A0]/10', text: 'text-[#00B0A0]', dot: 'bg-[#00B0A0]', label: 'None' },
 };
 
 export default function StatusBadge({ status, label, showDot = false, size = 'sm' }) {

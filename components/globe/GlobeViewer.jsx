@@ -460,14 +460,14 @@ export default function GlobeViewer({
               pointerEvents: 'none',
             }}
           >
-            <div className="bg-[#0A1628]/95 border border-[#0077C8]/40 rounded-xl px-3 py-2 shadow-2xl backdrop-blur-sm">
-              <div className="text-white/90 text-xs font-bold leading-tight" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+            <div className="bg-[#0A1628]/95 border border-[#005EB8]/40 rounded-xl px-3 py-2 shadow-2xl backdrop-blur-sm">
+              <div className="text-white/90 text-xs font-bold leading-tight" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
                 {hoveredDC.name}
               </div>
               <div className="text-white/50 text-[10px] mt-0.5">{hoveredDC.city} · {hoveredDC.country}</div>
               {hoveredDC.capacity_mw && (
                 <div className="flex items-center gap-2 mt-1.5">
-                  <span className="text-[#0077C8] text-[10px] font-mono font-bold">{hoveredDC.capacity_mw} MW</span>
+                  <span className="text-[#005EB8] text-[10px] font-mono font-bold">{hoveredDC.capacity_mw} MW</span>
                   <span className="text-white/25">·</span>
                   <span className="text-white/50 text-[10px]">{hoveredDC.tier_rating}</span>
                 </div>
@@ -483,7 +483,7 @@ export default function GlobeViewer({
             href="/dashboard"
             className="mt-3 inline-flex items-center gap-2.5 px-8 py-3.5 text-white font-bold text-sm rounded-xl transition-all duration-200 hover:scale-[1.03] active:scale-[0.97]"
             style={{
-              background: 'linear-gradient(135deg, #00338D 0%, #0077C8 100%)',
+              background: 'linear-gradient(135deg, #00338D 0%, #005EB8 100%)',
               boxShadow: '0 4px 22px rgba(0,51,141,0.38), 0 0 0 1px rgba(0,119,200,0.18)',
             }}
           >

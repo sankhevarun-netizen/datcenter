@@ -163,7 +163,7 @@ export default function AssetPortfolioGlobePage() {
             <KPICard Icon={Server} label="Total Assets" value={kpis.totalAssets} />
             <KPICard Icon={Zap} label="Total MW" value={kpis.totalMW.toFixed(0)} />
             <KPICard Icon={DollarSign} label="Lease Liability" value={`$${kpis.totalLeaseLiability.toFixed(0)}M`} />
-            <KPICard Icon={AlertTriangle} label="Assets at Risk" value={atRisk.length} color="#D4A017" />
+            <KPICard Icon={AlertTriangle} label="Assets at Risk" value={atRisk.length} color="#E87722" />
             <KPICard Icon={Layers} label="Capex Committed" value={`$${kpis.capexCommitted.toFixed(0)}M`} />
           </div>
           {usingSeed && sourceNote && (

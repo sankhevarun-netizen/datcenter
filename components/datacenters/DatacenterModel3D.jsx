@@ -189,9 +189,9 @@ export default function DatacenterModel3D({ dc, infraData }) {
         Drag to rotate · Scroll to zoom
       </div>
       <div className="absolute top-3 right-3 z-10 flex flex-col gap-1">
-        <div className="flex items-center gap-1.5 text-[10px] text-white/60"><span className="w-2 h-2 rounded-sm bg-[#00A36C] inline-block" /> &lt;70%</div>
-        <div className="flex items-center gap-1.5 text-[10px] text-white/60"><span className="w-2 h-2 rounded-sm bg-[#D4A017] inline-block" /> 70–85%</div>
-        <div className="flex items-center gap-1.5 text-[10px] text-white/60"><span className="w-2 h-2 rounded-sm bg-[#DC2626] inline-block" /> &gt;85%</div>
+        <div className="flex items-center gap-1.5 text-[10px] text-white/60"><span className="w-2 h-2 rounded-sm bg-[#00B0A0] inline-block" /> &lt;70%</div>
+        <div className="flex items-center gap-1.5 text-[10px] text-white/60"><span className="w-2 h-2 rounded-sm bg-[#E87722] inline-block" /> 70–85%</div>
+        <div className="flex items-center gap-1.5 text-[10px] text-white/60"><span className="w-2 h-2 rounded-sm bg-[#C8102E] inline-block" /> &gt;85%</div>
       </div>
     </div>
   );

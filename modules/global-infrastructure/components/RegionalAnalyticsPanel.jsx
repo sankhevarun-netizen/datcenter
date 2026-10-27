@@ -19,7 +19,7 @@ export default function RegionalAnalyticsPanel({ facilities = [], loading = true
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {Array.from({ length: 8 }).map((_, i) => (
-          <div key={i} className="bg-white rounded-2xl border border-[#E2E8F0] shadow-sm p-4 h-48">
+          <div key={i} className="bg-white rounded-2xl border border-[#D8DCE3] shadow-sm p-4 h-48">
             <SkeletonBlock height="h-3" width="w-24" className="mb-4" />
             <SkeletonBlock height="h-32" width="w-full" />
           </div>
@@ -49,7 +49,7 @@ export default function RegionalAnalyticsPanel({ facilities = [], loading = true
             <BarChart data={capacityDistribution} margin={{ top: 0, right: 0, bottom: 0, left: -20 }}>
               <XAxis dataKey="name" tick={{ fontSize: 8, fill: '#9CA3AF' }} axisLine={false} tickLine={false} />
               <YAxis tick={{ fontSize: 9, fill: '#9CA3AF' }} axisLine={false} tickLine={false} allowDecimals={false} />
-              <Bar dataKey="value" fill="#0077C8" radius={[3, 3, 0, 0]} />
+              <Bar dataKey="value" fill="#005EB8" radius={[3, 3, 0, 0]} />
               <Tooltip content={<CustomTooltip />} />
             </BarChart>
           </ResponsiveContainer>
@@ -96,7 +96,7 @@ export default function RegionalAnalyticsPanel({ facilities = [], loading = true
             <BarChart data={utilizationByFacility} margin={{ top: 0, right: 0, bottom: 0, left: -20 }}>
               <XAxis dataKey="name" tick={{ fontSize: 8, fill: '#9CA3AF' }} axisLine={false} tickLine={false} />
               <YAxis tick={{ fontSize: 9, fill: '#9CA3AF' }} axisLine={false} tickLine={false} domain={[0, 100]} />
-              <Bar dataKey="value" fill="#0077C8" radius={[3, 3, 0, 0]} />
+              <Bar dataKey="value" fill="#005EB8" radius={[3, 3, 0, 0]} />
               <Tooltip content={<CustomTooltip suffix="%" />} />
             </BarChart>
           </ResponsiveContainer>
@@ -118,7 +118,7 @@ export default function RegionalAnalyticsPanel({ facilities = [], loading = true
             <BarChart data={carbonByFacility} margin={{ top: 0, right: 0, bottom: 0, left: -20 }}>
               <XAxis dataKey="name" tick={{ fontSize: 8, fill: '#9CA3AF' }} axisLine={false} tickLine={false} />
               <YAxis tick={{ fontSize: 9, fill: '#9CA3AF' }} axisLine={false} tickLine={false} />
-              <Bar dataKey="value" fill="#DC2626" radius={[3, 3, 0, 0]} />
+              <Bar dataKey="value" fill="#C8102E" radius={[3, 3, 0, 0]} />
               <Tooltip content={<CustomTooltip suffix=" t/yr" />} />
             </BarChart>
           </ResponsiveContainer>
