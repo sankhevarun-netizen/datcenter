@@ -395,15 +395,11 @@ export default function LandingPage() {
               </p>
 
               <h1 className="text-[#17307A] font-extrabold leading-[1.1] tracking-[-0.5px] text-[40px] xl:text-[46px]">
-                Datacenters across
-                <br />
-                the world,{' '}
-                <span className="text-[#5A8AD8]">at your fingertips</span>
+                DCiQ
               </h1>
 
               <p className="text-[#5B6880] text-[16px] xl:text-[17px] leading-[1.65] mt-6 max-w-[430px]">
-                Explore capacity, sites, power, sustainability and investment across
-                the world&rsquo;s datacenter network.
+                AI-Powered Data Center Control Tower for Intelligent Operations
               </p>
 
               <button
