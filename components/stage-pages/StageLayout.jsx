@@ -246,7 +246,7 @@ export default function StageLayout({
       <div className="border-b border-[#D8DCE3] bg-white">
         <div className="max-w-screen-xl mx-auto px-6 py-4">
           <div className="flex items-center gap-3 mb-3">
-            <Link href="/" className="flex items-center gap-1.5 text-sm text-[#6B7280] hover:text-[#1A1F36] transition-colors">
+            <Link href="/services" className="flex items-center gap-1.5 text-sm text-[#6B7280] hover:text-[#1A1F36] transition-colors">
               <ArrowLeft size={16} />Back to Lifecycle
             </Link>
           </div>
