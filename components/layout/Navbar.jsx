@@ -58,7 +58,7 @@ export default function Navbar() {
                 <span className="text-white">DCiQ</span>
               </span>
               <span className="w-px h-5 bg-white/20" />
-              <span className="text-white/60 font-normal text-[13px] tracking-wide">DCiQ</span>
+              <span className="text-white/60 font-normal text-[13px] tracking-wide">Data Centre Intelligence</span>
             </div>
           </Link>
 
