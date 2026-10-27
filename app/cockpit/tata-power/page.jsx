@@ -6,7 +6,7 @@ import path from 'path';
 import CockpitView from '@/components/cockpit/CockpitView';
 import { tataPower } from '@/data/cockpit/tata-power';
 
-export const metadata = { title: 'Tata Power Investment Cockpit — K-Nexus' };
+export const metadata = { title: 'Tata Power Investment Cockpit — DCiQ' };
 
 const HERO = '/cockpit/tata-power-hero.jpg';
 

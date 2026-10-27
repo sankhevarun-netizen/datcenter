@@ -22,7 +22,7 @@ export function PageLoader() {
     <div className="fixed inset-0 bg-[#00338D] flex items-center justify-center z-50">
       <div className="text-center">
         <div className="w-12 h-12 border-2 border-[#005EB8]/30 border-t-[#005EB8] rounded-full animate-spin mx-auto mb-4" />
-        <p className="text-white/60 text-sm font-medium">Loading K-Nexus...</p>
+        <p className="text-white/60 text-sm font-medium">Loading DCiQ...</p>
       </div>
     </div>
   );

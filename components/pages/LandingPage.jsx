@@ -391,7 +391,7 @@ export default function LandingPage() {
               transition={{ duration: 0.6, delay: 0.1 }}
             >
               <p className="text-[#7E97C6] text-[12px] font-semibold uppercase tracking-[2.5px] mb-5">
-                Global Datacenter Intelligence
+                Global DCiQ
               </p>
 
               <h1 className="text-[#17307A] font-extrabold leading-[1.1] tracking-[-0.5px] text-[40px] xl:text-[46px]">
@@ -529,7 +529,7 @@ export default function LandingPage() {
         <DatacenterNewsSection />
         <div className="mt-12 text-center">
           <p className="text-[#CBD5E1] text-xs">
-            © KPMG 2026 · KNexus.AI Data Centre Intelligence · Strictly Confidential
+            © KPMG 2026 · DCiQ Data Centre Intelligence · Strictly Confidential
           </p>
         </div>
       </div>

@@ -2312,7 +2312,7 @@ export default function ClientCockpit() {
                 </span>
               )}
             </div>
-            <p className="text-white/50 text-[10px]">K-Nexus AI · Live Client Intelligence · Strictly Confidential</p>
+            <p className="text-white/50 text-[10px]">DCiQ AI · Live Client Intelligence · Strictly Confidential</p>
           </div>
         </div>
         <div className="flex items-center gap-2">
@@ -2338,7 +2338,7 @@ export default function ClientCockpit() {
           </div>
           <span className="text-[#D8DCE3]">·</span>
           <span className="text-[10px] text-[#9CA3AF]">
-            Powered by K-Nexus · {new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}
+            Powered by DCiQ · {new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}
           </span>
           {data.opportunityFunnel?.totalMarketSize && (
             <>

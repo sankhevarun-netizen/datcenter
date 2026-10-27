@@ -815,7 +815,7 @@ Return ONLY valid JSON (no markdown, no backticks) with this exact structure:
         </SectionCard>
 
         <div className="text-center pb-4">
-          <p className="text-[#CBD5E1] text-xs">© KPMG 2026 · K-Nexus Intelligence Platform · Strictly Confidential</p>
+          <p className="text-[#CBD5E1] text-xs">© KPMG 2026 · DCiQ Intelligence Platform · Strictly Confidential</p>
         </div>
       </div>
     </div>

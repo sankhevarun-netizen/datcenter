@@ -17,7 +17,7 @@ export default function AICopilotPanel({ forceOpen, onOpenChange }) {
   const setOpen = (v) => { setLocalOpen(v); onOpenChange?.(v); };
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState([
-    { role: 'assistant', text: "I'm your K-Nexus AI Copilot. Ask me about incidents, capacity, sustainability, tenant risks, or any operational question across the Nexus portfolio." },
+    { role: 'assistant', text: "I'm your DCiQ Copilot. Ask me about incidents, capacity, sustainability, tenant risks, or any operational question across the Nexus portfolio." },
   ]);
   const [loading, setLoading] = useState(false);
   const bottomRef = useRef(null);
@@ -82,7 +82,7 @@ export default function AICopilotPanel({ forceOpen, onOpenChange }) {
             <div className="flex items-center justify-between px-4 py-3 bg-[#00338D] text-white flex-shrink-0">
               <div className="flex items-center gap-2">
                 <Sparkles size={16} />
-                <span className="font-bold text-sm" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>K-Nexus AI Copilot</span>
+                <span className="font-bold text-sm" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>DCiQ Copilot</span>
               </div>
               <div className="flex items-center gap-2">
                 <Link href="/ai-insights" onClick={() => setOpen(false)} className="text-white/70 hover:text-white transition-colors p-1" title="Open full chat">

@@ -258,7 +258,7 @@ export default function LandingChatPanel({ onToggleExpand, expanded = false }) {
 
   const [selectedPersona, setSelectedPersona] = useState(null);
   const [messages, setMessages] = useState([
-    { role: 'assistant', text: "Hi! I'm your K-Nexus Guide. Select a persona above to get a tailored experience, or just describe what you're trying to accomplish." },
+    { role: 'assistant', text: "Hi! I'm your DCiQ Guide. Select a persona above to get a tailored experience, or just describe what you're trying to accomplish." },
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -467,7 +467,7 @@ export default function LandingChatPanel({ onToggleExpand, expanded = false }) {
           </div>
           <div className="min-w-0">
             <p className="text-[#17233F] font-bold text-[15px] leading-none" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
-              K-Nexus Guide
+              DCiQ Guide
             </p>
             <p className="text-[#8B95A9] text-[12px] mt-1">Datacenter lifecycle advisor</p>
           </div>
@@ -696,7 +696,7 @@ export default function LandingChatPanel({ onToggleExpand, expanded = false }) {
                 onChange={e => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
                 disabled={!!cockpitLaunch}
-                placeholder="Ask K-Nexus anything…"
+                placeholder="Ask DCiQ anything…"
                 rows={1}
                 className="flex-1 bg-transparent text-[13px] text-[#1A1F36] placeholder-[#9BA6BC] outline-none resize-none leading-6 py-1"
                 style={{ maxHeight: '80px', overflowY: 'auto' }}

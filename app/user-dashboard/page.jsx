@@ -363,7 +363,7 @@ export default function UserDashboardPage() {
                   </div>
                   <p className="text-sm text-[#6B7280] flex items-center gap-1.5">
                     <Calendar size={13} className="flex-shrink-0" />
-                    K-Nexus Member since {joinDate}
+                    DCiQ Member since {joinDate}
                   </p>
                 </div>
                 <div className="flex gap-2 flex-shrink-0">

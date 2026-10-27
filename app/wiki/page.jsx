@@ -95,7 +95,7 @@ export default function KnowledgeGraphPage() {
                 DC Knowledge Graph
               </p>
               <p className="text-[9px] text-text-muted leading-tight">
-                K-Nexus · Datacenter Domain Intelligence
+                DCiQ · Datacenter Domain Intelligence
               </p>
             </div>
           </div>

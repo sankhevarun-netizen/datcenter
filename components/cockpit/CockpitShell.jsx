@@ -58,7 +58,7 @@ export default function CockpitShell({ client, active = 'overview', onNavigate, 
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={KPMG_MARK} alt="KPMG" style={{ height: 31, width: 'auto' }} />
           <span className="w-px h-6" style={{ background: 'rgba(255,255,255,0.25)' }} />
-          <span style={{ color: C.onDark, fontSize: 15, fontWeight: 600 }}>K-Nexus AI</span>
+          <span style={{ color: C.onDark, fontSize: 15, fontWeight: 600 }}>DCiQ</span>
           <span className="w-px h-5" style={{ background: 'rgba(255,255,255,0.25)' }} />
           <span style={{ color: C.onDarkDim, fontSize: 13 }}>Live Client Intelligence</span>
         </div>

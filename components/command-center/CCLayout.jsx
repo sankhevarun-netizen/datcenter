@@ -145,7 +145,7 @@ function Header({ title, onCopilotOpen }) {
       <div className="flex items-center gap-2 flex-shrink-0">
         <div className="flex items-center gap-2">
           <span className="font-bold text-sm" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
-            <span className="text-white">K-Nexus</span><span style={{ color: '#9CC7EE' }}>.AI</span>
+            <span className="text-white">DCiQ</span>
           </span>
           <span className="text-white/40 text-sm">|</span>
           <span className="text-white/85 text-sm">{title}</span>

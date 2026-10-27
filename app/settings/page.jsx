@@ -107,7 +107,7 @@ export default function SettingsPage() {
             {tab === 'general' && (
               <div className="bg-white rounded-2xl border border-[#D8DCE3] p-5 space-y-4">
                 {[
-                  { label: 'Platform Name', type: 'text', defaultValue: 'K-Nexus Command Center' },
+                  { label: 'Platform Name', type: 'text', defaultValue: 'DCiQ Command Center' },
                   { label: 'Default Timezone', type: 'select', options: ['UTC+0 (London)', 'UTC+5:30 (IST)', 'UTC+8 (SGT)', 'UTC+4 (GST)', 'UTC-5 (EST)', 'UTC-3 (BRT)'], defaultValue: 'UTC+0 (London)' },
                   { label: 'Default Time Range', type: 'select', options: ['Last 24 Hours', 'Last 7 Days', 'Last 30 Days'], defaultValue: 'Last 24 Hours' },
                   { label: 'Language', type: 'select', options: ['English'], defaultValue: 'English' },

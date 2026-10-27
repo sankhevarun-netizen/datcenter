@@ -112,7 +112,7 @@ function InsightCard({ insight, showToast }) {
 
 function ChatInterface() {
   const [messages, setMessages] = useState([
-    { role: 'assistant', text: "I'm K-Nexus AI Copilot with full portfolio context. Ask me anything about the Nexus facilities, active alerts, tenant capacity, sustainability metrics, or operational risks." },
+    { role: 'assistant', text: "I'm DCiQ Copilot with full portfolio context. Ask me anything about the Nexus facilities, active alerts, tenant capacity, sustainability metrics, or operational risks." },
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -146,7 +146,7 @@ function ChatInterface() {
     <div className="bg-white rounded-2xl border border-[#D8DCE3] shadow-sm overflow-hidden flex flex-col" style={{ height: '50vh' }}>
       <div className="flex items-center gap-2 px-4 py-3 bg-gradient-to-r from-[#00338D] to-[#005EB8] flex-shrink-0">
         <Sparkles size={15} className="text-white" />
-        <span className="text-sm font-bold text-white" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>K-Nexus AI Copilot — Full Portfolio Context</span>
+        <span className="text-sm font-bold text-white" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>DCiQ Copilot — Full Portfolio Context</span>
         <div className="ml-auto flex items-center gap-1.5">
           <div className="w-1.5 h-1.5 rounded-full bg-white/60 animate-pulse" />
           <span className="text-xs text-white/70">Live</span>

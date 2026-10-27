@@ -19,51 +19,44 @@ const LENS_ICON = { gauge: Gauge, radar: Radar, droplet: Droplets, sun: SunMediu
 const FONT = { fontFamily: "'Inter', 'Segoe UI', sans-serif" };
 
 // ── tool marks (generic glyphs; no vendor artwork) ────────────────────────
-function TavilyLogo({ size = 36 }) {
+function GoogleSearchLogo({ size = 36 }) {
   return (
     <svg width={size} height={size} viewBox="0 0 48 48" fill="none" aria-hidden>
-      <rect width="48" height="48" rx="10" fill="#18181B" />
-      <rect x="10" y="14" width="28" height="3.5" rx="1.5" fill="#F5A623" />
-      <rect x="14" y="21" width="20" height="3" rx="1.5" fill="#F5A623" opacity="0.8" />
-      <rect x="18" y="27.5" width="12" height="2.5" rx="1.25" fill="#F5A623" opacity="0.6" />
-      <circle cx="34" cy="36" r="6" fill="none" stroke="#F5A623" strokeWidth="2" />
-      <line x1="38.2" y1="40.2" x2="42" y2="44" stroke="#F5A623" strokeWidth="2" strokeLinecap="round" />
+      <rect width="48" height="48" rx="10" fill="#1A237E" />
+      <circle cx="21" cy="21" r="9" fill="none" stroke="#4285F4" strokeWidth="3" />
+      <line x1="27.5" y1="27.5" x2="36" y2="36" stroke="#4285F4" strokeWidth="3.5" strokeLinecap="round" />
     </svg>
   );
 }
-function ExaLogo({ size = 36 }) {
+function VertexAiLogo({ size = 36 }) {
   return (
     <svg width={size} height={size} viewBox="0 0 48 48" fill="none" aria-hidden>
       <rect width="48" height="48" rx="10" fill="#1E293B" />
-      <path d="M15 15h18M15 24h13M15 33h18M15 15v18" stroke="#94A3B8" strokeWidth="3" strokeLinecap="round" />
+      <path d="M24 10l4.8 10.2L39 25l-10.2 4.8L24 40l-4.8-10.2L9 25l10.2-4.8L24 10z" fill="#A78BFA" />
     </svg>
   );
 }
-function PeeringDBLogo({ size = 36 }) {
+function MapsPlatformLogo({ size = 36 }) {
   return (
     <svg width={size} height={size} viewBox="0 0 48 48" fill="none" aria-hidden>
-      <rect width="48" height="48" rx="10" fill="#003366" />
-      <circle cx="14" cy="24" r="5" fill="none" stroke="#4A90D9" strokeWidth="2" />
-      <circle cx="34" cy="16" r="4" fill="none" stroke="#4A90D9" strokeWidth="2" />
-      <circle cx="34" cy="32" r="4" fill="none" stroke="#4A90D9" strokeWidth="2" />
-      <circle cx="24" cy="24" r="3" fill="#4A90D9" opacity="0.5" />
-      <line x1="19" y1="24" x2="21" y2="24" stroke="#4A90D9" strokeWidth="1.5" />
-      <line x1="27" y1="22" x2="30.5" y2="18.5" stroke="#4A90D9" strokeWidth="1.5" />
-      <line x1="27" y1="26" x2="30.5" y2="29.5" stroke="#4A90D9" strokeWidth="1.5" />
+      <rect width="48" height="48" rx="10" fill="#0F3D24" />
+      <path d="M24 12c-5 0-9 3.8-9 9 0 6.5 9 15 9 15s9-8.5 9-15c0-5.2-4-9-9-9z" fill="none" stroke="#34A853" strokeWidth="2.5" />
+      <circle cx="24" cy="21" r="3.2" fill="#34A853" />
     </svg>
   );
 }
-function KnowledgeGraphLogo({ size = 36 }) {
+function BigQueryLogo({ size = 36 }) {
   return (
     <svg width={size} height={size} viewBox="0 0 48 48" fill="none" aria-hidden>
-      <rect width="48" height="48" rx="10" fill="#064E3B" />
-      <circle cx="24" cy="24" r="4.5" fill="#10B981" />
-      {[[11, 17], [37, 17], [11, 37], [37, 37]].map(([x, y]) => <circle key={`${x}${y}`} cx={x} cy={y} r="3.5" fill="#34D399" opacity="0.85" />)}
-      <path d="M14.5 19l6 3M33.5 19l-6 3M14.5 35l6-8M33.5 35l-6-8" stroke="#10B981" strokeWidth="1.5" />
+      <rect width="48" height="48" rx="10" fill="#1A2B4C" />
+      <circle cx="22" cy="24" r="10" fill="none" stroke="#4285F4" strokeWidth="2.5" />
+      <line x1="29.5" y1="31.5" x2="37" y2="39" stroke="#4285F4" strokeWidth="3" strokeLinecap="round" />
+      <rect x="19" y="21" width="2.5" height="7" rx="1" fill="#4285F4" />
+      <rect x="23.5" y="18" width="2.5" height="10" rx="1" fill="#4285F4" />
     </svg>
   );
 }
-const TOOL_LOGO = { tavily: TavilyLogo, exa: ExaLogo, peeringdb: PeeringDBLogo, 'knowledge-graph': KnowledgeGraphLogo };
+const TOOL_LOGO = { 'google-search': GoogleSearchLogo, 'vertex-ai': VertexAiLogo, 'maps-platform': MapsPlatformLogo, bigquery: BigQueryLogo };
 
 const Badge = ({ status }) => <StatusBadge status={status} variant="dot" />;
 

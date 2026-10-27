@@ -204,7 +204,7 @@ export default function IntegrationsPage() {
               <h1 className="text-lg font-bold text-[#1A1F36]" style={{ fontFamily: "'Inter', 'Segoe UI', sans-serif" }}>
                 Integration Hub
               </h1>
-              <p className="text-xs text-[#9CA3AF]">Connect K-Nexus to your existing datacenter tools and workflows</p>
+              <p className="text-xs text-[#9CA3AF]">Connect DCiQ to your existing datacenter tools and workflows</p>
             </div>
             <div className="flex items-center gap-2 px-3 py-2 bg-[#F0FDF4] border border-[#00B0A0]/20 rounded-xl">
               <CheckCircle size={13} className="text-[#00B0A0]" />

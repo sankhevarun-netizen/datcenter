@@ -4,7 +4,7 @@ import SupabaseProvider from '@/components/SupabaseProvider';
 import WebVitals from '@/components/WebVitals';
 
 export const metadata = {
-  title: 'K-Nexus — Datacenter Lifecycle Intelligence',
+  title: 'DCiQ — Datacenter Lifecycle Intelligence',
   description: "KPMG's AI-powered datacenter lifecycle management platform",
   icons: { icon: '/favicon.svg' },
 };

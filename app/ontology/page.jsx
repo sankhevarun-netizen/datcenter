@@ -75,7 +75,7 @@ export default function OntologyPage() {
               </span>
             </div>
             <p className="text-[10px] text-[#9CA3AF]">
-              K-Nexus · Datacenter Lifecycle Knowledge Graph
+              DCiQ · Datacenter Lifecycle Knowledge Graph
             </p>
           </div>
         </div>
