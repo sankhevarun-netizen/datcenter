@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import {
   LogOut, User, BookOpen, LayoutDashboard,
-  Globe, Route,
+  Route,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
@@ -69,12 +69,7 @@ export default function Navbar() {
 
             <NavLink href="/" active={pathname === '/'}>Overview</NavLink>
 
-            <NavLink href="/dashboard" active={pathname?.startsWith('/dashboard')}>
-              <span className="flex items-center gap-1.5">
-                <Globe size={12} />
-                Global DC
-              </span>
-            </NavLink>
+            {/* Global DC (Global Dashboard) is hidden from the navigation; the route still works. */}
 
             {/* Asset Portfolio is hidden from the navigation; the route still works. */}
 

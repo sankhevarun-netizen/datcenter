@@ -403,15 +403,15 @@ export default function LandingPage() {
               </p>
 
               <button
-                onClick={() => router.push('/dashboard')}
+                onClick={() => router.push('/command-center')}
                 className="group mt-9 inline-flex items-center gap-3 self-start rounded-full pl-7 pr-6 py-4 text-white text-[16px] font-semibold transition-all hover:-translate-y-0.5"
                 style={{
                   background: 'linear-gradient(100deg, #1B3F93 0%, #00338D 55%, #002B78 100%)',
                   boxShadow: '0 14px 30px -12px rgba(0,51,141,0.55)',
                 }}
               >
-                <Globe size={19} className="opacity-90" />
-                Explore Global Dashboard
+                <BarChart3 size={19} className="opacity-90" />
+                Command Center
                 <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
               </button>
 

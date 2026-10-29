@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   FileText, Download, CheckCircle2, Circle, BarChart2, Clock,
-  Zap, Plus, Globe, Trash2, User, Calendar, TrendingUp, Award,
+  Zap, Plus, Trash2, User, Calendar, TrendingUp, Award,
   ChevronDown, X, Loader2, ExternalLink,
 } from 'lucide-react';
 import {
@@ -619,13 +619,6 @@ export default function UserDashboardPage() {
                       label: 'New Business Case',
                       desc: 'Start lifecycle assessment',
                       color: '#005EB8',
-                    },
-                    {
-                      href: '/dashboard',
-                      icon: Globe,
-                      label: 'Global Dashboard',
-                      desc: 'Portfolio & datacenter map',
-                      color: '#00B0A0',
                     },
                     {
                       href: '/command-center',
